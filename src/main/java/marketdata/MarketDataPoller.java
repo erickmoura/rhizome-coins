@@ -13,13 +13,13 @@ import org.knowm.xchange.utils.CertHelper;
  */
 public class MarketDataPoller {
 
-    protected static Exchange exchange;
-    protected static KinesisGateway kinesisGateway;
-    protected static MarketDataService dataService;
+    protected Exchange exchange;
+    protected KinesisGateway kinesisGateway;
+    protected MarketDataService dataService;
 
     protected CurrencyPair currencyPair;
 
-    protected static void init(String exchangeClassName){
+    public MarketDataPoller(String exchangeClassName){
 
         kinesisGateway = new KinesisGateway();
         try {

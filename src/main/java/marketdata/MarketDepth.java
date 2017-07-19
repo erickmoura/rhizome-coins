@@ -17,8 +17,8 @@ public final class MarketDepth implements ExchangeBound {
     private CurrencyPair currencyPair;
     private Date timestamp;
 
-    private BigDecimal ask_2, ask_5, ask_10, ask_15;
-    private BigDecimal bid_2, bid_5, bid_10, bid_15;
+    private BigDecimal ask_05, ask_1, ask_2, ask_5, ask_10;
+    private BigDecimal bid_05, bid_1, bid_2, bid_5, bid_10;
 
     public MarketDepth(Date timestamp, OrderBook orderBook) {
 
@@ -37,6 +37,14 @@ public final class MarketDepth implements ExchangeBound {
                 this.currencyPair = limitOrder.getCurrencyPair();
             }
 
+            if(getAsk_05() == null && limitPrice > min*1.005){
+                setAsk_05(sum);
+            }
+
+            if(getAsk_1() == null && limitPrice > min*1.01){
+                setAsk_1(sum);
+            }
+
             if(getAsk_2() == null && limitPrice > min*1.02){
                 setAsk_2(sum);
             }
@@ -47,10 +55,6 @@ public final class MarketDepth implements ExchangeBound {
 
             if(getAsk_10() == null && limitPrice > min*1.1){
                 setAsk_10(sum);
-            }
-
-            if(getAsk_15() == null && limitPrice > min*1.15){
-                setAsk_15(sum);
             }
 
             sum = sum.add(tradableAmount);
@@ -66,6 +70,14 @@ public final class MarketDepth implements ExchangeBound {
                 sum = tradableAmount;
             }
 
+            if(getBid_05() == null && limitPrice < max*.995){
+                setBid_05(sum);
+            }
+
+            if(getBid_1() == null && limitPrice < max*.99){
+                setBid_1(sum);
+            }
+
             if(getBid_2() == null && limitPrice < max*.98){
                 setBid_2(sum);
             }
@@ -76,10 +88,6 @@ public final class MarketDepth implements ExchangeBound {
 
             if(getBid_10() == null && limitPrice < max*.9){
                 setBid_10(sum);
-            }
-
-            if(getBid_15() == null && limitPrice < max*.85){
-                setBid_15(sum);
             }
 
             sum = sum.add(tradableAmount);
@@ -94,6 +102,22 @@ public final class MarketDepth implements ExchangeBound {
 
     public Date getTimestamp(){
         return timestamp;
+    }
+
+    public BigDecimal getAsk_05() {
+        return ask_05;
+    }
+
+    public void setAsk_05(BigDecimal ask_05) {
+        this.ask_05 = ask_05;
+    }
+
+    public BigDecimal getAsk_1() {
+        return ask_1;
+    }
+
+    public void setAsk_1(BigDecimal ask_1) {
+        this.ask_1 = ask_1;
     }
 
     public BigDecimal getAsk_2() {
@@ -120,12 +144,20 @@ public final class MarketDepth implements ExchangeBound {
         this.ask_10 = ask_10;
     }
 
-    public BigDecimal getAsk_15() {
-        return ask_15;
+    public BigDecimal getBid_05() {
+        return bid_05;
     }
 
-    public void setAsk_15(BigDecimal ask_15) {
-        this.ask_15 = ask_15;
+    public void setBid_05(BigDecimal bid_05) {
+        this.bid_05 = bid_05;
+    }
+
+    public BigDecimal getBid_1() {
+        return bid_1;
+    }
+
+    public void setBid_1(BigDecimal bid_1) {
+        this.bid_1 = bid_1;
     }
 
     public BigDecimal getBid_2() {
@@ -152,14 +184,6 @@ public final class MarketDepth implements ExchangeBound {
         this.bid_10 = bid_10;
     }
 
-    public BigDecimal getBid_15() {
-        return bid_15;
-    }
-
-    public void setBid_15(BigDecimal bid_15) {
-        this.bid_15 = bid_15;
-    }
-
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
@@ -167,9 +191,12 @@ public final class MarketDepth implements ExchangeBound {
     @Override
     public String toString() {
 
-        return "MarketDepth [exchange: " + exchange + ", currencyPair: " + currencyPair + ", timestamp: " + timestamp + ", bid_2=" + bid_2.toString() + ", bid_5=" + bid_5.toString() +
-                ", bid_10=" + bid_10.toString()+ ", bid_15=" + bid_15.toString() + ", ask_2=" + ask_2.toString() +
-                ", ask_5=" + ask_5.toString()  + ", ask_10=" + ask_10.toString() + ", ask_15=" + ask_15.toString()+ "]";
+        return "MarketDepth [exchange: " + exchange + ", currencyPair: " + currencyPair + ", timestamp: " + timestamp +
+                ", bid_05=" +  String.valueOf(bid_05) + ", bid_1=" + String.valueOf(bid_1) +
+                ", bid_2=" + String.valueOf(bid_2)+ ", bid_5=" + String.valueOf(bid_5) +
+                ", bid_10=" + String.valueOf(bid_10) + ", ask_05=" + String.valueOf(ask_05) +
+                ", ask_1=" + String.valueOf(ask_1)   + ", ask_2=" + String.valueOf(ask_2) +
+                ", ask_5=" + String.valueOf(ask_5)   + ", ask_10=" + String.valueOf(ask_10) + "]";
     }
 
     public String getExchange() {

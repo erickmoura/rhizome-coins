@@ -15,10 +15,12 @@ public class CurrencySetService {
 
     static{
         currencyPairs.add(new CurrencyPair(Currency.BTC, Currency.USDT));
+        currencyPairs.add(new CurrencyPair(Currency.BTC, Currency.USD));
         currencyPairs.add(new CurrencyPair(Currency.LTC, Currency.BTC));
-        //currencyPairs.add(new CurrencyPair(Currency.ETH, Currency.BTC));
-        //currencyPairs.add(new CurrencyPair(Currency.XRP, Currency.BTC));
-        //currencyPairs.add(new CurrencyPair(Currency.XMR, Currency.BTC));
+        currencyPairs.add(new CurrencyPair(Currency.ETH, Currency.BTC));
+        currencyPairs.add(new CurrencyPair(Currency.DGB, Currency.BTC));
+        currencyPairs.add(new CurrencyPair(Currency.XMR, Currency.BTC));
+        currencyPairs.add(new CurrencyPair(Currency.XRP, Currency.BTC));
     }
 
     public static Set<CurrencyPair> getCurrencySet()

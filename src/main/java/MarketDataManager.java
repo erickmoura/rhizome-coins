@@ -1,5 +1,4 @@
-import marketdata.BittrexMarketDataPoller;
-import marketdata.CurrencySetService;
+import marketdata.*;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 
@@ -23,11 +22,33 @@ public class MarketDataManager {
         {
 
             try {
+                ANXMarketDataPoller anxMarketDataPoller = new ANXMarketDataPoller(currencyPair);
+                anxMarketDataPoller.startPolling(i,12);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            try {
+                GatecoinMarketDataPoller gatecoinMarketDataPoller = new GatecoinMarketDataPoller(currencyPair);
+                gatecoinMarketDataPoller.startPolling(i,12);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            try {
                 BittrexMarketDataPoller bittrexMarketDataPoller = new BittrexMarketDataPoller(currencyPair);
                 bittrexMarketDataPoller.startPolling(i,12);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try {
+                PoloniexMarketDataPoller poloniexMarketDataPoller = new PoloniexMarketDataPoller(currencyPair);
+                poloniexMarketDataPoller.startPolling(i,12);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             i++;
         }
     }

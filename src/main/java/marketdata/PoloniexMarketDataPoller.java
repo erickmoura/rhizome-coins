@@ -1,11 +1,13 @@
 package marketdata;
 
 
+import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,11 +23,8 @@ public class PoloniexMarketDataPoller extends MarketDataPoller implements Runnab
   public ScheduledExecutorService ses;
 
 
-  static {
-    init(PoloniexExchange.class.getName());
-  }
-
   public PoloniexMarketDataPoller(CurrencyPair currencyPair) {
+    super(PoloniexExchange.class.getName());
     this.currencyPair = currencyPair;
   }
 
@@ -48,21 +47,30 @@ public class PoloniexMarketDataPoller extends MarketDataPoller implements Runnab
 
 
   private void generic() throws IOException {
-
-    Ticker ticker = dataService.getTicker(currencyPair);
-    ticker.setExchange("poloniex");
-    System.out.println(ticker);
     try {
+
+      Ticker ticker = dataService.getTicker(currencyPair);
+      ticker.setExchange("poloniex");
+      System.out.println(ticker);
       kinesisGateway.sendTicker(ticker);
+
+      Date timestamp = ticker.getTimestamp();
+
+      OrderBook orderBook = dataService.getOrderBook(currencyPair);
+
+      MarketDepth marketDepth = new MarketDepth(timestamp, orderBook);
+      marketDepth.setExchange("poloniex");
+      System.out.println(marketDepth);
+
+
+      kinesisGateway.sendMarketDepth(marketDepth);
+
     } catch (Exception e) {
       e.printStackTrace();
-    }
+      System.out.println("Poloniex: Failed to poll " + currencyPair.toString());
+      this.ses.shutdown();
 
-    //System.out.println(dataService.getOrderBook(currencyPair));
-    //System.out.println(dataService.getOrderBook(currencyPair, 3));
-    //System.out.println(dataService.getTrades(currencyPair));
-    //long now = new Date().getTime() / 1000;
-    //System.out.println(dataService.getTrades(currencyPair, now - 8 * 60 * 60, now));
+    }
   }
 
 }
