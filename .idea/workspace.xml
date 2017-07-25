@@ -2,23 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cad1ffd-aa3c-445e-b7ff-49185c8498a9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/marketdata/BittrexMarketDataPoller.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/marketdata/PoloniexMarketDataPoller.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/MarketDataManager.class" afterPath="$PROJECT_DIR$/target/classes/MarketDataManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/marketdata/BittrexMarketDataPoller.class" afterPath="$PROJECT_DIR$/target/classes/marketdata/BittrexMarketDataPoller.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/marketdata/CurrencySetService.class" afterPath="$PROJECT_DIR$/target/classes/marketdata/CurrencySetService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/marketdata/MarketDataPoller.class" afterPath="$PROJECT_DIR$/target/classes/marketdata/MarketDataPoller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/marketdata/MarketDepth.class" afterPath="$PROJECT_DIR$/target/classes/marketdata/MarketDepth.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/marketdata/PoloniexMarketDataPoller.class" afterPath="$PROJECT_DIR$/target/classes/marketdata/PoloniexMarketDataPoller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/trader.iml" afterPath="$PROJECT_DIR$/.idea/trader.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/MarketDataManager.java" afterPath="$PROJECT_DIR$/src/main/java/MarketDataManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java" afterPath="$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java" afterPath="$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java" afterPath="$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/marketdata/MarketDepth.java" afterPath="$PROJECT_DIR$/src/main/java/marketdata/MarketDepth.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java" afterPath="$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,51 +27,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BittrexMarketDataPoller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="67" column="33" lean-forward="false" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PoloniexMarketDataPoller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CurrencySetService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ANXAdapters.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/ANXAdapters.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="733">
-              <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ANXMarketDataPoller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="71" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state relative-caret-position="185">
+              <caret line="21" column="48" lean-forward="false" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,14 +39,75 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GatecoinMarketDataPoller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java">
+      <file leaf-file-name="MarketDataPoller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="68" column="34" lean-forward="false" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+            <state relative-caret-position="90">
+              <caret line="23" column="3" lean-forward="true" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1139#1166#0" expanded="true" />
+                <element signature="e#1240#1258#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExecutorService.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/ExecutorService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="139">
+              <caret line="139" column="41" lean-forward="true" selection-start-line="139" selection-start-column="41" selection-end-line="139" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Executors.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="283" column="43" lean-forward="false" selection-start-line="283" selection-start-column="43" selection-end-line="283" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScheduledExecutorService.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/ScheduledExecutorService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="153" column="30" lean-forward="false" selection-start-line="153" selection-start-column="30" selection-end-line="153" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BittrexMarketDataService.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/service/BittrexMarketDataService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-71">
+              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BittrexMarketDataServiceRaw.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/service/BittrexMarketDataServiceRaw.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RestInvocationHandler.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/github/mmazi/rescu/1.9.0/rescu-1.9.0.jar!/si/mazi/rescu/RestInvocationHandler.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="870">
+              <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -98,42 +115,21 @@
       <file leaf-file-name="MarketDataManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MarketDataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+            <state relative-caret-position="188">
+              <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#631#647#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="GatecoinExchange.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-gatecoin/4.2.1-SNAPSHOT/xchange-gatecoin-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/gatecoin/GatecoinExchange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Runnable.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/lang/Runnable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="55" column="17" lean-forward="false" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#2044#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ANXMarketDataService.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/service/ANXMarketDataService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="99">
+              <caret line="17" column="62" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -151,12 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>date</find>
-      <find>secon</find>
-      <find>init</find>
-      <find>ticker</find>
-      <find>exchan</find>
-      <find>cumulativeAmount</find>
       <find>class</find>
       <find>market</find>
       <find>generic</find>
@@ -181,14 +171,20 @@
       <find>Log</find>
       <find>currencypair</find>
       <find>Poloniex</find>
+      <find>gatecoin</find>
+      <find>exchange</find>
+      <find>ses</find>
+      <find>startPolling</find>
+      <find>kinesisGateway</find>
+      <find>CORE_POOL_SIZE</find>
     </findStrings>
     <replaceStrings>
       <replace>Coin</replace>
       <replace>Bittrex</replace>
       <replace>KinesisGateway</replace>
       <replace>Poloniex</replace>
-      <replace>Gatecoin</replace>
       <replace>ANX</replace>
+      <replace>Gatecoin</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -222,13 +218,13 @@
         <option value="$PROJECT_DIR$/src/main/java/KinesisGateway.java" />
         <option value="$PROJECT_DIR$/src/main/java/marketdata/MarketDepth.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/MarketDataManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java" />
         <option value="$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/dto/marketdata/Ticker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java" />
-        <option value="$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java" />
         <option value="$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java" />
         <option value="$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/MarketDataManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java" />
       </list>
     </option>
@@ -310,7 +306,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -373,8 +369,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -942,12 +938,13 @@
       <workItem from="1498441498492" duration="260000" />
       <workItem from="1498442283710" duration="30658000" />
       <workItem from="1499547695255" duration="31006000" />
-      <workItem from="1499826983085" duration="14366000" />
+      <workItem from="1499826983085" duration="17927000" />
+      <workItem from="1500939822036" duration="4895000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78962000" />
+    <option name="totallyTimeSpent" value="87418000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -963,36 +960,36 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15508886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3780822" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16712329" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4328767" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3520548" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15024233" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48630136" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20678514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21647818" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4712329" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1005,18 +1002,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/dto/marketdata/Ticker.java</url>
-          <line>211</line>
-          <properties />
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/dto/marketdata/Ticker.java</url>
-          <line>205</line>
-          <properties />
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/ANXAdapters.java</url>
           <line>211</line>
           <properties />
@@ -1028,8 +1013,20 @@
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java</url>
+          <line>96</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java</url>
+          <line>100</line>
+          <properties />
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="38" />
+      <option name="time" value="46" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1044,73 +1041,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/CredentialUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/amazonaws/aws-java-sdk-kinesis/1.11.106/aws-java-sdk-kinesis-1.11.106.jar!/com/amazonaws/services/kinesis/model/PutRecordRequest.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/amazonaws/aws-java-sdk-kinesis/1.11.106/aws-java-sdk-kinesis-1.11.106.jar!/com/amazonaws/services/kinesis/model/Record.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/lang/Throwable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="632" column="16" lean-forward="false" selection-start-line="632" selection-start-column="16" selection-end-line="632" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/nio/ByteBuffer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="1047" column="47" lean-forward="false" selection-start-line="1047" selection-start-column="47" selection-end-line="1047" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ConfigurationUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT.jar!/org/knowm/xchange/dto/marketdata/Trade.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT.jar!/org/knowm/xchange/dto/marketdata/Trades.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="16" column="24" lean-forward="false" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT.jar!/org/knowm/xchange/service/marketdata/MarketDataService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT.jar!/org/knowm/xchange/dto/marketdata/Ticker.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1138,29 +1068,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="283" column="43" lean-forward="false" selection-start-line="283" selection-start-column="43" selection-end-line="283" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/ScheduledExecutorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="81" column="9" lean-forward="false" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/ExchangeFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="146" column="57" lean-forward="false" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1245,7 +1152,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1278,7 +1184,7 @@
         <state relative-caret-position="158">
           <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1287,15 +1193,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/mmazi/rescu/1.9.0/rescu-1.9.0.jar!/si/mazi/rescu/RestInvocationHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1303,23 +1200,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/BittrexAdapters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1327,7 +1207,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1335,42 +1214,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2316">
           <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/dto/marketdata/Ticker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="211" column="0" lean-forward="false" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
-          <folding>
-            <marker date="1500476621000" expanded="false" signature="1703:1710" ph=" { " />
-            <marker date="1500476621000" expanded="false" signature="1726:1730" ph=" }" />
-            <marker date="1500476621000" expanded="false" signature="1786:1793" ph=" { " />
-            <marker date="1500476621000" expanded="false" signature="1818:1822" ph=" }" />
-            <marker date="1500476621000" expanded="true" signature="1864:1895" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="1927:1950" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="1981:2003" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2034:2056" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2088:2111" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2142:2164" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2196:2219" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2253:2278" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2309:2337" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2378:2666" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="2670:2848" ph="/**...*/" />
-            <marker date="1500476621000" expanded="true" signature="2879:4459" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="3245:3422" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="3625:3692" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="3735:3786" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="3827:3876" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="3917:3966" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="4009:4060" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="4101:4150" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="4193:4244" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="4291:4346" ph="{...}" />
-            <marker date="1500476621000" expanded="true" signature="4393:4454" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1386,7 +1229,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
           <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1394,9 +1236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="55" column="17" lean-forward="false" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#2044#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1408,16 +1247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MarketDataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="41" lean-forward="false" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/ANXAdapters.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="733">
@@ -1426,47 +1255,173 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-gatecoin/4.2.1-SNAPSHOT/xchange-gatecoin-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/gatecoin/service/GatecoinMarketDataServiceRaw.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state relative-caret-position="126">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-gatecoin/4.2.1-SNAPSHOT/xchange-gatecoin-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/gatecoin/service/GatecoinMarketDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/ExchangeFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="15" column="12" lean-forward="false" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/lang/Class.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="638" column="18" lean-forward="false" selection-start-line="638" selection-start-column="18" selection-end-line="638" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/dto/meta/ANXMetaData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1414#1415#0" expanded="false" />
+            <element signature="e#1446#1447#0" expanded="false" />
+            <element signature="e#1490#1491#0" expanded="false" />
+            <element signature="e#1522#1523#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-anx/4.2.1-SNAPSHOT/xchange-anx-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/anx/v2/ANXExchange.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="68" column="34" lean-forward="false" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+        <state relative-caret-position="600">
+          <caret line="52" column="42" lean-forward="false" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1639#1640#0" expanded="false" />
+            <element signature="e#1667#1668#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/BittrexMarketDataPoller.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/ANXMarketDataPoller.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/GatecoinMarketDataPoller.java" />
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/BittrexAdapters.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="67" column="33" lean-forward="false" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
+        <state relative-caret-position="1560">
+          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-core/4.2.1-SNAPSHOT/xchange-core-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/dto/marketdata/Ticker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2955">
+          <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1704#1705#0" expanded="false" />
+            <element signature="e#1729#1730#0" expanded="false" />
+            <element signature="e#1787#1788#0" expanded="false" />
+            <element signature="e#1821#1822#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/github/mmazi/rescu/1.9.0/rescu-1.9.0.jar!/si/mazi/rescu/RestInvocationHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/PoloniexMarketDataPoller.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/service/BittrexMarketDataService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state relative-caret-position="-71">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-bittrex/4.2.1-SNAPSHOT/xchange-bittrex-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/bittrex/v1/service/BittrexMarketDataServiceRaw.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="283" column="43" lean-forward="false" selection-start-line="283" selection-start-column="43" selection-end-line="283" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/ExecutorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="139" column="41" lean-forward="true" selection-start-line="139" selection-start-column="41" selection-end-line="139" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/src.zip!/java/util/concurrent/ScheduledExecutorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="153" column="30" lean-forward="false" selection-start-line="153" selection-start-column="30" selection-end-line="153" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/MarketDataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="25" column="35" lean-forward="false" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#631#647#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="23" column="3" lean-forward="true" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+          <folding>
+            <element signature="e#1139#1166#0" expanded="true" />
+            <element signature="e#1240#1258#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-gatecoin/4.2.1-SNAPSHOT/xchange-gatecoin-4.2.1-SNAPSHOT-sources.jar!/org/knowm/xchange/gatecoin/GatecoinExchange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="17" column="62" lean-forward="false" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="185">
+          <caret line="21" column="48" lean-forward="false" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

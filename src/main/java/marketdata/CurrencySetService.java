@@ -14,13 +14,12 @@ public class CurrencySetService {
     private static Set<CurrencyPair> currencyPairs = new HashSet<CurrencyPair>();
 
     static{
-        currencyPairs.add(new CurrencyPair(Currency.BTC, Currency.USDT));
-        currencyPairs.add(new CurrencyPair(Currency.BTC, Currency.USD));
-        currencyPairs.add(new CurrencyPair(Currency.LTC, Currency.BTC));
-        currencyPairs.add(new CurrencyPair(Currency.ETH, Currency.BTC));
-        currencyPairs.add(new CurrencyPair(Currency.DGB, Currency.BTC));
-        currencyPairs.add(new CurrencyPair(Currency.XMR, Currency.BTC));
-        currencyPairs.add(new CurrencyPair(Currency.XRP, Currency.BTC));
+        currencyPairs.add(CurrencyPair.BTC_USD);
+        currencyPairs.add(CurrencyPair.LTC_BTC);
+        currencyPairs.add(CurrencyPair.ETH_BTC);
+        currencyPairs.add(CurrencyPair.DGC_BTC);
+        currencyPairs.add(CurrencyPair.XRP_BTC);
+        currencyPairs.add(CurrencyPair.STR_BTC);
     }
 
     public static Set<CurrencyPair> getCurrencySet()
