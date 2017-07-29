@@ -18,8 +18,8 @@ import org.knowm.xchange.dto.marketdata.Ticker;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 //import com.amazonaws.services.kinesis.samples.stocktrades.model.StockTrade;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.ConfigurationUtils;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.CredentialUtils;
+//import com.amazonaws.services.kinesis.samples.stocktrades.utils.KinesisConfiguration;
+//import com.amazonaws.services.kinesis.samples.stocktrades.utils.AWSCredentialUtils;
 
 /**
  * Continuously sends simulated stock trades to Kinesis
@@ -154,10 +154,10 @@ public class KinesisGateway {
             System.exit(1);
         }
 
-        AWSCredentials credentials = org.knowm.xchange.CredentialUtils.getCredentialsProvider().getCredentials();
+        AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
 
         kinesisClient = new AmazonKinesisFirehoseClient(credentials,
-                org.knowm.xchange.ConfigurationUtils.getClientConfigWithUserAgent());
+                KinesisConfiguration.getClientConfigWithUserAgent());
         kinesisClient.setRegion(region);
 
         // Validate that the stream exists and is active

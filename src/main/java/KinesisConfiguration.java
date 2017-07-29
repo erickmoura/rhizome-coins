@@ -6,7 +6,7 @@ import com.amazonaws.ClientConfiguration;
 /**
  * Provides configuration related utilities common to both the producer and consumer.
  */
-public class ConfigurationUtils {
+public class KinesisConfiguration {
 
     private static final String APPLICATION_NAME = "amazon-kinesis-learning";
     private static final String VERSION = "1.0.0";

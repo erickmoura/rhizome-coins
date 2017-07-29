@@ -8,7 +8,8 @@ import java.util.List;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.FundingRecord;
-import org.knowm.xchange.poloniex.PoloniexExamplesUtils;
+import org.knowm.xchange.poloniex.ExchangeUtils;
+import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.poloniex.service.PoloniexAccountServiceRaw;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
@@ -25,7 +26,7 @@ public class PoloniexAccountDemo {
 
     CertHelper.trustAllCerts();
 
-    Exchange poloniex = PoloniexExamplesUtils.getExchange();
+    Exchange poloniex = ExchangeUtils.getInstance().getExchange(PoloniexExchange.class.getName());
     AccountService accountService = poloniex.getAccountService();
 
     generic(accountService);

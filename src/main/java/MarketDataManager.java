@@ -4,6 +4,7 @@ import org.knowm.xchange.anx.v2.ANXExchange;
 import org.knowm.xchange.bittrex.v1.BittrexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.gatecoin.GatecoinExchange;
+import org.knowm.xchange.poloniex.ExchangeUtils;
 import org.knowm.xchange.poloniex.PoloniexExchange;
 
 import java.util.Collections;
@@ -15,10 +16,10 @@ import java.util.Map;
  */
 public class MarketDataManager {
 
-    public static final Map<String, String> EXCHANGES;
 
     public static final int POLLING_PERIOD = 12; //seconds
 
+    /*
     static{
         Hashtable<String, String> tmp =
                 new Hashtable<String, String>();
@@ -29,6 +30,7 @@ public class MarketDataManager {
         tmp.put("poloniex", PoloniexExchange.class.getName());
         EXCHANGES = Collections.unmodifiableMap(tmp);
     }
+*/
 
 
     public static void main(String[] args) throws Exception {
@@ -39,13 +41,14 @@ public class MarketDataManager {
 
     public void startDataMarketThreads() {
 
+
         int i = 0;
         for(CurrencyPair currencyPair : CurrencySetService.getCurrencySet())
         {
-            for(String key : EXCHANGES.keySet()) {
+            for(String key : ExchangeUtils.getInstance().getExchangeClassNames()) {
 
                 try {
-                    MarketDataPoller marketDataPoller = new MarketDataPoller(key, EXCHANGES.get(key),currencyPair);
+                    MarketDataPoller marketDataPoller = new MarketDataPoller(ExchangeUtils.getInstance().getExchange(key),currencyPair);
                     marketDataPoller.startPolling(i, POLLING_PERIOD);
                 } catch (Exception e) {
                     e.printStackTrace();

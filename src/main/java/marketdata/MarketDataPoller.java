@@ -1,20 +1,15 @@
 package marketdata;
 
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.KinesisGateway;
-import org.knowm.xchange.anx.v2.ANXExchange;
-import org.knowm.xchange.bittrex.v1.BittrexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.utils.CertHelper;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +24,6 @@ public class MarketDataPoller  implements Runnable  {
 
     protected static KinesisGateway kinesisGateway = new KinesisGateway();;
     protected static HashMap<String, MarketDataService> dataServices = new HashMap<String, MarketDataService>();
-    protected static HashMap<String, Exchange> exchanges = new HashMap<String, Exchange>();
 
 
     protected String exchangeId;
@@ -87,18 +81,13 @@ public class MarketDataPoller  implements Runnable  {
     }
 
 
-    public MarketDataPoller(String exchangeId, String exchangeClassName, CurrencyPair currencyPair){
+    public MarketDataPoller(Exchange exchange, CurrencyPair currencyPair){
 
-        this.exchangeId = exchangeId;
+        this.exchangeId = exchange.getDefaultExchangeSpecification().getExchangeName();
         this.currencyPair = currencyPair;
 
-        if(this.exchanges.get(exchangeId) == null)
-        {
-            this.exchanges.put(exchangeId, ExchangeFactory.INSTANCE.createExchange(exchangeClassName));
-        }
-
         if(this.dataServices.get(exchangeId) == null) {
-            this.dataServices.put(exchangeId, exchanges.get(exchangeId).getMarketDataService());
+            this.dataServices.put(exchangeId, exchange.getMarketDataService());
         }
 
         try {

@@ -7,7 +7,7 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 /**
  * Provides utilities for retrieving credentials to talk to AWS
  */
-public class CredentialUtils {
+public class AWSCredentialUtils {
 
     public static AWSCredentialsProvider getCredentialsProvider() throws Exception {
         /*

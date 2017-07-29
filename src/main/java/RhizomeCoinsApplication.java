@@ -6,10 +6,12 @@
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.poloniex.ExchangeUtils;
 import resources.HelloWorldResource;
 import health.TemplateHealthCheck;
 
-public class RhizomeCoinsApplication extends Application<ApiConfiguration> {
+public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
     public static void main(String[] args) throws Exception {
         new RhizomeCoinsApplication().run(args);
     }
@@ -20,13 +22,15 @@ public class RhizomeCoinsApplication extends Application<ApiConfiguration> {
     }
 
     @Override
-    public void initialize(Bootstrap<ApiConfiguration> bootstrap) {
+    public void initialize(Bootstrap<RhizomeCoinsConfiguration> bootstrap) {
         // nothing to do yet
     }
 
     @Override
-    public void run(ApiConfiguration configuration,
+    public void run(RhizomeCoinsConfiguration configuration,
                     Environment environment) {
+
+
         final HelloWorldResource resource = new HelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
@@ -35,6 +39,8 @@ public class RhizomeCoinsApplication extends Application<ApiConfiguration> {
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
+
+        ExchangeUtils.getInstance().setExchangeMap(configuration.getExchanges());
 
         //Start Collection Bots...
         MarketDataManager m = new MarketDataManager();
