@@ -4,6 +4,7 @@ import org.knowm.xchange.anx.v2.ANXExchange;
 import org.knowm.xchange.bittrex.v1.BittrexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.gatecoin.GatecoinExchange;
+import org.knowm.xchange.poloniex.PoloniexExchange;
 
 import java.util.Collections;
 import java.util.Hashtable;
@@ -22,10 +23,10 @@ public class MarketDataManager {
         Hashtable<String, String> tmp =
                 new Hashtable<String, String>();
 
-        //tmp.put("anx", ANXExchange.class.getName());
-        tmp.put("gatecoin", GatecoinExchange.class.getName());
-        //tmp.put("bittrex", BittrexExchange.class.getName());
-        //tmp.put("poloniex", PoloniexMarketDataPoller.class.getName());
+        tmp.put("anx", ANXExchange.class.getName());
+        //tmp.put("gatecoin", GatecoinExchange.class.getName());
+        tmp.put("bittrex", BittrexExchange.class.getName());
+        tmp.put("poloniex", PoloniexExchange.class.getName());
         EXCHANGES = Collections.unmodifiableMap(tmp);
     }
 
@@ -50,31 +51,6 @@ public class MarketDataManager {
                     e.printStackTrace();
                 }
             }
-            /*
-
-            try {
-                ANXMarketDataPoller anxMarketDataPoller = new ANXMarketDataPoller(currencyPair);
-                anxMarketDataPoller.startPolling(i,12);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-            try {
-                BittrexMarketDataPoller bittrexMarketDataPoller = new BittrexMarketDataPoller(currencyPair);
-                bittrexMarketDataPoller.startPolling(i,12);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                PoloniexMarketDataPoller poloniexMarketDataPoller = new PoloniexMarketDataPoller(currencyPair);
-                poloniexMarketDataPoller.startPolling(i,12);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
-
             i++;
         }
     }
