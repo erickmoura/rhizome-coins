@@ -8,12 +8,13 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.OpenOrders;
-import org.knowm.xchange.poloniex.ExchangeUtils;
 import org.knowm.xchange.poloniex.PoloniexAdapters;
 import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.poloniex.service.PoloniexTradeService;
@@ -28,22 +29,26 @@ import org.knowm.xchange.utils.CertHelper;
 
 public class PoloniexTradeDemo {
 
-  private static final CurrencyPair REP_ETH = new CurrencyPair("REP", "ETH");
+  private static final CurrencyPair SC_BTC = new CurrencyPair("SC", "BTC");
 
   private static CurrencyPair currencyPair;
-  private static BigDecimal xmrBuyRate;
+  private static BigDecimal buyRate;
 
   public static void main(String[] args) throws Exception {
     CertHelper.trustAllCerts();
 
-    Exchange poloniex = ExchangeUtils.getInstance().getExchange(PoloniexExchange.class.getName());
+    ExchangeSpecification spec = new ExchangeSpecification(PoloniexExchange.class);
+    spec.setApiKey("0YLYH5CW-ZFBDX4T6-0V74ZN74-D5BW5LBV");
+    spec.setSecretKey("7c565d4e144fdcf8f707ece71a68a377980ceafa6a66757121fefa2a1db8942d4a0a217263808bec0922be571de7835b39c4ba6ebbe1ae005bf642223ee26526");
+
+    Exchange poloniex = ExchangeFactory.INSTANCE.createExchange(spec);
     TradeService tradeService = poloniex.getTradeService();
-    currencyPair = new CurrencyPair(Currency.XMR, Currency.BTC);
+    currencyPair = SC_BTC;
 
     /*
      * Make sure this is below the current market rate!!
      */
-    xmrBuyRate = new BigDecimal("0.003");
+    buyRate = new BigDecimal("0.00000318");
 
     generic(tradeService);
     raw((PoloniexTradeServiceRaw) tradeService);
@@ -64,7 +69,7 @@ public class PoloniexTradeDemo {
     params.setEndTime(endTime.getTime());
     System.out.println(tradeService.getTradeHistory(params));
 
-    LimitOrder order = new LimitOrder.Builder(OrderType.BID, currencyPair).tradableAmount(new BigDecimal(".1")).limitPrice(xmrBuyRate).build();
+    LimitOrder order = new LimitOrder.Builder(OrderType.ASK, currencyPair).tradableAmount(new BigDecimal("50")).limitPrice(buyRate).build();
     String orderId = tradeService.placeLimitOrder(order);
     System.out.println("Placed order #" + orderId);
 
@@ -88,7 +93,7 @@ public class PoloniexTradeDemo {
     long endTime = new Date().getTime() / 1000;
     System.out.println(Arrays.asList(tradeService.returnTradeHistory(currencyPair, startTime, endTime)));
 
-    LimitOrder order = new LimitOrder.Builder(OrderType.BID, currencyPair).tradableAmount(new BigDecimal("1")).limitPrice(xmrBuyRate).build();
+    LimitOrder order = new LimitOrder.Builder(OrderType.BID, currencyPair).tradableAmount(new BigDecimal("1")).limitPrice(buyRate).build();
     String orderId = tradeService.buy(order).getOrderNumber().toString();
     System.out.println("Placed order #" + orderId);
 
@@ -119,7 +124,7 @@ public class PoloniexTradeDemo {
     openOrders = tradeService.getOpenOrders(params);
     System.out.printf("Open Orders for %s: %s%n: ", params, openOrders);
 
-    params.setCurrencyPair(REP_ETH);
+    params.setCurrencyPair(SC_BTC);
     openOrders = tradeService.getOpenOrders(params);
     System.out.printf("Open Orders for %s: %s%n: ", params, openOrders);
   }
