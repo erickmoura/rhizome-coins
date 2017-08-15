@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3cad1ffd-aa3c-445e-b7ff-49185c8498a9" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/MarketDataManager.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/rhizome/xchange/poloniex/account/PoloniexAccountDemo.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/marketdata/CurrencySetService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/marketdata/MarketDataPoller.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/marketdata/MarketDepth.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/org/knowm/xchange/KinesisGateway.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/AWSCredentialUtils.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/AWSCredentialUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/ExchangeUtils.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/ExchangeUtils.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/KinesisConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/KinesisConfiguration.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/KinesisGateway.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/KinesisGateway.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/MarketDataManager.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/MarketDataManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/RhizomeCoinsApplication.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/RhizomeCoinsApplication.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/RhizomeCoinsConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/RhizomeCoinsConfiguration.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/account/GenericTransfers.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/account/GenericTransfers.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/account/PoloniexAccountDemo.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/account/PoloniexAccountDemo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/api/Saying.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/api/Saying.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/health/TemplateHealthCheck.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/health/TemplateHealthCheck.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/CurrencySetService.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/marketdata/CurrencySetService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/MarketDataPoller.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/marketdata/MarketDataPoller.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/marketdata/MarketDepth.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/marketdata/MarketDepth.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/resources/HelloWorldResource.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/resources/HelloWorldResource.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/trade/GenericTrade.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/trade/GenericTrade.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/trade/PoloniexTradeDemo.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/trade/PoloniexTradeDemo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-    </list>
+    <list default="true" id="3cad1ffd-aa3c-445e-b7ff-49185c8498a9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -1030,12 +1004,12 @@
       <workItem from="1499547695255" duration="31006000" />
       <workItem from="1499826983085" duration="17927000" />
       <workItem from="1500939822036" duration="29212000" />
-      <workItem from="1501784965094" duration="16541000" />
+      <workItem from="1501784965094" duration="16605000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128276000" />
+    <option name="totallyTimeSpent" value="128340000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
