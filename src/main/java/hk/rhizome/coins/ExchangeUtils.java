@@ -1,4 +1,4 @@
-package org.knowm.xchange.poloniex;
+package hk.rhizome.coins;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;

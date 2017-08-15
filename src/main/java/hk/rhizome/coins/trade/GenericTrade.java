@@ -1,4 +1,4 @@
-package trade;
+package hk.rhizome.coins.trade;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -11,7 +11,6 @@ import org.knowm.xchange.poloniex.service.PoloniexTradeService;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParamCurrencyPair;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;

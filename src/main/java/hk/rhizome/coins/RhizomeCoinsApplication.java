@@ -1,15 +1,12 @@
-/**
+package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  */
 
-
+import hk.rhizome.coins.health.TemplateHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.poloniex.ExchangeUtils;
-import resources.HelloWorldResource;
-import health.TemplateHealthCheck;
+import hk.rhizome.coins.resources.HelloWorldResource;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
     public static void main(String[] args) throws Exception {

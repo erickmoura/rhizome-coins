@@ -1,4 +1,4 @@
-/**
+package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  *
  */

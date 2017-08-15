@@ -1,4 +1,4 @@
-package health;
+package hk.rhizome.coins.health;
 
 import com.codahale.metrics.health.HealthCheck;
 

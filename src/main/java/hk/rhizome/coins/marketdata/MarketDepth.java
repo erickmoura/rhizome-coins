@@ -1,7 +1,6 @@
-package marketdata;
+package hk.rhizome.coins.marketdata;
 
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.ExchangeBound;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.trade.LimitOrder;
 
@@ -11,7 +10,7 @@ import java.util.Date;
 /**
  * Created by erickmoura on 11/7/2017.
  */
-public final class MarketDepth implements ExchangeBound {
+public final class MarketDepth {
 
     private String exchange;
     private CurrencyPair currencyPair;

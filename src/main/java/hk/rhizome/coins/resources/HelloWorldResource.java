@@ -1,6 +1,6 @@
-package resources;
+package hk.rhizome.coins.resources;
 
-import api.Saying;
+import hk.rhizome.coins.api.Saying;
 import com.codahale.metrics.annotation.Timed;
 
 import javax.ws.rs.GET;

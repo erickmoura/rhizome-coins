@@ -1,10 +1,9 @@
-package api;
+package hk.rhizome.coins.api;
 
 /**
  * Created by erickmoura on 28/7/2017.
  */
 
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 

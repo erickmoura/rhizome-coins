@@ -1,10 +1,9 @@
-package marketdata;
+package hk.rhizome.coins.marketdata;
 
+import hk.rhizome.coins.KinesisGateway;
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.KinesisGateway;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.utils.CertHelper;
 
@@ -56,26 +55,23 @@ public class MarketDataPoller  implements Runnable  {
     private void generic() throws Exception {
         try {
 
-            Ticker ticker = dataServices.get(exchangeId).getTicker(currencyPair);
-            ticker.setExchange(exchangeId);
+            // Collect Ticker data
+            ExchangeTicker ticker = new ExchangeTicker(exchangeId, dataServices.get(exchangeId).getTicker(currencyPair));
             System.out.println(ticker);
             kinesisGateway.sendTicker(ticker);
 
+            // Collect Order Book data
             Date timestamp = ticker.getTimestamp();
-
             OrderBook orderBook = dataServices.get(exchangeId).getOrderBook(currencyPair);
 
             MarketDepth marketDepth = new MarketDepth(timestamp, orderBook);
             marketDepth.setExchange(exchangeId);
             System.out.println(marketDepth);
-
-
             kinesisGateway.sendMarketDepth(marketDepth);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(exchangeId + ": Failed to poll " + currencyPair.toString());
-            //this.ses.shutdown();
             throw(e);
         }
     }

@@ -1,7 +1,7 @@
-/**
+package hk.rhizome.coins; /**
  * Created by erickmoura on 2/7/2017.
  */
-package org.knowm.xchange;
+
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
@@ -10,16 +10,16 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import marketdata.MarketDepth;
+import hk.rhizome.coins.marketdata.ExchangeTicker;
+import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.knowm.xchange.dto.marketdata.Ticker;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 //import com.amazonaws.services.kinesis.samples.stocktrades.model.StockTrade;
 //import com.amazonaws.services.kinesis.samples.stocktrades.utils.KinesisConfiguration;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.AWSCredentialUtils;
+//import com.amazonaws.services.kinesis.samples.stocktrades.utils.hk.rhizome.coins.AWSCredentialUtils;
 
 /**
  * Continuously sends simulated stock trades to Kinesis
@@ -102,11 +102,11 @@ public class KinesisGateway {
     }
 
     /**
-     * Uses the Kinesis client to send the stock trade to the given stream.
+     * Uses the Kinesis client to send the stock hk.rhizome.coins.trade to the given stream.
      *
      * @param ticker instance representing the ticker
      * */
-    public void sendTicker(Ticker ticker) throws Exception {
+    public void sendTicker(ExchangeTicker ticker) throws Exception {
 
         if (null==kinesisClient) {
             System.err.println("Kinesis Client not initialized.");

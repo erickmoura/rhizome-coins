@@ -175,7 +175,7 @@
                     <archive>
                         <manifest>
                             <!-- Jar file entry point -->
-                            <mainClass>RhizomeCoinsApplication</mainClass>
+                            <mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -217,7 +217,7 @@
                     <archive>
                         <manifest>
                             <!-- Jar file entry point -->
-                            <mainClass>RhizomeCoinsApplication</mainClass>
+                            <mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

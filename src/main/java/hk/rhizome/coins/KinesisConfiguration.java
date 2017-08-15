@@ -1,4 +1,4 @@
-package org.knowm.xchange;
+package hk.rhizome.coins;
 
 
 import com.amazonaws.ClientConfiguration;
