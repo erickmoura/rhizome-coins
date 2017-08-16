@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3cad1ffd-aa3c-445e-b7ff-49185c8498a9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/marketdata/CurrencySetService.java" afterPath="$PROJECT_DIR$/src/main/java/hk/rhizome/coins/marketdata/CurrencySetService.java" />
-    </list>
+    <list default="true" id="3cad1ffd-aa3c-445e-b7ff-49185c8498a9" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -1015,12 +1013,12 @@
       <workItem from="1499547695255" duration="31006000" />
       <workItem from="1499826983085" duration="17927000" />
       <workItem from="1500939822036" duration="29212000" />
-      <workItem from="1501784965094" duration="20554000" />
+      <workItem from="1501784965094" duration="20849000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132289000" />
+    <option name="totallyTimeSpent" value="132584000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
