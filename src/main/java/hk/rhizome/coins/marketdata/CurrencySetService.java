@@ -1,5 +1,6 @@
 package hk.rhizome.coins.marketdata;
 
+import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class CurrencySetService {
     private static Set<CurrencyPair> currencyPairs = new HashSet<CurrencyPair>();
 
     static{
+        currencyPairs.add(new CurrencyPair(Currency.BTC, Currency.USDT));
         currencyPairs.add(CurrencyPair.BTC_USD);
         currencyPairs.add(CurrencyPair.LTC_BTC);
         currencyPairs.add(CurrencyPair.ETH_BTC);
