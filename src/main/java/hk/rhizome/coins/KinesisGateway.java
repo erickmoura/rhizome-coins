@@ -14,6 +14,8 @@ import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.trade.UserTrade;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -28,6 +30,8 @@ public class KinesisGateway {
 
     private static final String KINESIS_TICKER_STREAM = "coins-firehose-tickers";
     private static final String KINESIS_MARKET_DEPTH_STREAM = "coins-firehose-market-depth";
+    private static final String KINESIS_ORDERS_STREAM = "coins-firehose-orders";
+    private static final String KINESIS_USER_TRADES_STREAM = "coins-firehose-user-trades";
 
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
     private static final Log LOG = LogFactory.getLog(KinesisGateway.class);
@@ -145,6 +149,36 @@ public class KinesisGateway {
 
     }
 
+    public void sendOrder(Order openOrder) {
+        if (null==kinesisClient) {
+            System.err.println("Kinesis Client not initialized.");
+            return;
+        }
+
+        Record record = new Record()
+                .withData(ByteBuffer.wrap(toJsonAsBytes(openOrder)));
+        PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                .withDeliveryStreamName(KINESIS_ORDERS_STREAM)
+                .withRecord(record);
+
+        PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+    }
+
+    public void sendUserTrade(UserTrade trade) {
+        if (null==kinesisClient) {
+            System.err.println("Kinesis Client not initialized.");
+            return;
+        }
+
+        Record record = new Record()
+                .withData(ByteBuffer.wrap(toJsonAsBytes(trade)));
+        PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                .withDeliveryStreamName(KINESIS_USER_TRADES_STREAM)
+                .withRecord(record);
+
+        PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+    }
+
     public void validateStream() throws Exception {
         String streamName = KINESIS_TICKER_STREAM;
         String regionName = KINESIS_DEFAULT_REGION;
@@ -163,7 +197,5 @@ public class KinesisGateway {
         // Validate that the stream exists and is active
         validateStream(kinesisClient, streamName);
     }
-
-
 
 }

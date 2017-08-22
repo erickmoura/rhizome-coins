@@ -1,9 +1,12 @@
 package hk.rhizome.coins;
 
+import hk.rhizome.coins.marketdata.FeesMatrix;
+import hk.rhizome.coins.marketdata.TradingFeePair;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +35,13 @@ public class ExchangeUtils {
 
       spec.setApiKey(exchangeMap.get(exchangeClassName).get("key"));
       spec.setSecretKey(exchangeMap.get(exchangeClassName).get("secret"));
+
+      FeesMatrix.setFeesMatrix(
+              exchangeMap.get(exchangeClassName).get("name"),
+              new TradingFeePair(
+                      new BigDecimal(exchangeMap.get(exchangeClassName).get("maker")),
+                      new BigDecimal(exchangeMap.get(exchangeClassName).get("taker")))
+              );
 
       exchangeSpecificationMap.put(exchangeClassName, ExchangeFactory.INSTANCE.createExchange(spec));
     }

@@ -27,21 +27,24 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
     public void run(RhizomeCoinsConfiguration configuration,
                     Environment environment) {
 
-
+/*
         final HelloWorldResource resource = new HelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
         );
-        final TemplateHealthCheck healthCheck =
-                new TemplateHealthCheck(configuration.getTemplate());
+        final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
-
+*/
         ExchangeUtils.getInstance().setExchangeMap(configuration.getExchanges());
 
         //Start Collection Bots...
         MarketDataManager m = new MarketDataManager();
         m.startDataMarketThreads();
+
+        //Start UserTrade collection...
+        UserTradesManager m1 = new UserTradesManager();
+        m1.startUserTradesThreads();
     }
 
 }

@@ -1,7 +1,7 @@
 package hk.rhizome.coins;
 
 import hk.rhizome.coins.marketdata.CurrencySetService;
-import hk.rhizome.coins.marketdata.MarketDataPoller;
+import hk.rhizome.coins.bot.MarketDataPoller;
 import org.knowm.xchange.currency.CurrencyPair;
 
 /**
@@ -18,7 +18,6 @@ public class MarketDataManager {
     }
 
     public void startDataMarketThreads() {
-
 
         int i = 0;
         for(CurrencyPair currencyPair : CurrencySetService.getCurrencySet())

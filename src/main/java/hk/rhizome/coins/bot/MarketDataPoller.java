@@ -1,6 +1,9 @@
-package hk.rhizome.coins.marketdata;
+package hk.rhizome.coins.bot;
 
 import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.marketdata.ExchangeTicker;
+import hk.rhizome.coins.marketdata.MarketDepth;
+import hk.rhizome.coins.marketdata.PricingsMatrix;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
@@ -59,6 +62,9 @@ public class MarketDataPoller  implements Runnable  {
             ExchangeTicker ticker = new ExchangeTicker(exchangeId, dataServices.get(exchangeId).getTicker(currencyPair));
             System.out.println(ticker);
             kinesisGateway.sendTicker(ticker);
+
+            // Insert ticker into the pricings matrix
+            PricingsMatrix.setTicker(exchangeId, currencyPair, ticker);
 
             // Collect Order Book data
             Date timestamp = ticker.getTimestamp();
