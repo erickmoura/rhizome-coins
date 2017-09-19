@@ -1,6 +1,7 @@
 package hk.rhizome.coins.bot;
 
 import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import hk.rhizome.coins.marketdata.PricingsMatrix;
@@ -39,7 +40,7 @@ public class MarketDataPoller  implements Runnable  {
             generic();
             ses.scheduleAtFixedRate(this, initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
-            e.printStackTrace();
+            AppLogger.getLogger().error("Error in MarketDataPoller in startPolling : " + e.getLocalizedMessage());
         }
     }
 
@@ -49,7 +50,7 @@ public class MarketDataPoller  implements Runnable  {
         try {
             generic();
         } catch (Exception e) {
-            e.printStackTrace();
+        		AppLogger.getLogger().error("Error in MarketDataPoller in run : " + e.getLocalizedMessage());
         }
         running = false;
     }
@@ -60,7 +61,7 @@ public class MarketDataPoller  implements Runnable  {
 
             // Collect Ticker data
             ExchangeTicker ticker = new ExchangeTicker(exchangeId, dataServices.get(exchangeId).getTicker(currencyPair));
-            System.out.println(ticker);
+            AppLogger.getLogger().info(ticker);
             kinesisGateway.sendTicker(ticker);
 
             // Insert ticker into the pricings matrix
@@ -72,12 +73,11 @@ public class MarketDataPoller  implements Runnable  {
 
             MarketDepth marketDepth = new MarketDepth(timestamp, orderBook);
             marketDepth.setExchange(exchangeId);
-            System.out.println(marketDepth);
+            AppLogger.getLogger().info(marketDepth);
             kinesisGateway.sendMarketDepth(marketDepth);
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(exchangeId + ": Failed to poll " + currencyPair.toString());
+            AppLogger.getLogger().error("Error in MarketDataPoller in generic : " + exchangeId + ": Failed to poll " + currencyPair.toString());
             throw(e);
         }
     }
@@ -95,13 +95,14 @@ public class MarketDataPoller  implements Runnable  {
         try {
             kinesisGateway.validateStream();
         } catch (Exception e) {
-            e.printStackTrace();
+        		AppLogger.getLogger().error("Error in MarketDataPoller in MarketDataPoller : " + e.getLocalizedMessage());
         }
+        
 
         try {
             CertHelper.trustAllCerts();
         } catch (Exception e) {
-            e.printStackTrace();
+           AppLogger.getLogger().error("Error in MarketDataPoller in MarketDataPoller : " + e.getLocalizedMessage());
         }
     }
 }

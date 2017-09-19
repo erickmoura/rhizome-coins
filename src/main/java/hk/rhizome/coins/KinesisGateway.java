@@ -10,6 +10,8 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
@@ -51,7 +53,7 @@ public class KinesisGateway {
             describeHoseResult = kinesisClient.describeDeliveryStream(describeHoseRequest);
             status = describeHoseResult.getDeliveryStreamDescription().getDeliveryStreamStatus();
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+        		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
             //checkHoseStatus();
         }
         if(status.equalsIgnoreCase("ACTIVE")){
@@ -61,12 +63,12 @@ public class KinesisGateway {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+            		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
             }
             //checkHoseStatus();
         }
         else {
-            System.out.println("Status = " + status);
+            AppLogger.getLogger().info("Status = " + status);
         }
     }
 
@@ -113,7 +115,7 @@ public class KinesisGateway {
     public void sendTicker(ExchangeTicker ticker) throws Exception {
 
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
+            AppLogger.getLogger().error("Error in KinesisGateway in sendTicker : Kinesis Client not initialized.");
             return;
         }
 
@@ -135,7 +137,7 @@ public class KinesisGateway {
 
     public void sendMarketDepth(MarketDepth marketDepth) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendMarketDepth : Kinesis Client not initialized.");
             return;
         }
 
@@ -151,7 +153,7 @@ public class KinesisGateway {
 
     public void sendOrder(Order openOrder) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendOrder : Kinesis Client not initialized.");
             return;
         }
 
@@ -166,7 +168,7 @@ public class KinesisGateway {
 
     public void sendUserTrade(UserTrade trade) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendUserTrade : Kinesis Client not initialized.");
             return;
         }
 
@@ -184,7 +186,7 @@ public class KinesisGateway {
         String regionName = KINESIS_DEFAULT_REGION;
         Region region = RegionUtils.getRegion(regionName);
         if (region == null) {
-            System.err.println(regionName + " is not a valid AWS region.");
+        		AppLogger.getLogger().error("Error in KinesisGateway in validateStream : " + regionName + " is not a valid AWS region.");
             System.exit(1);
         }
 
