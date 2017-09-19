@@ -9,7 +9,7 @@
     <description>Fetches Market Data from Multiple Exchanges</description>
 
     <groupId>org.knowm.xchange</groupId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>4.2.1</version>
     <packaging>jar</packaging>
 
     <url>http://knowm.org/open-source/xchange/</url>

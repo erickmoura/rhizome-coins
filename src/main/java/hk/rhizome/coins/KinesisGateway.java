@@ -1,6 +1,4 @@
-package hk.rhizome.coins; /**
- * Created by erickmoura on 2/7/2017.
- */
+package hk.rhizome.coins;
 
 
 import com.amazonaws.auth.AWSCredentials;
@@ -10,20 +8,20 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hk.rhizome.coins.account.ExchangeBalance;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.trade.UserTrade;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-//import com.amazonaws.services.kinesis.samples.stocktrades.model.StockTrade;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.KinesisConfiguration;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.hk.rhizome.coins.AWSCredentialUtils;
 
 /**
+ * Created by erickmoura on 2/7/2017.
  * Continuously sends simulated stock trades to Kinesis
  */
 public class KinesisGateway {
@@ -32,6 +30,7 @@ public class KinesisGateway {
     private static final String KINESIS_MARKET_DEPTH_STREAM = "coins-firehose-market-depth";
     private static final String KINESIS_ORDERS_STREAM = "coins-firehose-orders";
     private static final String KINESIS_USER_TRADES_STREAM = "coins-firehose-user-trades";
+    private static final String KINESIS_BALANCES_STREAM = "coins-balances";
 
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
     private static final Log LOG = LogFactory.getLog(KinesisGateway.class);
@@ -174,6 +173,21 @@ public class KinesisGateway {
                 .withData(ByteBuffer.wrap(toJsonAsBytes(trade)));
         PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
                 .withDeliveryStreamName(KINESIS_USER_TRADES_STREAM)
+                .withRecord(record);
+
+        PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+    }
+
+    public void sendBalance(ExchangeBalance balance) {
+        if (null==kinesisClient) {
+            System.err.println("Kinesis Client not initialized.");
+            return;
+        }
+
+        Record record = new Record()
+                .withData(ByteBuffer.wrap(toJsonAsBytes(balance)));
+        PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                .withDeliveryStreamName(KINESIS_BALANCES_STREAM)
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
