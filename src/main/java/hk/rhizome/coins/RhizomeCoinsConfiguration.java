@@ -1,47 +1,25 @@
-package hk.rhizome.coins; /**
+package hk.rhizome.coins; 
+/**
  * Created by erickmoura on 28/7/2017.
  *
  */
 
 import com.google.common.collect.ImmutableMap;
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import io.dropwizard.Configuration;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Map;
 
 
 public class RhizomeCoinsConfiguration extends Configuration {
-    @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
-
+    
     @NotNull
     private Map<String, Map<String, String>> exchanges = Collections.emptyMap();
 
-    @JsonProperty
-    public String getTemplate() {
-        return template;
-    }
-
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
-    }
+    @NotNull
+    private Map<String, String> database = Collections.emptyMap();
 
     @JsonProperty("exchanges")
     public Map<String, Map<String, String>> getExchanges() {
@@ -56,4 +34,15 @@ public class RhizomeCoinsConfiguration extends Configuration {
         }
         this.exchanges = builder.build();
     }
+
+    @JsonProperty("database")
+    public Map<String, String> getDatabase() {
+        return database;
+    }
+
+    @JsonProperty("database")
+    public void setDatabase(Map<String, String> database){
+        this.database = database;
+    }
+
 }

@@ -2,11 +2,13 @@ package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  */
 
-import hk.rhizome.coins.health.TemplateHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import hk.rhizome.coins.resources.HelloWorldResource;
+import io.dropwizard.migrations.MigrationsBundle;
+import io.dropwizard.db.DataSourceFactory;
+
+import hk.rhizome.coins.db.DataSourceUtil;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -20,22 +22,19 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
 
     @Override
     public void initialize(Bootstrap<RhizomeCoinsConfiguration> bootstrap) {
-        // nothing to do yet
+    		//migrations
+    		bootstrap.addBundle(new MigrationsBundle<RhizomeCoinsConfiguration>() {
+            @Override
+                public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
+                    return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
+                }
+        });
     }
 
     @Override
     public void run(RhizomeCoinsConfiguration configuration,
                     Environment environment) {
 
-/*
-        final HelloWorldResource resource = new HelloWorldResource(
-                configuration.getTemplate(),
-                configuration.getDefaultName()
-        );
-        final TemplateHealthCheck healthCheck = new TemplateHealthCheck(configuration.getTemplate());
-        environment.healthChecks().register("template", healthCheck);
-        environment.jersey().register(resource);
-*/
         ExchangeUtils.getInstance().setExchangeMap(configuration.getExchanges());
 
         //Start Collection Bots...
