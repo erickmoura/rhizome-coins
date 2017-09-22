@@ -1,6 +1,8 @@
 package hk.rhizome.coins.trade;
 
 import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.logger.AppLogger;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -48,9 +50,8 @@ public class GenericTrade {
 
     //Feed index
     kinesisGateway.sendOrder(order);
-
-    System.out.println("Placed buy order #" + orderId);
-
+    AppLogger.getLogger().info("Placed buy order #" + orderId);
+    
     return orderId;
   }
 
@@ -61,8 +62,8 @@ public class GenericTrade {
 
     //Feed index
     kinesisGateway.sendOrder(order);
-
-    System.out.println("Placed sell order #" + orderId);
+    AppLogger.getLogger().info("Placed sell order #" + orderId);
+    
     return orderId;
   }
 
@@ -90,8 +91,8 @@ public class GenericTrade {
     final OpenOrdersParamCurrencyPair params = (OpenOrdersParamCurrencyPair) tradeServices.get(exchangeId).createOpenOrdersParams();
     OpenOrders openOrders = tradeServices.get(exchangeId).getOpenOrders(params);
 
-    System.out.printf("%s: All open Orders: %s%n", exchangeId, openOrders);
-
+    AppLogger.getLogger().info( exchangeId + " : All open Orders: " + openOrders);
+    
     return openOrders;
   }
 

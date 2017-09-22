@@ -4,6 +4,8 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 
+import hk.rhizome.coins.logger.AppLogger;
+
 /**
  * Provides utilities for retrieving credentials to talk to AWS
  */
@@ -18,6 +20,9 @@ public class AWSCredentialUtils {
         try {
             credentialsProvider = new ProfileCredentialsProvider("bot_cc_1");
         } catch (Exception e) {
+        	 	AppLogger.getLogger().error("Cannot load the credentials from the credential profiles file. " +
+                        "Please make sure that your credentials file is at the correct " +
+                        "location (~/.aws/credentials), and is in valid format.");
             throw new AmazonClientException(
                     "Cannot load the credentials from the credential profiles file. " +
                             "Please make sure that your credentials file is at the correct " +

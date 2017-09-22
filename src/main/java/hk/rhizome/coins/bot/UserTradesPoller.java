@@ -1,6 +1,7 @@
 package hk.rhizome.coins.bot;
 
 import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CurrencySetService;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
@@ -44,7 +45,7 @@ public class UserTradesPoller implements Runnable  {
             generic();
             ses.scheduleAtFixedRate(this, initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
-            e.printStackTrace();
+            AppLogger.getLogger().error("Error in UserTradesPoller in startPolling : " + e.getLocalizedMessage());
         }
     }
 
@@ -54,7 +55,7 @@ public class UserTradesPoller implements Runnable  {
         try {
             generic();
         } catch (Exception e) {
-            e.printStackTrace();
+        		AppLogger.getLogger().error("Error in UserTradesPoller in run : " + e.getLocalizedMessage());
         }
         running = false;
     }
@@ -77,8 +78,7 @@ public class UserTradesPoller implements Runnable  {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(exchangeId + ": Failed to poll User Trades");
+        		AppLogger.getLogger().error("Error in UserTradesPoller in generic : " + exchangeId + ": Failed to poll User Trades");
             throw(e);
         }
     }
@@ -96,13 +96,13 @@ public class UserTradesPoller implements Runnable  {
         try {
             kinesisGateway.validateStream();
         } catch (Exception e) {
-            e.printStackTrace();
+        		AppLogger.getLogger().error("Error in UserTradesPoller in UserTradesPoller : " + e.getLocalizedMessage());
         }
 
         try {
             CertHelper.trustAllCerts();
         } catch (Exception e) {
-            e.printStackTrace();
+            AppLogger.getLogger().error("Error in UserTradesPoller in UserTradesPoller : " + e.getLocalizedMessage());
         }
     }
 }
