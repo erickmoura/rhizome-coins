@@ -24,6 +24,13 @@ import hk.rhizome.coins.AWSCredentialUtils;
 import hk.rhizome.coins.KinesisConfiguration;
 import hk.rhizome.coins.LoggerConfiguration;
 
+import org.json.simple.JSONObject;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+
+
 public class LoggerUtils{
     
     private final static String KINESIS_LOGGER_STREAM = "coins-firehose-log";
@@ -302,37 +309,46 @@ public class LoggerUtils{
 
         if (level.ordinal() <= this.level.ordinal()) {
             if (formatter == null) {
-                saveToStream(message.toString());
+                saveToStream(level.toString(), message.toString());
                 return;
             }
 
             if (message instanceof Map) {
                 String msg = formatter.formatLogMap((Map) message, level);
-                saveToStream(msg);
+                saveToStream(level.toString(), msg);
                 return;
             }
 
             String msg = formatter.formatLogMsg(message.toString(), level);
-            saveToStream(msg);
+            saveToStream(level.toString(), msg);
         }
     }
 
     /**
      * Method used to save the a string to a file.
      *
-     * @param filename The file name.
+     * @param level    The level
      * @param value    The string.
      */
-    private void saveToStream(final String value) {
+    private void saveToStream(final String level, final String value) {
             try {
+                
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                Date date = new Date();
+                
+                JSONObject json = new JSONObject();
+                json.put("message", value);
+                json.put("level", level);
+                json.put("timestamp", date);
+                
             		Record record = new Record()
-                        .withData(ByteBuffer.wrap(toJsonAsBytes(value)));
+                        .withData(ByteBuffer.wrap(toJsonAsBytes(json)));
                 PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
                         .withDeliveryStreamName(KINESIS_LOGGER_STREAM)
                         .withRecord(record);
 
                 PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
+                
             } catch (Exception ioe) {
                 System.err.println(ioe);
             }
