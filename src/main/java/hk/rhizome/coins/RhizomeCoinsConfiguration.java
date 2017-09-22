@@ -14,35 +14,13 @@ import java.util.Map;
 
 
 public class RhizomeCoinsConfiguration extends Configuration {
-    @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
-
+    
     @NotNull
     private Map<String, Map<String, String>> exchanges = Collections.emptyMap();
 
-    @JsonProperty
-    public String getTemplate() {
-        return template;
-    }
-
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
-    }
-
+    @NotNull
+    private Map<String, String> logging = Collections.emptyMap(); 
+    
     @JsonProperty("exchanges")
     public Map<String, Map<String, String>> getExchanges() {
         return exchanges;
@@ -56,4 +34,17 @@ public class RhizomeCoinsConfiguration extends Configuration {
         }
         this.exchanges = builder.build();
     }
+    
+    @JsonProperty("logging")
+    public Map<String, String> getLogging(){
+    		return this.logging;
+    }
+    
+    @JsonProperty("logging")
+    public void setLogging(Map<String, String> log) {
+    		this.logging = log;
+    }
+    
+    
+    
 }
