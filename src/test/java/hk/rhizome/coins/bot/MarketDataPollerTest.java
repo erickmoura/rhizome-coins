@@ -8,8 +8,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.Order;
-import io.dropwizard.testing.ResourceHelpers;
-import com.fasterxml.jackson.databind.ObjectMapper; 
+import com.amazonaws.services.kinesisfirehose.model.*;
 import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.RhizomeCoinsConfiguration;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
@@ -19,9 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Date;
 import java.util.Arrays;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.nio.file.Files; 
-import java.nio.file.Paths; 
 
 public class MarketDataPollerTest {
 	
@@ -42,8 +40,14 @@ public class MarketDataPollerTest {
 				// Collect Ticker data
 				ExchangeTicker ticker = new ExchangeTicker(exchangeId, service.getTicker(currencyPair));
 				System.out.println(ticker);
-				//check the ticker fields?
 				
+				//getVwap always return null
+				String[] nameMethod = {"getCurrencyPair", "getLast", "getBid", "getAsk", "getHigh", "getLow", "getVolume", "getExchange"};
+				for(String nameM : nameMethod) {
+					Method m = ExchangeTicker.class.getMethod(nameM);
+					if (m.invoke(ticker) == null)
+							throw new Exception("Field " + nameM  + " is null");
+				}
 			}
 		}catch(Exception ex){
 			ex.printStackTrace()	;
@@ -67,7 +71,13 @@ public class MarketDataPollerTest {
 				// Collect Order data
 				OrderBook orderBook = service.getOrderBook(currencyPair);
 				System.out.println(orderBook);
-				//check the order fields?
+				
+				String[] nameMethod = {"getAsks", "getBids"};
+				for(String nameM : nameMethod) {
+					Method m = OrderBook.class.getMethod(nameM);
+					if (m.invoke(orderBook) == null)
+							throw new Exception("Field " + nameM  + " is null");
+				}
 			}
 		}catch(Exception ex){
 			ex.printStackTrace()	;
@@ -86,7 +96,10 @@ public class MarketDataPollerTest {
 
 		KinesisGateway kinesisGateway = new KinesisGateway();
 		kinesisGateway.validateStream();
-		kinesisGateway.sendTicker(exchangeTicker);
+		PutRecordResult res = kinesisGateway.sendTicker(exchangeTicker);
+		if(res == null || res.getRecordId() == null)
+			throw new Exception("Error sending the ticket");
+		
 	}
 
 	@Test
@@ -104,7 +117,10 @@ public class MarketDataPollerTest {
 
 		KinesisGateway kinesisGateway = new KinesisGateway();
 		kinesisGateway.validateStream();
-		kinesisGateway.sendMarketDepth(marketDepth);
+		PutRecordResult res = kinesisGateway.sendMarketDepth(marketDepth);
+
+		if(res == null || res.getRecordId() == null)
+			throw new Exception("Error sending the ticket");
 	}
 
 	
