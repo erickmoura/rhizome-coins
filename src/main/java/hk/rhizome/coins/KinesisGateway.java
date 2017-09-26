@@ -52,7 +52,6 @@ public class KinesisGateway {
             status = describeHoseResult.getDeliveryStreamDescription().getDeliveryStreamStatus();
         } catch (Exception e) {
         		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
-            //checkHoseStatus();
         }
         if(status.equalsIgnoreCase("ACTIVE")){
             //return;
@@ -63,32 +62,11 @@ public class KinesisGateway {
             } catch (InterruptedException e) {
             		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
             }
-            //checkHoseStatus();
         }
         else {
             AppLogger.getLogger().info("Status = " + status);
         }
     }
-
-    /*
-    private static void validateStream(AmazonKinesisFirehose kinesisClient, String streamName) {
-        try {
-            DescribeDeliveryStreamResult result = kinesisClient.describeStream(streamName);
-            if (!"ACTIVE".equals(result.getStreamDescription().getStreamStatus())) {
-                System.err.println("Stream " + streamName + " is not active. Please wait a few moments and try again.");
-                System.exit(1);
-            }
-        } catch (ResourceNotFoundException e) {
-            System.err.println("Stream " + streamName + " does not exist. Please create it in the console.");
-            System.err.println(e);
-            System.exit(1);
-        } catch (Exception e) {
-            System.err.println("Error found while describing the stream " + streamName);
-            System.err.println(e);
-            System.exit(1);
-        }
-    }
-    */
 
     public static void main(String[] args) throws Exception {
 
@@ -110,11 +88,11 @@ public class KinesisGateway {
      *
      * @param ticker instance representing the ticker
      * */
-    public void sendTicker(ExchangeTicker ticker) throws Exception {
+    public PutRecordResult sendTicker(ExchangeTicker ticker) throws Exception {
 
         if (null==kinesisClient) {
             AppLogger.getLogger().error("Error in KinesisGateway in sendTicker : Kinesis Client not initialized.");
-            return;
+            return null;
         }
 
         Record record = new Record()
@@ -124,19 +102,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
-        //putRecordRequest.setData(  ByteBuffer.wrap( String.format( "testData-%d", 0 ).getBytes() ));
-        //putRecordRequest.setData(ByteBuffer.wrap(toJsonAsBytes(ticker)));
-        //putRecordRequest.setPartitionKey( String.format( "partitionKey-%d", 0 ));
-        //putRecordRequest.setSequenceNumberForOrdering( sequenceNumberOfPreviousRecord );
-        //PutRecordResult putRecordResult = kinesisClient.putRecord( putRecordRequest );
-        //sequenceNumberOfPreviousRecord = putRecordResult.getSequenceNumber();
+        return res;
     }
 
-    public void sendMarketDepth(MarketDepth marketDepth) {
+    public PutRecordResult sendMarketDepth(MarketDepth marketDepth) {
         if (null==kinesisClient) {
         		AppLogger.getLogger().error("Error in KinesisGateway in sendMarketDepth : Kinesis Client not initialized.");
-            return;
+            return null;
         }
 
         Record record = new Record()
@@ -146,13 +118,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
+        return res;
     }
 
-    public void sendOrder(Order openOrder) {
+    public PutRecordResult sendOrder(Order openOrder) {
         if (null==kinesisClient) {
         		AppLogger.getLogger().error("Error in KinesisGateway in sendOrder : Kinesis Client not initialized.");
-            return;
+            return null;
         }
 
         Record record = new Record()
@@ -162,12 +134,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
     }
 
-    public void sendUserTrade(UserTrade trade) {
+    public PutRecordResult sendUserTrade(UserTrade trade) {
         if (null==kinesisClient) {
         		AppLogger.getLogger().error("Error in KinesisGateway in sendUserTrade : Kinesis Client not initialized.");
-            return;
+            return null;
         }
 
         Record record = new Record()
@@ -177,12 +150,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
     }
 
-    public void sendBalance(ExchangeBalance balance) {
+    public PutRecordResult sendBalance(ExchangeBalance balance) {
         if (null==kinesisClient) {
             System.err.println("Kinesis Client not initialized.");
-            return;
+            return null;
         }
 
         Record record = new Record()
@@ -192,6 +166,7 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
     }
 
     public void validateStream() throws Exception {
