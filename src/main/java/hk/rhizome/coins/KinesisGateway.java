@@ -52,7 +52,6 @@ public class KinesisGateway {
             status = describeHoseResult.getDeliveryStreamDescription().getDeliveryStreamStatus();
         } catch (Exception e) {
         		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
-            //checkHoseStatus();
         }
         if(status.equalsIgnoreCase("ACTIVE")){
             //return;
@@ -63,32 +62,11 @@ public class KinesisGateway {
             } catch (InterruptedException e) {
             		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
             }
-            //checkHoseStatus();
         }
         else {
             AppLogger.getLogger().info("Status = " + status);
         }
     }
-
-    /*
-    private static void validateStream(AmazonKinesisFirehose kinesisClient, String streamName) {
-        try {
-            DescribeDeliveryStreamResult result = kinesisClient.describeStream(streamName);
-            if (!"ACTIVE".equals(result.getStreamDescription().getStreamStatus())) {
-                System.err.println("Stream " + streamName + " is not active. Please wait a few moments and try again.");
-                System.exit(1);
-            }
-        } catch (ResourceNotFoundException e) {
-            System.err.println("Stream " + streamName + " does not exist. Please create it in the console.");
-            System.err.println(e);
-            System.exit(1);
-        } catch (Exception e) {
-            System.err.println("Error found while describing the stream " + streamName);
-            System.err.println(e);
-            System.exit(1);
-        }
-    }
-    */
 
     public static void main(String[] args) throws Exception {
 
@@ -125,12 +103,6 @@ public class KinesisGateway {
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
         return res;
-        //putRecordRequest.setData(  ByteBuffer.wrap( String.format( "testData-%d", 0 ).getBytes() ));
-        //putRecordRequest.setData(ByteBuffer.wrap(toJsonAsBytes(ticker)));
-        //putRecordRequest.setPartitionKey( String.format( "partitionKey-%d", 0 ));
-        //putRecordRequest.setSequenceNumberForOrdering( sequenceNumberOfPreviousRecord );
-        //PutRecordResult putRecordResult = kinesisClient.putRecord( putRecordRequest );
-        //sequenceNumberOfPreviousRecord = putRecordResult.getSequenceNumber();
     }
 
     public PutRecordResult sendMarketDepth(MarketDepth marketDepth) {
