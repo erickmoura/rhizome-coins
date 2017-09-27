@@ -1,6 +1,4 @@
-package hk.rhizome.coins; /**
- * Created by erickmoura on 2/7/2017.
- */
+package hk.rhizome.coins;
 
 
 import com.amazonaws.auth.AWSCredentials;
@@ -10,20 +8,21 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hk.rhizome.coins.account.ExchangeBalance;
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.trade.UserTrade;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-//import com.amazonaws.services.kinesis.samples.stocktrades.model.StockTrade;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.KinesisConfiguration;
-//import com.amazonaws.services.kinesis.samples.stocktrades.utils.hk.rhizome.coins.AWSCredentialUtils;
 
 /**
+ * Created by erickmoura on 2/7/2017.
  * Continuously sends simulated stock trades to Kinesis
  */
 public class KinesisGateway {
@@ -32,6 +31,7 @@ public class KinesisGateway {
     private static final String KINESIS_MARKET_DEPTH_STREAM = "coins-firehose-market-depth";
     private static final String KINESIS_ORDERS_STREAM = "coins-firehose-orders";
     private static final String KINESIS_USER_TRADES_STREAM = "coins-firehose-user-trades";
+    private static final String KINESIS_BALANCES_STREAM = "coins-balances";
 
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
     private static final Log LOG = LogFactory.getLog(KinesisGateway.class);
@@ -51,8 +51,7 @@ public class KinesisGateway {
             describeHoseResult = kinesisClient.describeDeliveryStream(describeHoseRequest);
             status = describeHoseResult.getDeliveryStreamDescription().getDeliveryStreamStatus();
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-            //checkHoseStatus();
+        		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
         }
         if(status.equalsIgnoreCase("ACTIVE")){
             //return;
@@ -61,34 +60,13 @@ public class KinesisGateway {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+            		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
             }
-            //checkHoseStatus();
         }
         else {
-            System.out.println("Status = " + status);
+            AppLogger.getLogger().info("Status = " + status);
         }
     }
-
-    /*
-    private static void validateStream(AmazonKinesisFirehose kinesisClient, String streamName) {
-        try {
-            DescribeDeliveryStreamResult result = kinesisClient.describeStream(streamName);
-            if (!"ACTIVE".equals(result.getStreamDescription().getStreamStatus())) {
-                System.err.println("Stream " + streamName + " is not active. Please wait a few moments and try again.");
-                System.exit(1);
-            }
-        } catch (ResourceNotFoundException e) {
-            System.err.println("Stream " + streamName + " does not exist. Please create it in the console.");
-            System.err.println(e);
-            System.exit(1);
-        } catch (Exception e) {
-            System.err.println("Error found while describing the stream " + streamName);
-            System.err.println(e);
-            System.exit(1);
-        }
-    }
-    */
 
     public static void main(String[] args) throws Exception {
 
@@ -110,11 +88,11 @@ public class KinesisGateway {
      *
      * @param ticker instance representing the ticker
      * */
-    public void sendTicker(ExchangeTicker ticker) throws Exception {
+    public PutRecordResult sendTicker(ExchangeTicker ticker) throws Exception {
 
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
-            return;
+            AppLogger.getLogger().error("Error in KinesisGateway in sendTicker : Kinesis Client not initialized.");
+            return null;
         }
 
         Record record = new Record()
@@ -124,19 +102,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
-        //putRecordRequest.setData(  ByteBuffer.wrap( String.format( "testData-%d", 0 ).getBytes() ));
-        //putRecordRequest.setData(ByteBuffer.wrap(toJsonAsBytes(ticker)));
-        //putRecordRequest.setPartitionKey( String.format( "partitionKey-%d", 0 ));
-        //putRecordRequest.setSequenceNumberForOrdering( sequenceNumberOfPreviousRecord );
-        //PutRecordResult putRecordResult = kinesisClient.putRecord( putRecordRequest );
-        //sequenceNumberOfPreviousRecord = putRecordResult.getSequenceNumber();
+        return res;
     }
 
-    public void sendMarketDepth(MarketDepth marketDepth) {
+    public PutRecordResult sendMarketDepth(MarketDepth marketDepth) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
-            return;
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendMarketDepth : Kinesis Client not initialized.");
+            return null;
         }
 
         Record record = new Record()
@@ -146,13 +118,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
+        return res;
     }
 
-    public void sendOrder(Order openOrder) {
+    public PutRecordResult sendOrder(Order openOrder) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
-            return;
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendOrder : Kinesis Client not initialized.");
+            return null;
         }
 
         Record record = new Record()
@@ -162,12 +134,13 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
     }
 
-    public void sendUserTrade(UserTrade trade) {
+    public PutRecordResult sendUserTrade(UserTrade trade) {
         if (null==kinesisClient) {
-            System.err.println("Kinesis Client not initialized.");
-            return;
+        		AppLogger.getLogger().error("Error in KinesisGateway in sendUserTrade : Kinesis Client not initialized.");
+            return null;
         }
 
         Record record = new Record()
@@ -177,6 +150,23 @@ public class KinesisGateway {
                 .withRecord(record);
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
+    }
+
+    public PutRecordResult sendBalance(ExchangeBalance balance) {
+        if (null==kinesisClient) {
+            System.err.println("Kinesis Client not initialized.");
+            return null;
+        }
+
+        Record record = new Record()
+                .withData(ByteBuffer.wrap(toJsonAsBytes(balance)));
+        PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                .withDeliveryStreamName(KINESIS_BALANCES_STREAM)
+                .withRecord(record);
+
+        PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+        return res;
     }
 
     public void validateStream() throws Exception {
@@ -184,7 +174,7 @@ public class KinesisGateway {
         String regionName = KINESIS_DEFAULT_REGION;
         Region region = RegionUtils.getRegion(regionName);
         if (region == null) {
-            System.err.println(regionName + " is not a valid AWS region.");
+        		AppLogger.getLogger().error("Error in KinesisGateway in validateStream : " + regionName + " is not a valid AWS region.");
             System.exit(1);
         }
 

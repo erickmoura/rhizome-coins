@@ -2,6 +2,8 @@ package hk.rhizome.coins;
 
 import hk.rhizome.coins.marketdata.CurrencySetService;
 import hk.rhizome.coins.bot.MarketDataPoller;
+import hk.rhizome.coins.logger.AppLogger;
+
 import org.knowm.xchange.currency.CurrencyPair;
 
 /**
@@ -28,7 +30,7 @@ public class MarketDataManager {
                     MarketDataPoller marketDataPoller = new MarketDataPoller(ExchangeUtils.getInstance().getExchange(key),currencyPair);
                     marketDataPoller.startPolling(i, POLLING_PERIOD);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                		AppLogger.getLogger().error("Error in MarketDataManager in startDataMarketThreads : " + e.getLocalizedMessage());
                 }
             }
             i++;

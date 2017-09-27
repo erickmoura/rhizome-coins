@@ -7,6 +7,8 @@ import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 
+import hk.rhizome.coins.logger.AppLogger;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,16 +35,14 @@ public class GenericTransfers {
   public String withdraw(Currency currency, BigDecimal value, String address) throws Exception {
 
     String result = accountServices.get(exchangeId).withdrawFunds(currency, value, address);
-    System.out.println("Placed withdraw order: " + result);
-
+    AppLogger.getLogger().info("Placed withdraw order: " + result);
     return result;
   }
 
   public String getDepositAddress(Currency currency) throws Exception {
 
     String address = accountServices.get(exchangeId).requestDepositAddress(currency);
-    System.out.println("Got deposit address: " + address);
-
+    AppLogger.getLogger().info("Got deposit address: " + address);
     return address;
   }
 
@@ -52,9 +52,10 @@ public class GenericTransfers {
     final List<FundingRecord> fundingHistory = getFundingHistory(new Date(System.currentTimeMillis() - 7L * 24 * 60 * 60 * 1000));
 
     for(FundingRecord funding : fundingHistory){
-      if(funding.getType() == FundingRecord.Type.DEPOSIT && funding.getExternalId() == transactionId)
-        System.out.println("Funding received: " + funding);
-        return funding;
+      if(funding.getType() == FundingRecord.Type.DEPOSIT && funding.getExternalId() == transactionId) {
+    	  	AppLogger.getLogger().info("Funding received: " + funding);
+    	    return funding;
+      }
     }
     return null;
   }

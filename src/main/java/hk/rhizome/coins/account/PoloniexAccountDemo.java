@@ -2,6 +2,8 @@ package hk.rhizome.coins.account;
 
 import hk.rhizome.coins.ExchangeUtils;
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.poloniex.PoloniexExchange;
@@ -26,7 +28,11 @@ public class PoloniexAccountDemo {
 
     CertHelper.trustAllCerts();
 
-    Exchange poloniex = ExchangeUtils.getInstance().getExchange(PoloniexExchange.class.getName());
+    ExchangeSpecification spec = new ExchangeSpecification(PoloniexExchange.class);
+    spec.setApiKey("0YLYH5CW-ZFBDX4T6-0V74ZN74-D5BW5LBV");
+    spec.setSecretKey("7c565d4e144fdcf8f707ece71a68a377980ceafa6a66757121fefa2a1db8942d4a0a217263808bec0922be571de7835b39c4ba6ebbe1ae005bf642223ee26526");
+
+    Exchange poloniex = ExchangeFactory.INSTANCE.createExchange(spec);
     AccountService accountService = poloniex.getAccountService();
 
     generic(accountService);

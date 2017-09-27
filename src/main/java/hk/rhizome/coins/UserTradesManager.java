@@ -1,6 +1,7 @@
 package hk.rhizome.coins;
 
 import hk.rhizome.coins.bot.UserTradesPoller;
+import hk.rhizome.coins.logger.AppLogger;
 
 /**
  * Created by erickmoura on 2/7/2017.
@@ -24,7 +25,7 @@ public class UserTradesManager {
                 UserTradesPoller userTradesPoller = new UserTradesPoller(ExchangeUtils.getInstance().getExchange(key));
                 userTradesPoller.startPolling(i, POLLING_PERIOD);
             } catch (Exception e) {
-                e.printStackTrace();
+            		AppLogger.getLogger().error("Error in UserTradesManager in startUserTradesThreads : " + e.getLocalizedMessage());
             }
         }
         i++;

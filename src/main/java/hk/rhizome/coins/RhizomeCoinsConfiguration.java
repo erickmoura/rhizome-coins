@@ -19,6 +19,9 @@ public class RhizomeCoinsConfiguration extends Configuration {
     private Map<String, Map<String, String>> exchanges = Collections.emptyMap();
 
     @NotNull
+    private Map<String, String> logging = Collections.emptyMap(); 
+    
+    @NotNull
     private Map<String, String> database = Collections.emptyMap();
 
     @JsonProperty("exchanges")
@@ -45,4 +48,17 @@ public class RhizomeCoinsConfiguration extends Configuration {
         this.database = database;
     }
 
+    
+    @JsonProperty("logging")
+    public Map<String, String> getLogging(){
+    		return this.logging;
+    }
+    
+    @JsonProperty("logging")
+    public void setLogging(Map<String, String> log) {
+    		this.logging = log;
+    }
+    
+    
+    
 }
