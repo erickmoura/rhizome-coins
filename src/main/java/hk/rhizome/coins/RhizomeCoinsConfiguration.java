@@ -1,13 +1,13 @@
-package hk.rhizome.coins; /**
+package hk.rhizome.coins; 
+/**
  * Created by erickmoura on 28/7/2017.
  *
  */
 
 import com.google.common.collect.ImmutableMap;
-import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import io.dropwizard.Configuration;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Map;
@@ -21,6 +21,9 @@ public class RhizomeCoinsConfiguration extends Configuration {
     @NotNull
     private Map<String, String> logging = Collections.emptyMap(); 
     
+    @NotNull
+    private Map<String, String> database = Collections.emptyMap();
+
     @JsonProperty("exchanges")
     public Map<String, Map<String, String>> getExchanges() {
         return exchanges;
@@ -34,6 +37,17 @@ public class RhizomeCoinsConfiguration extends Configuration {
         }
         this.exchanges = builder.build();
     }
+
+    @JsonProperty("database")
+    public Map<String, String> getDatabase() {
+        return database;
+    }
+
+    @JsonProperty("database")
+    public void setDatabase(Map<String, String> database){
+        this.database = database;
+    }
+
     
     @JsonProperty("logging")
     public Map<String, String> getLogging(){

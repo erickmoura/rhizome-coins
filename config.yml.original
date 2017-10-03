@@ -1,6 +1,12 @@
 logging:
  level: ERROR
 
+database: 
+  driverClass: com.mysql.jdbc.Driver 
+  user:  
+  password:  
+  url: jdbc:mysql://localhost:3306/test 
+ 
 exchanges:
   'org.knowm.xchange.poloniex.PoloniexExchange':
     name: Poloniex
