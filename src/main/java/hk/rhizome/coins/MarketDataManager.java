@@ -27,8 +27,9 @@ public class MarketDataManager {
             for(String key : ExchangeUtils.getInstance().getExchangeClassNames()) {
 
                 try {
+                    int exchange_polling = (int) (ExchangeUtils.getInstance().getExchangePollingRate(key) == null ? POLLING_PERIOD : 60/(0.9*ExchangeUtils.getInstance().getExchangePollingRate(key)));
                     MarketDataPoller marketDataPoller = new MarketDataPoller(ExchangeUtils.getInstance().getExchange(key),currencyPair);
-                    marketDataPoller.startPolling(i, POLLING_PERIOD);
+                    marketDataPoller.startPolling(i, exchange_polling);
                 } catch (Exception e) {
                 		AppLogger.getLogger().error("Error in MarketDataManager in startDataMarketThreads : " + e.getLocalizedMessage());
                 }
