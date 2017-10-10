@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class UserTradesPollerTest {
 	
-    @Test
+    //@Test
     public void sendUserTrade() throws Exception {
 
         TradeHistoryParamsAll params = new TradeHistoryParamsAll();
