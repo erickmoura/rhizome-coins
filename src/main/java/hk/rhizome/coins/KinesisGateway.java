@@ -34,7 +34,6 @@ public class KinesisGateway {
     private static final String KINESIS_BALANCES_STREAM = "coins-balances";
 
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
-    private static final Log LOG = LogFactory.getLog(KinesisGateway.class);
 
     private AmazonKinesisFirehose kinesisClient;
     private String sequenceNumberOfPreviousRecord = "0";

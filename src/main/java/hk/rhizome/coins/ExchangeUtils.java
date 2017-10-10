@@ -1,5 +1,6 @@
 package hk.rhizome.coins;
 
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.TradingFeePair;
 import org.knowm.xchange.Exchange;
@@ -14,7 +15,6 @@ import java.util.Set;
 public class ExchangeUtils {
 
   private static ExchangeUtils singleton;
-
   private Map<String, Exchange> exchangeSpecificationMap;
 
   private ExchangeUtils(){
@@ -43,7 +43,14 @@ public class ExchangeUtils {
                       new BigDecimal(exchangeMap.get(exchangeClassName).get("taker")))
               );
 
-      exchangeSpecificationMap.put(exchangeClassName, ExchangeFactory.INSTANCE.createExchange(spec));
+      try{
+        exchangeSpecificationMap.put(exchangeClassName, ExchangeFactory.INSTANCE.createExchange(spec));
+      }
+      catch(Exception e)
+      {
+        AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
+ 
+      }
     }
   }
 
