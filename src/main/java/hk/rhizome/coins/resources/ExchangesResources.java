@@ -28,7 +28,7 @@ public class ExchangesResources{
         try {
             AppLogger.getLogger().debug("Started getExchanges");
 
-            DBI databaseConnection = DataSourceUtil.getInstance().getConnection(this.dataSourceFactory);
+            DBI databaseConnection = DataSourceUtil.getInstance().getConnection(this.dataSourceFactory, "getExchanges");
             if (databaseConnection == null) {
                 AppLogger.getLogger().error("No able to use connection in ExchangesResources in getExchanges");
                 throw new Exception("No able to use connection in ExchangesResources in getExchanges");

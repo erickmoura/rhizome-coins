@@ -57,9 +57,9 @@ public class DataSourceUtil {
         return dataSourceFactory;
     }
 
-    public DBI getConnection(DataSourceFactory dataSourceFactory){
+    public DBI getConnection(DataSourceFactory dataSourceFactory, String name){
         DBIFactory dbiFactory = new DBIFactory();
-        DBI dbi = dbiFactory.build(this.environment, dataSourceFactory, "exchanges");
+        DBI dbi = dbiFactory.build(this.environment, dataSourceFactory, name);
         return dbi;
         
     }
