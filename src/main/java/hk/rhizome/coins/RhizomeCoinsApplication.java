@@ -4,6 +4,7 @@ package hk.rhizome.coins; /**
 
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.logger.LoggerUtils;
+import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.resources.ExchangesResources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import hk.rhizome.coins.bot.CoinMarketCapPoller;
 import hk.rhizome.coins.db.DataSourceUtil;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
@@ -57,26 +59,35 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         }
         
         //get Exchanges for user bot
+        AppLogger.getLogger().info("Get exchanges");
         List<Map<String, Object>> exchanges = new ArrayList<>();
         try{
             exchanges = exchangeResources.getExchanges();
-            System.out.println(exchanges);
-            
+            ExchangeUtils.getInstance().setExchanges(exchanges);
         }catch(Exception ex){
-            AppLogger.getLogger().warn("Unable to getExchanges", ex);
+            ex.printStackTrace();
+            AppLogger.getLogger().warn("Unable to getExchanges " + ex.getLocalizedMessage());
+        } 
+
+        //get coins
+        AppLogger.getLogger().info("Get coins");
+        try {
+            CoinsSetService.getInstance().initialize(DataSourceUtil.getDataSourceFactory(configuration.getDatabase()));
+        } catch (Exception ex) {
+            AppLogger.getLogger().error("Unable to retrieve Coins " +  ex.getLocalizedMessage()); 
         }
-        AppLogger.getLogger().info("Setting exchanges");
-        ExchangeUtils.getInstance().setExchanges(exchanges);
         
         //Start Collection Bots...
         AppLogger.getLogger().info("Start collections bots...");
         MarketDataManager m = new MarketDataManager();
+        m.startCoinMarketPoller();
         m.startDataMarketThreads();
-
+        
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m1 = new UserTradesManager();
         m1.startUserTradesThreads();
+        
      
     }
 
