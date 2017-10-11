@@ -9,7 +9,7 @@ public class QueryReader {
 
     RhizomeCoinsUtil util;
 
-    public QueryReader(){
+    public QueryReader() {
         util = new RhizomeCoinsUtil();
     }
 
@@ -19,15 +19,19 @@ public class QueryReader {
         try {
             String fileName = "queries/exchanges.sql";
             File exchangeFile = util.getSqlFile(fileName);
-            
+
             sql = RhizomeCoinsUtil.getSqlString(exchangeFile);
 
-            } catch (Exception ex) {
-                AppLogger.getLogger().error("Exception in QueryGenerator createCoverageRankingQuery()");
-                throw ex;
-            }
-            return sql;
+        } catch (Exception ex) {
+            AppLogger.getLogger().error("Exception in QueryGenerator getSQLExchanges()");
+            throw ex;
+        }
+        return sql;
     }
 
-    
+    public String getSQLCoins() throws Exception {
+        String sql = "select * from coins where removed_date is null;";
+        return sql;
+    }
+
 }
