@@ -1,5 +1,6 @@
 package hk.rhizome.coins;
 
+import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.TradingFeePair;
 import org.knowm.xchange.Exchange;
@@ -56,16 +57,15 @@ public class ExchangeUtils {
       
       spec.setApiKey((String)exchange.get("p_key"));
       spec.setSecretKey((String)exchange.get("secret"));
-
       FeesMatrix.setFeesMatrix(
         (String)exchange.get("exchange_name"),
         new TradingFeePair(
                 new BigDecimal((Float)exchange.get("maker")),
                 new BigDecimal((Float)exchange.get("taker")))
         );
-
       exchangeSpecificationMap.put((String)exchange.get("xchange_name"), ExchangeFactory.INSTANCE.createExchange(spec));
-      exchangePollingRate.put((String)exchange.get("xchange_name"), Math.round((Float)exchange.get("polling_rate")));
+      exchangePollingRate.put((String)exchange.get("xchange_name"), (Integer)exchange.get("polling_rate"));
+      
     }
   }
 

@@ -9,6 +9,7 @@ import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hk.rhizome.coins.account.ExchangeBalance;
+import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
@@ -20,6 +21,7 @@ import org.knowm.xchange.dto.trade.UserTrade;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.List;
 
 /**
  * Created by erickmoura on 2/7/2017.
@@ -32,6 +34,7 @@ public class KinesisGateway {
     private static final String KINESIS_ORDERS_STREAM = "coins-firehose-orders";
     private static final String KINESIS_USER_TRADES_STREAM = "coins-firehose-user-trades";
     private static final String KINESIS_BALANCES_STREAM = "coins-balances";
+    private static final String KINESIS_TICKER_CMC_STREAM = "coins-firehose-cmc";
 
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
     private static final Log LOG = LogFactory.getLog(KinesisGateway.class);
@@ -103,6 +106,26 @@ public class KinesisGateway {
 
         PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
         return res;
+    }
+
+    public void sendTickers(List<CoinMarketCapTicker> tickerList) throws Exception {
+        
+        if (null==kinesisClient) {
+            AppLogger.getLogger().error("Error in KinesisGateway in sendTicker : Kinesis Client not initialized.");
+            //return null;
+        }
+        PutRecordResult res = null;
+        for(CoinMarketCapTicker c : tickerList){
+            Record record = new Record()
+                    .withData(ByteBuffer.wrap(toJsonAsBytes(c)));
+            PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                    .withDeliveryStreamName(KINESIS_TICKER_CMC_STREAM)
+                    .withRecord(record);
+                
+            res = kinesisClient.putRecord(putRecordInHoseRequest);
+            
+        }
+        //return res;
     }
 
     public PutRecordResult sendMarketDepth(MarketDepth marketDepth) {

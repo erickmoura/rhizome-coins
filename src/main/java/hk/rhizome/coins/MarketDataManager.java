@@ -1,6 +1,7 @@
 package hk.rhizome.coins;
 
 import hk.rhizome.coins.marketdata.CurrencySetService;
+import hk.rhizome.coins.bot.CoinMarketCapPoller;
 import hk.rhizome.coins.bot.MarketDataPoller;
 import hk.rhizome.coins.logger.AppLogger;
 
@@ -36,5 +37,11 @@ public class MarketDataManager {
             }
             i++;
         }
+    }
+
+    public void startCoinMarketPoller(){
+        CoinMarketCapPoller poller = new CoinMarketCapPoller();
+        int exchange_polling_rate = 7;
+        poller.startPolling(0, exchange_polling_rate);
     }
 }
