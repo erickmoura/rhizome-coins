@@ -1,5 +1,6 @@
 package hk.rhizome.coins.bot;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -11,12 +12,15 @@ import org.knowm.xchange.dto.Order;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.RhizomeCoinsConfiguration;
+import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import hk.rhizome.coins.KinesisGateway;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -97,9 +101,31 @@ public class MarketDataPollerTest {
 		KinesisGateway kinesisGateway = new KinesisGateway();
 		kinesisGateway.validateStream();
 		PutRecordResult res = kinesisGateway.sendTicker(exchangeTicker);
-		if(res == null || res.getRecordId() == null)
-			throw new Exception("Error sending the ticket");
+		Assert.assertNotNull(res);
+		Assert.assertNotNull(res.getRecordId());
+	}
+
+	@Test
+	public void testSendTickers() throws Exception {
 		
+		CoinMarketCapTicker ticker1 = new CoinMarketCapTicker("test-send-cmc","bitcoin", "Bitcoin", 
+																"BTC", 1, new BigDecimal(5318.65), 
+																new BigDecimal(1.0), new BigDecimal(2553310000.0),
+																new BigDecimal(88392505878.0), new BigDecimal(6619350.0), new BigDecimal(16619350.0), 
+																new BigDecimal(0.97), new BigDecimal(9.75), new BigDecimal(22.83), 1507842450L);
+		CoinMarketCapTicker ticker2 = new CoinMarketCapTicker("test-send-cmc","ethereum", "Ethereum", 
+																"ETH", 2, new BigDecimal(304.136), 
+																new BigDecimal(0.0571863), new BigDecimal(478715000.0),
+																new BigDecimal(88392505878.0), new BigDecimal(16619350.0), new BigDecimal(16619350.0), 
+																new BigDecimal(0.97), new BigDecimal(9.75), new BigDecimal(22.83), 1507842450L);
+		List<CoinMarketCapTicker> list = new ArrayList<CoinMarketCapTicker>();
+		list.add(ticker1);
+		list.add(ticker2);
+		KinesisGateway kinesisGateway = new KinesisGateway();
+		kinesisGateway.validateStream();
+		PutRecordResult res = kinesisGateway.sendTickers(list);
+		Assert.assertNotNull(res);
+		Assert.assertNotNull(res.getRecordId());
 	}
 
 	@Test
@@ -118,9 +144,9 @@ public class MarketDataPollerTest {
 		KinesisGateway kinesisGateway = new KinesisGateway();
 		kinesisGateway.validateStream();
 		PutRecordResult res = kinesisGateway.sendMarketDepth(marketDepth);
-
-		if(res == null || res.getRecordId() == null)
-			throw new Exception("Error sending the ticket");
+		Assert.assertNotNull(res);
+		Assert.assertNotNull(res.getRecordId());
+		
 	}
 
 	
@@ -137,8 +163,8 @@ public class MarketDataPollerTest {
 		
 		Map<String, String> infoExchanges = new HashMap<String, String>();
 		infoExchanges.put("name", "ANXPRO");
-		infoExchanges.put("key", "e0f2fa0f-0110-454d-99a5-4da24607daf0");
-		infoExchanges.put("secret", "/vqfBtEO7k0BburlUkG3Yb47D9LLtiUEJQggKHlO2CwSxTMj2tR2hOSsL6RtVyLxptp/TYiaPL4XwqFGGKisAg==");
+		infoExchanges.put("key", "cKRtsNcqoExTuvoGwueY");
+		infoExchanges.put("secret", "yQhVerrjBZZjFtRvazmo");
 		infoExchanges.put("taker", "0.6");
 		infoExchanges.put("maker", "0.3");
 		exchanges.put("org.knowm.xchange.anx.v2.ANXExchange", infoExchanges);

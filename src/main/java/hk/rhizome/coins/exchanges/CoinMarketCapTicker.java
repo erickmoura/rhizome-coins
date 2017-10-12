@@ -52,6 +52,33 @@ public class CoinMarketCapTicker {
     this.lastUpdated = new Date(lastUpdated*1000);
   }
 
+  public CoinMarketCapTicker(@JsonProperty("exchange") String exchangeName, @JsonProperty("id") String id, @JsonProperty("name") String name,
+                              @JsonProperty("symbol") String symbol, @JsonProperty("rank") int rank,
+                              @JsonProperty("price_usd") BigDecimal priceUSD, @JsonProperty("price_btc") BigDecimal priceBTC,
+                              @JsonProperty("24h_volume_usd") BigDecimal t4hvolumeUSD, @JsonProperty("market_cap_usd") BigDecimal marketCapUSD,
+                              @JsonProperty("available_supply") BigDecimal availableSupply,
+                              @JsonProperty("total_supply") BigDecimal totalSupply,
+                              @JsonProperty("percent_change_1h") BigDecimal percentChange1h,
+                              @JsonProperty("percent_change_24h") BigDecimal percentChange24h,
+                              @JsonProperty("percent_change_7d") BigDecimal percentChange7d, @JsonProperty("last_updated") Long lastUpdated) {
+
+    this.exchange = exchangeName;
+    this.id = id;
+    this.name = name;
+    this.symbol = symbol;
+    this.rank = rank;
+    this.priceUSD = priceUSD;
+    this.priceBTC = priceBTC;
+    this.t4hvolumeUSD = t4hvolumeUSD;
+    this.marketCapUSD = marketCapUSD;
+    this.availableSupply = availableSupply;
+    this.totalSupply = totalSupply;
+    this.percentChange1h = percentChange1h;
+    this.percentChange24h = percentChange24h;
+    this.percentChange7d = percentChange7d;
+    this.lastUpdated = new Date(lastUpdated * 1000);
+  }
+
   public CoinMarketCapTicker(Map<String, Object> data){
     this.id = (String)data.get("id");
     this.name = (String)data.get("name");;
