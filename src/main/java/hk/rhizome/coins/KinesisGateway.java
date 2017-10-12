@@ -108,11 +108,11 @@ public class KinesisGateway {
         return res;
     }
 
-    public void sendTickers(List<CoinMarketCapTicker> tickerList) throws Exception {
+    public PutRecordResult sendTickers(List<CoinMarketCapTicker> tickerList) throws Exception {
         
         if (null==kinesisClient) {
             AppLogger.getLogger().error("Error in KinesisGateway in sendTicker : Kinesis Client not initialized.");
-            //return null;
+            return null;
         }
         PutRecordResult res = null;
         for(CoinMarketCapTicker c : tickerList){
@@ -125,7 +125,7 @@ public class KinesisGateway {
             res = kinesisClient.putRecord(putRecordInHoseRequest);
             
         }
-        //return res;
+        return res;
     }
 
     public PutRecordResult sendMarketDepth(MarketDepth marketDepth) {
