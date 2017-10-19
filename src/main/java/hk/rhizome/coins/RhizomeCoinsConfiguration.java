@@ -59,6 +59,15 @@ public class RhizomeCoinsConfiguration extends Configuration {
     		this.logging = log;
     }
     
+    public DatabaseConfiguration getDBConfiguration(){
+        DatabaseConfiguration config = new DatabaseConfiguration();
+        config.setDriverClass(this.getDatabase().get("driverClasss"));
+        config.setPassword(this.getDatabase().get("password"));
+        config.setUrl(this.getDatabase().get("url"));
+        config.setUsername(this.getDatabase().get("username"));
+        return config;
+    }
+    
     
     
 }
