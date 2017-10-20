@@ -3,6 +3,7 @@ package hk.rhizome.coins.db;
 import hk.rhizome.coins.model.Coins;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
+import java.util.List;
 
 public class CoinsDAO extends AbstractDAO<CoinsDAO> {
     
