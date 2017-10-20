@@ -88,8 +88,8 @@ public class MarketDataPoller  implements Runnable  {
         this.exchangeId = exchange.getDefaultExchangeSpecification().getExchangeName();
         this.currencyPair = currencyPair;
 
-        if(this.dataServices.get(exchangeId) == null) {
-            this.dataServices.put(exchangeId, exchange.getMarketDataService());
+        if(dataServices.get(exchangeId) == null) {
+            dataServices.put(exchangeId, exchange.getMarketDataService());
         }
 
         try {

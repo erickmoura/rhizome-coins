@@ -5,24 +5,13 @@ import hk.rhizome.coins.exchanges.CoinMarketCapService;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;
-import hk.rhizome.coins.marketdata.ExchangeTicker;
-import hk.rhizome.coins.marketdata.MarketDepth;
-import hk.rhizome.coins.marketdata.PricingsMatrix;
 import hk.rhizome.coins.model.Coins;
-import hk.rhizome.coins.marketdata.CoinsSetService;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
 
 public class CoinMarketCapPoller  implements Runnable  {
 
@@ -69,9 +58,8 @@ public class CoinMarketCapPoller  implements Runnable  {
             // Collect Ticker data
             CoinMarketCapService service = new CoinMarketCapService();
             List<CoinMarketCapTicker> list = getFilterList(service.getTickers());
-            
+            AppLogger.getLogger().info(list);
             //send to ES
-            System.out.println(list);
             kinesisGateway.sendTickers(list);
 
         } catch (Exception e) {
