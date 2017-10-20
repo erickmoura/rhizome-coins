@@ -8,11 +8,11 @@
     <name>Rhizome Coins</name>
     <description>Fetches Market Data from Multiple Exchanges</description>
 
-    <groupId>org.knowm.xchange</groupId>
-    <version>4.2.1</version>
+    <groupId>hk.rhizome.coins</groupId>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
-    <url>http://knowm.org/open-source/xchange/</url>
+    <url>http://rhizome.hk/portfolio</url>
     <inceptionYear>2017</inceptionYear>
 
     <organization>
@@ -62,43 +62,43 @@
 
         <!-- XChange dependencies -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-core</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
         <!-- XChange Open Exchange Rates exchange support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-openexchangerates</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- XChange ANX exchange support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-anx</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- XChange Gatecoin exchange support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-gatecoin</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- XChange Poloniex exchange support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-poloniex</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
 
         <!-- XChange Bittrex exchange support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-bittrex</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
 
         <dependency>
@@ -113,27 +113,27 @@
             <version>3.3.0</version>
         </dependency>
 
-
+       <!-- XChange -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-ccex</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-livecoin</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-yobit</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
         <!-- XChange DSX support -->
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-dsx</artifactId>
-            <version>${project.version}</version>
+            <version>4.2.1</version>
         </dependency>
         
         <dependency>
