@@ -1,13 +1,34 @@
 package hk.rhizome.coins.model;
 
 import java.util.Date;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "coins")
+@NamedQueries({
+    @NamedQuery(name = "hk.rhizome.coins.model.Coins.findAll",
+            query = "from Coins")
+})
 public class Coins {
+    
+    @Id
     String id;
+    
+    @Column(name = "coin_name")
     String name;
+
+    @Column(name = "symbol")
     String symbol;
+
+    @Column(name = "inserted_date")
     Date insertedDate;
+
+    @Column(name = "removed_date")
     Date removedDate;
+
+    public Coins(){
+        
+    }
 
     public Coins(String id, String name, String symbol, Date insertedDate, Date removedDate){
         this.id = id;
