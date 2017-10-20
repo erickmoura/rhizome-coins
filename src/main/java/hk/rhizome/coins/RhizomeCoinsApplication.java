@@ -5,21 +5,29 @@ package hk.rhizome.coins; /**
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.logger.LoggerUtils;
 import hk.rhizome.coins.marketdata.CoinsSetService;
+import hk.rhizome.coins.model.*;
+import hk.rhizome.coins.resources.CoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
+import hk.rhizome.coins.resources.UserOrdersResources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.db.DataSourceFactory;
-
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import hk.rhizome.coins.bot.BalancesPoller;
 import hk.rhizome.coins.bot.CoinMarketCapPoller;
-import hk.rhizome.coins.db.DataSourceUtil;
+import hk.rhizome.coins.db.*;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
+    
+    private HibernateBundle<RhizomeCoinsConfiguration> hibernate;
+
     public static void main(String[] args) throws Exception {
         new RhizomeCoinsApplication().run(args);
     }
@@ -38,6 +46,15 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
                     return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
                 }
         });
+        hibernate = new HibernateBundle<RhizomeCoinsConfiguration>(
+                Coins.class, Users.class, Exchanges.class, UserExchanges.class,  
+                UserBalances.class, UserOrders.class){
+            @Override
+            public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
+                return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
+            }
+        };
+        bootstrap.addBundle(hibernate);
     }
 
     @Override
@@ -46,47 +63,76 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         
         //initialize general configurations                
         AppLogger.initialize(LoggerUtils.getLoggerConfiguration(configuration.getLogging()));
-        DataSourceUtil.initialize(environment);
-                       
-        DataSourceFactory dataSourceFactory = DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
         
-        ExchangesResources exchangeResources = new ExchangesResources(dataSourceFactory);
-        // create exchanges resource
+        DataSourceUtil.initialize(environment);
+        DataSourceFactory dataSourceFactory = DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
+
+        DbProxyUtils.initialize();
+        
+        //EXCHANGES
+        AppLogger.getLogger().info("Get exchanges");
+        ExchangesDAO exchangesDAO = new ExchangesDAO(hibernate.getSessionFactory());
+        ExchangesDAOProxy exchangesProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(ExchangesDAOProxy.class, ExchangesDAO.class, exchangesDAO);
+        DbProxyUtils.getInstance().setExchangesProxy(exchangesProxy);
+        ExchangesResources exchangeResources = new ExchangesResources(exchangesDAO);
         try {
             environment.jersey().register(exchangeResources);
         } catch (Exception ex) {
             AppLogger.getLogger().warn("Unable to register ExchangesResources", ex);
         }
-        
-        //get Exchanges for user bot
-        AppLogger.getLogger().info("Get exchanges");
-        List<Map<String, Object>> exchanges = new ArrayList<>();
-        try{
-            exchanges = exchangeResources.getExchanges();
-            ExchangeUtils.getInstance().setExchanges(exchanges);
-        }catch(Exception ex){
-            ex.printStackTrace();
-            AppLogger.getLogger().warn("Unable to getExchanges " + ex.getLocalizedMessage());
-        } 
-
-        //get coins
-        AppLogger.getLogger().info("Get coins");
+        UsersDAO usersDAO = new UsersDAO(hibernate.getSessionFactory());
+        UsersDAOProxy usersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UsersDAOProxy.class, UsersDAO.class, usersDAO);
+        UserExchangesDAO userExchangesDAO = new UserExchangesDAO(hibernate.getSessionFactory());
+        UserExchangesDAOProxy userExchangesDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserExchangesDAOProxy.class, UserExchangesDAO.class, userExchangesDAO); 
+        DbProxyUtils.getInstance().setUsersProxy(usersDAOProxy);
+        DbProxyUtils.getInstance().setUserExchangesProxy(userExchangesDAOProxy);
         try {
-            CoinsSetService.getInstance().initialize(DataSourceUtil.getDataSourceFactory(configuration.getDatabase()));
+            ExchangeUtils.getInstance().initialize();
+        }catch(Exception ex){
+            AppLogger.getLogger().error("Unable to getExchanges " + ex.getLocalizedMessage());
+            ex.printStackTrace();
+        } 
+        
+        //COINS
+        CoinsDAO coinsDAO = new CoinsDAO(hibernate.getSessionFactory());
+        CoinsDAOProxy coinsDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(CoinsDAOProxy.class, CoinsDAO.class, coinsDAO);
+        DbProxyUtils.getInstance().setCoinsProxy(coinsDAOProxy);
+        try {
+            CoinsSetService.getInstance().initialize();
         } catch (Exception ex) {
-            AppLogger.getLogger().error("Unable to retrieve Coins " +  ex.getLocalizedMessage()); 
+            AppLogger.getLogger().warn("Unable initialize the coinsDAO : " + ex.getLocalizedMessage());
+        }
+        try {
+            environment.jersey().register(new CoinsResources(coinsDAO));
+        } catch (Exception ex) {
+            AppLogger.getLogger().warn("Unable to register CoinsResources: " + ex.getLocalizedMessage());
         }
         
+        //BOTS
         //Start Collection Bots...
         AppLogger.getLogger().info("Start collections bots...");
         MarketDataManager m = new MarketDataManager();
         m.startCoinMarketPoller();
         m.startDataMarketThreads();
-        
+
+        //BALANCES
+        UserBalancesDAO userBalancesDAO = new UserBalancesDAO(hibernate.getSessionFactory());
+        UserBalancesDAOProxy userBalancesDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserBalancesDAOProxy.class, UserBalancesDAO.class, userBalancesDAO);
+        DbProxyUtils.getInstance().setUserBalancesProxy(userBalancesDAOProxy);
+        UserBalancesManager m1 = new UserBalancesManager();
+        m1.startBalancesThreads();
+
+        //ORDERS
+        UserOrdersDAO userOrdersDAO = new UserOrdersDAO(hibernate.getSessionFactory());
+        UserOrdersDAOProxy userOrdersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserOrdersDAOProxy.class, UserOrdersDAO.class, userOrdersDAO);
+        DbProxyUtils.getInstance().setUserOrdersProxy(userOrdersDAOProxy);
+        UserOrdersManager m2 = new UserOrdersManager();
+        m2.startOrdersThreads();
+
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
-        UserTradesManager m1 = new UserTradesManager();
-        m1.startUserTradesThreads();
+        UserTradesManager m3 = new UserTradesManager();
+        m3.startUserTradesThreads();
         
      
     }
