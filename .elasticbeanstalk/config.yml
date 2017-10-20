@@ -1,0 +1,16 @@
+branch-defaults:
+  master:
+    environment: staging-env
+deploy:
+  artifact: target/rhizome-coins.zip
+environment-defaults:
+  staging-env:
+    branch: null
+    repository: null
+global:
+  application_name: rhizome-coins
+  default_ec2_keyname: aws-eb-rhizome
+  default_platform: 64bit Amazon Linux 2017.03 v2.5.5 running Java 8
+  default_region: us-east-1
+  profile: rhizome
+  sc: git
