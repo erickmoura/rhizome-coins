@@ -4,7 +4,7 @@ import hk.rhizome.coins.marketdata.CurrencySetService;
 import hk.rhizome.coins.bot.CoinMarketCapPoller;
 import hk.rhizome.coins.bot.MarketDataPoller;
 import hk.rhizome.coins.logger.AppLogger;
-
+import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 
 /**
@@ -25,14 +25,17 @@ public class MarketDataManager {
         int i = 0;
         for(CurrencyPair currencyPair : CurrencySetService.getCurrencySet())
         {
-            for(String key : ExchangeUtils.getInstance().getExchangeClassNames()) {
+            for(Exchange exchange : ExchangeUtils.getInstance().getBotExchanges()) {
 
                 try {
-                    int exchange_polling = (int) (ExchangeUtils.getInstance().getExchangePollingRate(key) == null ? POLLING_PERIOD : 60/(0.9*ExchangeUtils.getInstance().getExchangePollingRate(key)));
-                    MarketDataPoller marketDataPoller = new MarketDataPoller(ExchangeUtils.getInstance().getExchange(key),currencyPair);
+                    String xchangeName = exchange.getExchangeSpecification().getExchangeName();
+                    
+                    int exchange_polling = (int) (ExchangeUtils.getInstance().getExchangePollingRate(xchangeName) == null ? POLLING_PERIOD : 60/(0.9*ExchangeUtils.getInstance().getExchangePollingRate(xchangeName)));
+                    MarketDataPoller marketDataPoller = new MarketDataPoller(ExchangeUtils.getInstance().getExchange(xchangeName),currencyPair);
                     marketDataPoller.startPolling(i, exchange_polling);
                 } catch (Exception e) {
-                		AppLogger.getLogger().error("Error in MarketDataManager in startDataMarketThreads : " + e.getLocalizedMessage());
+                        AppLogger.getLogger().error("Error in MarketDataManager in startDataMarketThreads : " + e.getLocalizedMessage());
+                        e.printStackTrace();
                 }
             }
             i++;
