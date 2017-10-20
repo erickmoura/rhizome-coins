@@ -5,4 +5,5 @@
     <include file="migrations/create_user.sql"/>
     <include file="migrations/create_exchange.sql" />
     <include file="migrations/create_coins.sql" />
+    <include file="migrations/create_user_balances_orders.sql" />
 </databaseChangeLog>
