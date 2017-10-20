@@ -6,8 +6,6 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import javax.print.DocFlavor.STRING;
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
