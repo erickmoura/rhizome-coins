@@ -2,9 +2,9 @@ package hk.rhizome.coins.exchanges;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.Map;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CoinMarketCapTicker {
@@ -27,6 +27,7 @@ public class CoinMarketCapTicker {
   private BigDecimal percentChange7d;
   private Date lastUpdated; 
 
+  @JsonCreator
   public CoinMarketCapTicker(@JsonProperty("id") String id, @JsonProperty("name") String name, 
                             @JsonProperty("symbol") String symbol, @JsonProperty("rank") int rank,
                             @JsonProperty("price_usd") BigDecimal priceUSD, @JsonProperty("price_btc") BigDecimal priceBTC,
@@ -52,15 +53,15 @@ public class CoinMarketCapTicker {
     this.lastUpdated = new Date(lastUpdated*1000);
   }
 
-  public CoinMarketCapTicker(@JsonProperty("exchange") String exchangeName, @JsonProperty("id") String id, @JsonProperty("name") String name,
-                              @JsonProperty("symbol") String symbol, @JsonProperty("rank") int rank,
-                              @JsonProperty("price_usd") BigDecimal priceUSD, @JsonProperty("price_btc") BigDecimal priceBTC,
-                              @JsonProperty("24h_volume_usd") BigDecimal t4hvolumeUSD, @JsonProperty("market_cap_usd") BigDecimal marketCapUSD,
-                              @JsonProperty("available_supply") BigDecimal availableSupply,
-                              @JsonProperty("total_supply") BigDecimal totalSupply,
-                              @JsonProperty("percent_change_1h") BigDecimal percentChange1h,
-                              @JsonProperty("percent_change_24h") BigDecimal percentChange24h,
-                              @JsonProperty("percent_change_7d") BigDecimal percentChange7d, @JsonProperty("last_updated") Long lastUpdated) {
+  public CoinMarketCapTicker(String exchangeName, String id, String name,
+                              String symbol, int rank,
+                              BigDecimal priceUSD, BigDecimal priceBTC,
+                              BigDecimal t4hvolumeUSD, BigDecimal marketCapUSD,
+                              BigDecimal availableSupply,
+                              BigDecimal totalSupply,
+                              BigDecimal percentChange1h,
+                              BigDecimal percentChange24h,
+                              BigDecimal percentChange7d, Long lastUpdated) {
 
     this.exchange = exchangeName;
     this.id = id;
@@ -94,6 +95,13 @@ public class CoinMarketCapTicker {
     this.percentChange24h = (BigDecimal)data.get("percent_change_24h");;
     this.percentChange7d = (BigDecimal)data.get("percent_change_7d");;
     this.lastUpdated = (Date)data.get("last_updated");;
+  }
+
+  public String getExchange(){
+    return this.exchange;
+  }
+  public void setExchange(String exchange){
+    this.exchange = exchange;
   }
 
   public String getId(){
