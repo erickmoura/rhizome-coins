@@ -1,0 +1,22 @@
+<assembly>
+<formats>
+  <format>zip</format>
+</formats>
+
+<fileSets>
+  <fileSet>
+    <outputDirectory>.</outputDirectory>
+    <includes>
+      <include>config.yml</include>
+      <include>Procfile</include>
+    </includes>
+  </fileSet>
+  <fileSet>
+    <directory>target</directory>
+    <outputDirectory>.</outputDirectory>
+    <includes>
+      <include>rhizome-coins.jar</include>
+    </includes>
+  </fileSet>
+</fileSets>
+</assembly>
