@@ -8,7 +8,6 @@ import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.*;
 import hk.rhizome.coins.resources.CoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
-import hk.rhizome.coins.resources.UserOrdersResources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
