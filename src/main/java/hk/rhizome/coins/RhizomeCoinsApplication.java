@@ -132,6 +132,14 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m3 = new UserTradesManager();
         m3.startUserTradesThreads();
+        UsersResources usersResources = new UsersResources(usersDAO, userOrdersDAO);
+        try {
+            environment.jersey().register(usersResources);
+        }
+        catch(Exception ex){
+            AppLogger.getLogger().error("Unable to getExchanges " + ex.getLocalizedMessage());
+            ex.printStackTrace();
+        }
         
      
     }

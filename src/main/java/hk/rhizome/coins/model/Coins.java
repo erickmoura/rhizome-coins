@@ -7,7 +7,9 @@ import javax.persistence.*;
 @Table(name = "coins")
 @NamedQueries({
     @NamedQuery(name = "hk.rhizome.coins.model.Coins.findAll",
-            query = "from Coins")
+            query = "from Coins"),
+    @NamedQuery(name = "hk.rhizome.coins.model.Coins.findByName",
+            query = "from Coins where name = :name")
 })
 public class Coins {
     
