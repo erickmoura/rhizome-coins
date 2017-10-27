@@ -12,24 +12,18 @@ import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.Order;
 import com.amazonaws.services.kinesisfirehose.model.*;
-import hk.rhizome.coins.ExchangeUtils;
-import hk.rhizome.coins.RhizomeCoinsConfiguration;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import hk.rhizome.coins.marketdata.TradingFeePair;
-import hk.rhizome.coins.model.UserExchanges;
 import hk.rhizome.coins.KinesisGateway;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import static org.mockito.Mockito.mock;
 
 public class MarketDataPollerTest {
 	
