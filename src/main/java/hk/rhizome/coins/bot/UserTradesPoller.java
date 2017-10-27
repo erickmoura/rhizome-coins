@@ -3,22 +3,15 @@ package hk.rhizome.coins.bot;
 import hk.rhizome.coins.KinesisGateway;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CurrencySetService;
-import hk.rhizome.coins.marketdata.ExchangeTicker;
-import hk.rhizome.coins.marketdata.MarketDepth;
+import hk.rhizome.coins.model.UserExchanges;
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.dto.trade.UserTrades;
-import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.service.trade.TradeService;
-import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
 import org.knowm.xchange.utils.CertHelper;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -71,7 +64,7 @@ public class UserTradesPoller implements Runnable  {
 
 
             UserTrades userTrades = tradeService.getTradeHistory(params);
-
+            
             for(UserTrade trade : userTrades.getUserTrades()){
                 //Feed index
                 kinesisGateway.sendUserTrade(trade);

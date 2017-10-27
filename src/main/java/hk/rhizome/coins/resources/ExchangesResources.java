@@ -1,51 +1,32 @@
 package hk.rhizome.coins.resources;
 
-import io.dropwizard.db.DataSourceFactory;
 import java.util.List;
-import java.util.Map;
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.PathParam;
 
+import hk.rhizome.coins.db.ExchangesDAO;
 import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.db.DataSourceUtil;
-import hk.rhizome.coins.db.QueryReader;
+import hk.rhizome.coins.model.Exchanges;
+import io.dropwizard.hibernate.UnitOfWork;
 
 
-public class ExchangesResources{
+@Path("/exchanges")
+@Produces(MediaType.APPLICATION_JSON)
+public class ExchangesResources {
     
-    DataSourceFactory dataSourceFactory;
-    QueryReader queryReader;
+    ExchangesDAO exchangesDAO;
 
-    public ExchangesResources(DataSourceFactory dataSourceFactory){
-        this.dataSourceFactory = dataSourceFactory;
-        this.queryReader = new QueryReader();
+    public ExchangesResources(ExchangesDAO exchangesDAO){
+        this.exchangesDAO = exchangesDAO;
     }
 
-    public List<Map<String, Object>> getExchanges() throws Exception {
-
-        List<Map<String, Object>> list;
-        Handle handle = null;
-        try {
-            AppLogger.getLogger().debug("Started getExchanges");
-
-            DBI databaseConnection = DataSourceUtil.getInstance().getConnection(this.dataSourceFactory, "getExchanges");
-            if (databaseConnection == null) {
-                AppLogger.getLogger().error("No able to use connection in ExchangesResources in getExchanges");
-                throw new Exception("No able to use connection in ExchangesResources in getExchanges");
-            }
-            handle = databaseConnection.open();
-            String sql = queryReader.getSQLExchanges();
-            list = handle.select(sql);
-
-            AppLogger.getLogger().debug("Finished getExchanges");
-        } catch (Exception ex) {
-            AppLogger.getLogger().error("Exception in ExchangesResources in getExchanges");
-            throw ex;
-        } finally {
-            if (handle != null) {
-                handle.close();
-            }
-        }
-        return list;
+    @GET
+    @UnitOfWork
+    public List<Exchanges> getExchanges() throws Exception{
+        AppLogger.getLogger().debug("Started getExchanges");
+        return this.exchangesDAO.findAll();
     }
 }

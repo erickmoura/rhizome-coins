@@ -16,7 +16,6 @@ import hk.rhizome.coins.marketdata.MarketDepth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.knowm.xchange.dto.Order;
-import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.trade.UserTrade;
 
 import java.io.IOException;

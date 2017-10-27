@@ -27,8 +27,8 @@ public class GenericTransfers {
   public GenericTransfers(Exchange exchange){
 
     this.exchangeId = exchange.getDefaultExchangeSpecification().getExchangeName();
-    if(this.accountServices.get(exchangeId) == null) {
-      this.accountServices.put(exchangeId, exchange.getAccountService());
+    if(accountServices.get(exchangeId) == null) {
+      accountServices.put(exchangeId, exchange.getAccountService());
     }
   }
 

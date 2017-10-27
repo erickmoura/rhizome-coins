@@ -1,89 +1,110 @@
 package hk.rhizome.coins;
 
-import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.TradingFeePair;
+import hk.rhizome.coins.model.Exchanges;
+import hk.rhizome.coins.model.UserExchanges;
+import hk.rhizome.coins.model.Users;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
 public class ExchangeUtils {
 
   private static ExchangeUtils singleton;
-  private Map<String, Exchange> exchangeSpecificationMap;
-  private Map<String, Integer> exchangePollingRate;
 
-  private ExchangeUtils(){
-    exchangeSpecificationMap = new HashMap<String,Exchange>();
-    exchangePollingRate = new HashMap<String, Integer>();
+  private List<Exchanges> exchanges;
+  private List<Exchange> botExchanges;
+
+  private ExchangeUtils() {
+    botExchanges = new ArrayList<Exchange>();
   }
 
-  public static ExchangeUtils getInstance(){
-    if (singleton == null){
+  public void initialize() {
+    exchanges =  DbProxyUtils.getInstance().getExchangesProxy().getAllExchanges();
+    Users botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
+    createBotData(botUser, DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
+  }
+
+  public List<Exchanges> AllExchanges(){
+    return this.exchanges;
+  }
+
+  public static ExchangeUtils getInstance() {
+    if (singleton == null) {
       singleton = new ExchangeUtils();
 
     }
     return singleton;
   }
 
-  public void setExchangeMap(Map<String, Map<String, String>> exchangeMap){
-    for(String exchangeClassName : exchangeMap.keySet()){
-      ExchangeSpecification spec = new ExchangeSpecification(exchangeClassName);
-
-      spec.setApiKey(exchangeMap.get(exchangeClassName).get("key"));
-      spec.setSecretKey(exchangeMap.get(exchangeClassName).get("secret"));
-
-      FeesMatrix.setFeesMatrix(
-              exchangeMap.get(exchangeClassName).get("name"),
-              new TradingFeePair(
-                      new BigDecimal(exchangeMap.get(exchangeClassName).get("maker")),
-                      new BigDecimal(exchangeMap.get(exchangeClassName).get("taker")))
-              );
-
-      try{
-        exchangeSpecificationMap.put(exchangeClassName, ExchangeFactory.INSTANCE.createExchange(spec));
-      }
-      catch(Exception e)
-      {
-        AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
- 
+  private void createBotData(Users u, List<UserExchanges> userExchanges) {
+    for (Exchanges ex : exchanges) {
+      for (UserExchanges ue : userExchanges) {
+        if (ex.getID() == ue.getExchangeID()) {
+          
+          ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
+          spec.setApiKey(ue.getKey());
+          spec.setSecretKey(ue.getSecret());
+          FeesMatrix.setFeesMatrix(ex.getXchangeName(), new TradingFeePair(ex.getMaker(), ex.getTaker()));
+          
+          botExchanges.add(ExchangeFactory.INSTANCE.createExchange(spec));
+        }
       }
     }
   }
 
-  public void setExchanges(List<Map<String, Object>> exchanges){
-    for(Map<String, Object> exchange : exchanges){
-      ExchangeSpecification spec = new ExchangeSpecification((String)exchange.get("xchange_name"));
-      
-      spec.setApiKey((String)exchange.get("p_key"));
-      spec.setSecretKey((String)exchange.get("secret"));
-      FeesMatrix.setFeesMatrix(
-        (String)exchange.get("exchange_name"),
-        new TradingFeePair(
-                new BigDecimal((Float)exchange.get("maker")),
-                new BigDecimal((Float)exchange.get("taker")))
-        );
-      exchangeSpecificationMap.put((String)exchange.get("xchange_name"), ExchangeFactory.INSTANCE.createExchange(spec));
-      exchangePollingRate.put((String)exchange.get("xchange_name"), (Integer)exchange.get("polling_rate"));
-      
+  public Set<String> getExchangeClassNames() {
+    Set<String> xchanges = new HashSet<String>();
+    for (Exchanges ex : exchanges) {
+      xchanges.add(ex.getXchangeName());
     }
+    return xchanges;
   }
 
-  public Set<String> getExchangeClassNames(){
-    return exchangeSpecificationMap.keySet();
-  }
-
+  /*
+  * return the xchange exchange
+  */
   public Exchange getExchange(String exchangeClassName) {
-    return exchangeSpecificationMap.get(exchangeClassName);
+    
+    for (Exchanges ex : exchanges) {
+      if (ex.getExchangeName().compareTo(exchangeClassName) == 0) {
+        ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
+        return ExchangeFactory.INSTANCE.createExchange(spec);
+      }
+    }
+    return null;
   }
 
-  public Integer getExchangePollingRate(String exchangeClassName){
-    return exchangePollingRate.get(exchangeClassName);
+  public List<Exchange> getBotExchanges() {
+    return this.botExchanges;
+  }
+
+  public Integer getExchangePollingRate(String exchangeClassName) {
+    for (Exchanges ex : exchanges) {
+      if (ex.getXchangeName().equals(exchangeClassName)) {
+        return ex.getPollingRate();
+      }
+    }
+    return null;
+  }
+
+  public Exchange getExchange(UserExchanges ue) {
+    for (Exchanges ex : exchanges) {
+      if (ex.getID() == ue.getExchangeID()) {
+        ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
+        spec.setApiKey(ue.getKey());
+        spec.setSecretKey(ue.getSecret());
+        FeesMatrix.setFeesMatrix(ex.getXchangeName(), new TradingFeePair(ex.getMaker(), ex.getTaker()));
+        return ExchangeFactory.INSTANCE.createExchange(spec);
+      }
+    }
+    return null;
   }
 }

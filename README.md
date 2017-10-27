@@ -21,7 +21,7 @@ AWS console
 
 ## Running pending migrations 
  
-Run `java -jar target/RhizomeCoins-jar-with-dependencies.jar db migrate config.yml` 
+Run `java -jar target/rhizome-coins.jar db migrate config.yml` 
  
 ## Running the tests 
  

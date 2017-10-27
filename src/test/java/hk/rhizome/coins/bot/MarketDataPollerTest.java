@@ -6,19 +6,19 @@ import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.Order;
 import com.amazonaws.services.kinesisfirehose.model.*;
-import hk.rhizome.coins.ExchangeUtils;
-import hk.rhizome.coins.RhizomeCoinsConfiguration;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
+import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.MarketDepth;
+import hk.rhizome.coins.marketdata.TradingFeePair;
 import hk.rhizome.coins.KinesisGateway;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,28 +31,24 @@ public class MarketDataPollerTest {
 	public void testCollectTicket() throws Exception {
 		
 		try {
-			RhizomeCoinsConfiguration config = getRhizomeCoinsConfiguration();
-			ExchangeUtils.getInstance().setExchangeMap(config.getExchanges());
 			CurrencyPair currencyPair = CurrencyPair.XRP_BTC;
 			
-			for(String key : config.getExchanges().keySet())
-			{
-				Exchange exchange = ExchangeUtils.getInstance().getExchange(key);
-				String exchangeId = exchange.getDefaultExchangeSpecification().getExchangeName();
-				
-				MarketDataService service =  exchange.getMarketDataService();
-				// Collect Ticker data
-				ExchangeTicker ticker = new ExchangeTicker(exchangeId, service.getTicker(currencyPair));
-				System.out.println(ticker);
-				
-				//getVwap always return null
-				String[] nameMethod = {"getCurrencyPair", "getLast", "getBid", "getAsk", "getHigh", "getLow", "getVolume", "getExchange"};
-				for(String nameM : nameMethod) {
-					Method m = ExchangeTicker.class.getMethod(nameM);
-					if (m.invoke(ticker) == null)
-							throw new Exception("Field " + nameM  + " is null");
-				}
+			Exchange exchange = getExchangeTest(); 
+			String exchangeId = exchange.getDefaultExchangeSpecification().getExchangeName();
+			
+			MarketDataService service =  exchange.getMarketDataService();
+			// Collect Ticker data
+			ExchangeTicker ticker = new ExchangeTicker(exchangeId, service.getTicker(currencyPair));
+			System.out.println(ticker);
+			
+			//getVwap always return null
+			String[] nameMethod = {"getCurrencyPair", "getLast", "getBid", "getAsk", "getHigh", "getLow", "getVolume", "getExchange"};
+			for(String nameM : nameMethod) {
+				Method m = ExchangeTicker.class.getMethod(nameM);
+				if (m.invoke(ticker) == null)
+						throw new Exception("Field " + nameM  + " is null");
 			}
+		
 		}catch(Exception ex){
 			ex.printStackTrace()	;
 			throw ex;
@@ -63,26 +59,22 @@ public class MarketDataPollerTest {
 	public void testCollectOrder() throws Exception{
 		try {
 
-			RhizomeCoinsConfiguration config = getRhizomeCoinsConfiguration();
-			ExchangeUtils.getInstance().setExchangeMap(config.getExchanges());
 			CurrencyPair currencyPair = CurrencyPair.XRP_BTC;
 			
-			for(String key : config.getExchanges().keySet())
-			{
-				Exchange exchange = ExchangeUtils.getInstance().getExchange(key);
-				
-				MarketDataService service =  exchange.getMarketDataService();
-				// Collect Order data
-				OrderBook orderBook = service.getOrderBook(currencyPair);
-				System.out.println(orderBook);
-				
-				String[] nameMethod = {"getAsks", "getBids"};
-				for(String nameM : nameMethod) {
-					Method m = OrderBook.class.getMethod(nameM);
-					if (m.invoke(orderBook) == null)
-							throw new Exception("Field " + nameM  + " is null");
-				}
+			Exchange exchange = getExchangeTest();
+			
+			MarketDataService service =  exchange.getMarketDataService();
+			// Collect Order data
+			OrderBook orderBook = service.getOrderBook(currencyPair);
+			System.out.println(orderBook);
+			
+			String[] nameMethod = {"getAsks", "getBids"};
+			for(String nameM : nameMethod) {
+				Method m = OrderBook.class.getMethod(nameM);
+				if (m.invoke(orderBook) == null)
+						throw new Exception("Field " + nameM  + " is null");
 			}
+			
 		}catch(Exception ex){
 			ex.printStackTrace()	;
 			throw ex;
@@ -148,34 +140,13 @@ public class MarketDataPollerTest {
 		Assert.assertNotNull(res.getRecordId());
 		
 	}
-
 	
+	public Exchange getExchangeTest(){
+		ExchangeSpecification spec = new ExchangeSpecification("org.knowm.xchange.anx.v2.ANXExchange");
+        spec.setApiKey("key");
+        spec.setSecretKey("secret");
+        FeesMatrix.setFeesMatrix("org.knowm.xchange.anx.v2.ANXExchange", new TradingFeePair(new BigDecimal(0.3), new BigDecimal(0.6)));
+        return ExchangeFactory.INSTANCE.createExchange(spec);
+	}
 	
-	public RhizomeCoinsConfiguration getRhizomeCoinsConfiguration(){
-		RhizomeCoinsConfiguration config = new RhizomeCoinsConfiguration();
-		config.setExchanges(getExhangesConfiguration());
-		config.setLogging(getLogging());
-		return config; 
-	}
-
-	public Map<String, Map<String, String>> getExhangesConfiguration(){
-		Map<String, Map<String, String>> exchanges = new HashMap<String, Map<String, String>>();
-		
-		Map<String, String> infoExchanges = new HashMap<String, String>();
-		infoExchanges.put("name", "ANXPRO");
-		infoExchanges.put("key", "cKRtsNcqoExTuvoGwueY");
-		infoExchanges.put("secret", "yQhVerrjBZZjFtRvazmo");
-		infoExchanges.put("taker", "0.6");
-		infoExchanges.put("maker", "0.3");
-		exchanges.put("org.knowm.xchange.anx.v2.ANXExchange", infoExchanges);
-		return exchanges;
-	}
-
-	public Map<String, String> getLogging(){
-		Map<String, String> infoLog = new HashMap<String, String>();
-		infoLog.put("level", "ERROR");
-		
-		return infoLog;
-	}
-
 }

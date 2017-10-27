@@ -1,13 +1,8 @@
 package hk.rhizome.coins.account;
 
 import org.knowm.xchange.currency.Currency;
-import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.account.Balance;
-import org.knowm.xchange.dto.marketdata.Ticker;
-import org.knowm.xchange.utils.DateUtils;
-
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * Created by erickmoura on 12/8/2017.

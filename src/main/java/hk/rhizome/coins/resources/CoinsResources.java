@@ -1,51 +1,40 @@
 package hk.rhizome.coins.resources;
 
-import io.dropwizard.db.DataSourceFactory;
 import java.util.List;
-import java.util.Map;
-import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
-
+import java.util.Optional;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import hk.rhizome.coins.db.CoinsDAO;
 import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.db.DataSourceUtil;
-import hk.rhizome.coins.db.QueryReader;
+import hk.rhizome.coins.model.Coins;
+import io.dropwizard.hibernate.UnitOfWork;
 
-
+@Path("/coins")
+@Produces(MediaType.APPLICATION_JSON)
 public class CoinsResources{
     
-    DataSourceFactory dataSourceFactory;
-    QueryReader queryReader;
-
-    public CoinsResources(DataSourceFactory dataSourceFactory){
-        this.dataSourceFactory = dataSourceFactory;
-        this.queryReader = new QueryReader();
+    CoinsDAO coinsDAO;
+    public CoinsResources(CoinsDAO coinsDAO){
+        this.coinsDAO = coinsDAO;
     }
 
-    public List<Map<String, Object>> getCoins() throws Exception {
-
-        List<Map<String, Object>> list;
-        Handle handle = null;
-        try {
-            AppLogger.getLogger().debug("Started getCoins");
-
-            DBI databaseConnection = DataSourceUtil.getInstance().getConnection(this.dataSourceFactory, "getCoins");
-            if (databaseConnection == null) {
-                AppLogger.getLogger().error("No able to use connection in CoinsResources in getCoins");
-                throw new Exception("No able to use connection in CoinsResources in getCoins");
-            }
-            handle = databaseConnection.open();
-            String sql = queryReader.getSQLCoins();
-            list = handle.select(sql);
-            
-            AppLogger.getLogger().debug("Finished getCoins");
-        } catch (Exception ex) {
-            AppLogger.getLogger().error("Exception in CoinsResources in getCoins");
-            throw ex;
-        } finally {
-            if (handle != null) {
-                handle.close();
-            }
-        }
-        return list;
+    @GET
+    @UnitOfWork
+    public List<Coins> getCoins() throws Exception {
+        AppLogger.getLogger().debug("Started get all coins");
+        return this.coinsDAO.findAll();
     }
+
+    @GET
+    @UnitOfWork
+    @Path("/{name}")
+    public Coins getCoinsByName(@PathParam("name") String name) throws Exception {
+        AppLogger.getLogger().debug("Started get coin by name");
+        return this.coinsDAO.findByName(name);
+    }
+    
 }
