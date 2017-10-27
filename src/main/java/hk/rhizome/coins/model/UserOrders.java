@@ -51,6 +51,10 @@ public class UserOrders {
     @Column(name = "order_date")
     Date orderDate;
 
+    public UserOrders(){
+        
+    }
+
     public UserOrders(String orderID, int userID, int exchangeID, String currency, String orderType, String orderStatus, BigDecimal tradableAmount, BigDecimal cumlativeAmount, BigDecimal averagePrice,  Date orderDate){
         this.orderID = orderID;
         this.userID = userID;
