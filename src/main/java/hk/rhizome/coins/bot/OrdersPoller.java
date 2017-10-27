@@ -11,8 +11,10 @@ import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.utils.CertHelper;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -54,8 +56,9 @@ public class OrdersPoller implements Runnable  {
     }
 
 
-    private void generic() throws Exception {
+    private List<UserOrders> generic() throws Exception {
         try {
+            List<UserOrders> listOrders = new ArrayList<UserOrders>();
             
             OrderBook orderBook = dataServices.get(exchangeName).getOrderBook(currencyPair);
             System.out.println("*******************");
@@ -66,6 +69,7 @@ public class OrdersPoller implements Runnable  {
                                                 order.getStatus().toString(), order.getTradableAmount(),
                                                 order.getCumulativeAmount(), order.getAveragePrice(), order.getTimestamp());
                     DbProxyUtils.getInstance().getUserOrdersProxy().create(o);
+                    listOrders.add(o);
                 }
             }
             for(LimitOrder order : orderBook.getBids()){
@@ -75,17 +79,23 @@ public class OrdersPoller implements Runnable  {
                                                 order.getStatus().toString(), order.getTradableAmount(),
                                                 order.getCumulativeAmount(), order.getAveragePrice(), order.getTimestamp());
                     DbProxyUtils.getInstance().getUserOrdersProxy().create(o);
+                    listOrders.add(o);
                 }
             }
             
             //userExchanges.setLastUpdatedOrders(endDate);
             //DbProxyUtils.getInstance().getUserExchangesProxy().update(userExchanges);
+            return listOrders;
             
         } catch (Exception e) {
             e.printStackTrace();
             AppLogger.getLogger().error("Failed to poll orders ", e);
             throw(e);
         }
+    }
+
+    public List<UserOrders> pollManually() throws Exception {
+        return generic();
     }
 
 
@@ -109,4 +119,5 @@ public class OrdersPoller implements Runnable  {
             e.printStackTrace();
         }
     }
+
 }

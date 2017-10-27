@@ -13,7 +13,11 @@ import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
 import org.knowm.xchange.utils.CertHelper;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -55,8 +59,9 @@ public class BalancesPoller implements Runnable  {
     }
 
 
-    private void generic() throws Exception {
+    private List<UserBalances> generic() throws Exception {
         try {
+            List<UserBalances> list = new ArrayList<UserBalances>();
             
             TradeHistoryParamsAll params = new TradeHistoryParamsAll();
             Date endDate = new Date();
@@ -69,17 +74,21 @@ public class BalancesPoller implements Runnable  {
 
             for(Currency currency : accountInfo.getWallet().getBalances().keySet()){
                 Balance balance = accountInfo.getWallet().getBalances().get(currency);
-                UserBalances userBalances = new UserBalances(userExchanges.getUserID(), userExchanges.getExchangeID(), 
-                                        currency.getCurrencyCode(),
-                                        balance.getTotal(), balance.getAvailable(), balance.getFrozen(),
-                                        balance.getLoaned(), balance.getBorrowed(), balance.getWithdrawing(),
-                                        balance.getDepositing());
-                
-                DbProxyUtils.getInstance().getUserBalancesProxy().create(userBalances);
+                if(balance.getTotal() != BigDecimal.ZERO) {
+                    UserBalances userBalances = new UserBalances(userExchanges.getUserID(), userExchanges.getExchangeID(), 
+                                            currency.getCurrencyCode(),
+                                            balance.getTotal(), balance.getAvailable(), balance.getFrozen(),
+                                            balance.getLoaned(), balance.getBorrowed(), balance.getWithdrawing(),
+                                            balance.getDepositing(), endDate);
+                    DbProxyUtils.getInstance().getUserBalancesProxy().create(userBalances);
+                    list.add(userBalances);
+                }
 
             }
             userExchanges.setLastUpdatedBalances(endDate);
             DbProxyUtils.getInstance().getUserExchangesProxy().update(userExchanges);
+
+            return list;
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,6 +97,9 @@ public class BalancesPoller implements Runnable  {
         }
     }
 
+    public List<UserBalances> pollManually() throws Exception {
+        return generic();
+    }
 
     public BalancesPoller(UserExchanges userExchanges, Exchange exchange){
 

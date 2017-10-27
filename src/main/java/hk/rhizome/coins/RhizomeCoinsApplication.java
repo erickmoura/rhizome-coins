@@ -8,6 +8,7 @@ import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.*;
 import hk.rhizome.coins.resources.CoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
+import hk.rhizome.coins.resources.UsersResources;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -111,33 +112,34 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         //Start Collection Bots...
         AppLogger.getLogger().info("Start collections bots...");
         MarketDataManager m = new MarketDataManager();
-        m.startCoinMarketPoller();
-        m.startDataMarketThreads();
+        //m.startCoinMarketPoller();
+        //m.startDataMarketThreads();
 
         //BALANCES
         UserBalancesDAO userBalancesDAO = new UserBalancesDAO(hibernate.getSessionFactory());
         UserBalancesDAOProxy userBalancesDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserBalancesDAOProxy.class, UserBalancesDAO.class, userBalancesDAO);
         DbProxyUtils.getInstance().setUserBalancesProxy(userBalancesDAOProxy);
         UserBalancesManager m1 = new UserBalancesManager();
-        m1.startBalancesThreads();
+        //m1.startBalancesThreads();
 
         //ORDERS
         UserOrdersDAO userOrdersDAO = new UserOrdersDAO(hibernate.getSessionFactory());
         UserOrdersDAOProxy userOrdersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserOrdersDAOProxy.class, UserOrdersDAO.class, userOrdersDAO);
         DbProxyUtils.getInstance().setUserOrdersProxy(userOrdersDAOProxy);
         UserOrdersManager m2 = new UserOrdersManager();
-        m2.startOrdersThreads();
+        // m2.startOrdersThreads();
 
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m3 = new UserTradesManager();
-        m3.startUserTradesThreads();
-        UsersResources usersResources = new UsersResources(usersDAO, userOrdersDAO);
+        //m3.startUserTradesThreads();
+
+        UsersResources usersResources = new UsersResources(usersDAO, userExchangesDAO);
         try {
             environment.jersey().register(usersResources);
         }
         catch(Exception ex){
-            AppLogger.getLogger().error("Unable to getExchanges " + ex.getLocalizedMessage());
+            AppLogger.getLogger().error("Unable to register Users Resources " + ex.getLocalizedMessage());
             ex.printStackTrace();
         }
         
