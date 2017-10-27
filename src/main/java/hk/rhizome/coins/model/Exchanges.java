@@ -10,7 +10,7 @@ import javax.persistence.*;
     @NamedQuery(name = "hk.rhizome.coins.model.Exchanges.findAll",
             query = "from Exchanges"),
             @NamedQuery(name = "hk.rhizome.coins.model.Exchanges.getByID",
-            query = "from Exchanges where id like :id" )
+            query = "from Exchanges where id = :id" )
 })
 public class Exchanges {
     

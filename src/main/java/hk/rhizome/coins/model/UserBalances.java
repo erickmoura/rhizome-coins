@@ -49,12 +49,15 @@ public class UserBalances {
     @Column(name = "depositing")
     BigDecimal depositing;
 
+    @Column(name = "collect_date")
+    Date collectDate;
+
     
     public UserBalances(){
 
     }
     
-    public UserBalances(int userID, int exchangeID, String currencyCode, BigDecimal total, BigDecimal available,  BigDecimal frozen, BigDecimal loaned, BigDecimal borrowed, BigDecimal withdrawing, BigDecimal depositing){
+    public UserBalances(int userID, int exchangeID, String currencyCode, BigDecimal total, BigDecimal available,  BigDecimal frozen, BigDecimal loaned, BigDecimal borrowed, BigDecimal withdrawing, BigDecimal depositing, Date collectDate){
         this.userID = userID;
         this.exchangeID = exchangeID;
         this.currencyCode = currencyCode;
@@ -65,6 +68,7 @@ public class UserBalances {
         this.borrowed = borrowed;
         this.withdrawing = withdrawing;
         this.depositing = depositing;
+        this.collectDate = collectDate;
     }
 
     
@@ -105,6 +109,9 @@ public class UserBalances {
     }
     public BigDecimal getDepositing(){
         return this.depositing;
+    }
+    public Date getCollectDate(){
+        return this.collectDate;
     }
     
 }
