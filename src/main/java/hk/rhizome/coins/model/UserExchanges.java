@@ -20,9 +20,15 @@ public class UserExchanges {
     @Id
     int id;
 
+    //TODO: Omaida, see the right way to make mappings/relationships and avoid
+    //cumbersome Util methods, line in ExchangeUtils
+    @ManyToOne(targetEntity=Exchanges.class)
+    @JoinColumn(name="id", nullable=false)
     @Column(name = "user_id")
     int userID;
     
+    @ManyToOne(targetEntity=Exchanges.class)
+    @JoinColumn(name="id", nullable=false)
     @Column(name = "exchange_id")
     int exchangeID;
     

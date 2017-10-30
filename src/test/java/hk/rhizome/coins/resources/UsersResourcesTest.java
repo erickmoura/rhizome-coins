@@ -45,7 +45,7 @@ public class UsersResourcesTest {
         UsersResources resources = new UsersResources(usersDAO, usersExchangesDAO);
         when(usersDAO.getBalances(userID, collectD)).thenReturn(mockedBalances);
         
-        Map<String, List<UserBalances>> data = resources.getBalances(collect, Optional.empty());
+        Map<String, List<UserBalances>> data = resources.getBalances(collect,Optional.empty());
         Assert.assertEquals(data.keySet().size(), 1);
         Assert.assertEquals(mockedBalances, data.get("Poloniex"));
         Assert.assertEquals(data.get("Poloniex").size(), 1);

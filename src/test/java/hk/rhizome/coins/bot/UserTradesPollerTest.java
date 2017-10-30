@@ -26,7 +26,7 @@ import java.util.Set;
 public class UserTradesPollerTest {
     
 
-    @Test
+    //@Test
     public void sendUserTrade() throws Exception {
 
         TradeHistoryParamsAll params = new TradeHistoryParamsAll();
@@ -53,11 +53,11 @@ public class UserTradesPollerTest {
     
    
     public Exchange getExchangeTest(){
-		ExchangeSpecification spec = new ExchangeSpecification("org.knowm.xchange.poloniex.PoloniexExchange");
+	ExchangeSpecification spec = new ExchangeSpecification("org.knowm.xchange.poloniex.PoloniexExchange");
         spec.setApiKey("0YLYH5CW-ZFBDX4T6-0V74ZN74-D5BW5LBV");
         spec.setSecretKey("7c565d4e144fdcf8f707ece71a68a377980ceafa6a66757121fefa2a1db8942d4a0a217263808bec0922be571de7835b39c4ba6ebbe1ae005bf642223ee26526");
         FeesMatrix.setFeesMatrix("org.knowm.xchange.poloniex.PoloniexExchange", new TradingFeePair(new BigDecimal(0.3), new BigDecimal(0.6)));
         return ExchangeFactory.INSTANCE.createExchange(spec);
-	}
+    }
 
 }

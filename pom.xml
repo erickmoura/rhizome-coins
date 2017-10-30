@@ -1,325 +1,361 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rhizome-coins</artifactId>
+	<artifactId>rhizome-coins</artifactId>
 
-    <name>Rhizome Coins</name>
-    <description>Fetches Market Data from Multiple Exchanges</description>
+	<name>Rhizome Coins</name>
+	<description>Fetches Market Data from Multiple Exchanges</description>
 
-    <groupId>hk.rhizome.coins</groupId>
-    <version>0.1</version>
-    <packaging>jar</packaging>
+	<groupId>hk.rhizome.coins</groupId>
+	<version>0.1</version>
+	<packaging>jar</packaging>
 
-    <url>http://rhizome.hk/portfolio</url>
-    <inceptionYear>2017</inceptionYear>
+	<url>http://rhizome.hk/portfolio</url>
+	<inceptionYear>2017</inceptionYear>
 
-    <organization>
-        <name>Rhizome Technologies Ltd.</name>
-        <url>http://rhizome.hk</url>
-    </organization>
-
-
-    <properties>
-        <jdk.version>1.8</jdk.version>
-        <dropwizard.version>1.1.2</dropwizard.version>
-        <!--<maven.test.skip>true</maven.test.skip>-->
-    </properties>
+	<organization>
+		<name>Rhizome Technologies Ltd.</name>
+		<url>http://rhizome.hk</url>
+	</organization>
 
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-bom</artifactId>
-                <version>1.11.106</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- Parent provides default configuration for dependencies -->
-    <dependencies>
-
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-core</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-kinesis</artifactId>
-        </dependency>
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<dropwizard.version>1.1.2</dropwizard.version>
+		<!--<maven.test.skip>true</maven.test.skip> -->
+	</properties>
 
 
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.11</version>
-        </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-bom</artifactId>
+				<version>1.11.106</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-        <!-- XChange dependencies -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-core</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <!-- XChange Open Exchange Rates exchange support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-openexchangerates</artifactId>
-            <version>4.2.1</version>
-        </dependency>
+	<!-- Parent provides default configuration for dependencies -->
+	<dependencies>
 
-        <!-- XChange ANX exchange support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-anx</artifactId>
-            <version>4.2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-core</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
 
-        <!-- XChange Gatecoin exchange support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-gatecoin</artifactId>
-            <version>4.2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-kinesis</artifactId>
+		</dependency>
 
-        <!-- XChange Poloniex exchange support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-poloniex</artifactId>
-            <version>4.2.1</version>
-        </dependency>
 
-        <!-- XChange Bittrex exchange support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-bittrex</artifactId>
-            <version>4.2.1</version>
-        </dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.11</version>
+		</dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.knowm.xchart</groupId>
-            <artifactId>xchart</artifactId>
-            <version>3.3.0</version>
-        </dependency>
+		<!-- XChange dependencies -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-core</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<!-- XChange Open Exchange Rates exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-openexchangerates</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-       <!-- XChange -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-ccex</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-livecoin</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-yobit</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        <!-- XChange DSX support -->
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-dsx</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-testing</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
+		<!-- XChange ANX exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-anx</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-        <dependency> 
-            <groupId>io.dropwizard</groupId> 
-            <artifactId>dropwizard-migrations</artifactId> 
-            <version>1.0.6</version> 
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.8.1</version>
-        </dependency>
+		<!-- XChange Gatecoin exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-gatecoin</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-        <dependency> 
-            <groupId>com.googlecode.json-simple</groupId> 
-            <artifactId>json-simple</artifactId> 
-            <version>1.1</version> 
-        </dependency> 
+		<!-- XChange Poloniex exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-poloniex</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-		
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.31</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.jdbi</groupId>
-            <artifactId>jdbi</artifactId>
-            <version>2.75</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-jdbi</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-migrations</artifactId>
-            <version>1.0.6</version>
-            <type>jar</type>
-        </dependency>
+		<!-- XChange Bittrex exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-bittrex</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-       <dependency>
-            <groupId>com.github.mmazi</groupId>
-            <artifactId>rescu</artifactId>
-            <version>1.9.0</version>
-        </dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.knowm.xchart</groupId>
+			<artifactId>xchart</artifactId>
+			<version>3.3.0</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
+		<!-- XChange -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-ccex</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-livecoin</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-yobit</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		<!-- XChange DSX support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-dsx</artifactId>
+			<version>4.2.1</version>
+		</dependency>
 
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-hibernate</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-testing</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
 
-    <build>
-        <finalName>RhizomeCoins</finalName>
-        <plugins>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-migrations</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.1</version>
+		</dependency>
 
-            <!-- download source code in Eclipse, best practice -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>false</downloadJavadocs>
-                </configuration>
-            </plugin>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 
-            <!-- Set a JDK compiler level -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                </configuration>
-            </plugin>
 
-            <!-- Make this jar executable -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <!-- DO NOT include log4j.properties file in your Jar -->
-                    <excludes>
-                        <exclude>**/log4j.properties</exclude>
-                    </excludes>
-                    <archive>
-                        <manifest>
-                            <!-- Jar file entry point -->
-                            <mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31</version>
+		</dependency>
 
-            <!-- Copy project dependency -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <!-- exclude junit, we need runtime dependency only -->
-                            <includeScope>runtime</includeScope>
-                            <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+		<dependency>
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi</artifactId>
+			<version>2.75</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-jdbi</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-migrations</artifactId>
+			<version>1.0.6</version>
+			<type>jar</type>
+		</dependency>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- Jar file entry point -->
-                            <mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
-                        </manifest>
-                    </archive>
-                    <finalName>rhizome-coins</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                  <descriptor>src/assembly/bin.xml</descriptor>
-                  <finalName>rhizome-coins</finalName>
-                </configuration>
-                <executions>
-                  <execution>
-                    <phase>package</phase>
-                    <goals>
-                      <goal>single</goal>
-                    </goals>
-                  </execution>
-                </executions>
-            </plugin>
+		<dependency>
+			<groupId>com.github.mmazi</groupId>
+			<artifactId>rescu</artifactId>
+			<version>1.9.0</version>
+		</dependency>
 
-        </plugins>
-    </build>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-hibernate</artifactId>
+			<version>${dropwizard.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>RhizomeCoins</finalName>
+		<plugins>
+
+			<!-- download source code in Eclipse, best practice -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+				</configuration>
+			</plugin>
+
+			<!-- Set a JDK compiler level -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<!-- Make this jar executable -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<!-- DO NOT include log4j.properties file in your Jar -->
+					<excludes>
+						<exclude>**/log4j.properties</exclude>
+					</excludes>
+					<archive>
+						<manifest>
+							<!-- Jar file entry point -->
+							<mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!-- Copy project dependency -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<!-- exclude junit, we need runtime dependency only -->
+							<includeScope>runtime</includeScope>
+							<outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<manifest>
+							<!-- Jar file entry point -->
+							<mainClass>hk.rhizome.coins.RhizomeCoinsApplication</mainClass>
+						</manifest>
+					</archive>
+					<finalName>rhizome-coins</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptor>src/assembly/bin.xml</descriptor>
+					<finalName>rhizome-coins</finalName>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>
+											[2.0,)
+										</versionRange>
+										<goals>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>

@@ -9,7 +9,7 @@ import hk.rhizome.coins.model.Users;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
-public class UsersDAO extends AbstractDAO<UsersDAO> {
+public class UsersDAO extends AbstractDAO<Users> {
     
     public UsersDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
@@ -23,6 +23,7 @@ public class UsersDAO extends AbstractDAO<UsersDAO> {
         return (Users)namedQuery("hk.rhizome.coins.model.Users.findByName").setParameter("name", name).uniqueResult();
     }
 
+    /*
     public List<UserBalances> getBalances(int userID, Date collectDate){
         return list(namedQuery("hk.rhizome.coins.model.Users.findBalances").
         setParameter("collect_date", collectDate).
@@ -40,5 +41,5 @@ public class UsersDAO extends AbstractDAO<UsersDAO> {
         return list(namedQuery("hk.rhizome.coins.model.Users.findExchanges").
         setParameter("user_id", userID));
     }
-    
+    */
 }

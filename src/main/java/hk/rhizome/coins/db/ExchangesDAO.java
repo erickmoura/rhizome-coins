@@ -6,7 +6,7 @@ import hk.rhizome.coins.model.Exchanges;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
-public class ExchangesDAO extends AbstractDAO<ExchangesDAO> {
+public class ExchangesDAO extends AbstractDAO<Exchanges> {
     
     public ExchangesDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
@@ -16,6 +16,11 @@ public class ExchangesDAO extends AbstractDAO<ExchangesDAO> {
         return list(namedQuery("hk.rhizome.coins.model.Exchanges.findAll"));
     }
 
+    public List<Exchanges> getExchangeByUserID(int userID){
+        return list(namedQuery("hk.rhizome.coins.model.Users.findExchanges").
+        setParameter("user_id", userID));
+    }
+    
     public List<Exchanges> getExchangeByID(long id){
         return list(namedQuery("hk.rhizome.coins.model.Exchanges.getByID"));
     }

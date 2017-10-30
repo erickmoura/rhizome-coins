@@ -41,15 +41,14 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
     public void initialize(Bootstrap<RhizomeCoinsConfiguration> bootstrap) {
     		//migrations
     		bootstrap.addBundle(new MigrationsBundle<RhizomeCoinsConfiguration>() {
-            @Override
-                public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
+            public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
                     return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
                 }
         });
         hibernate = new HibernateBundle<RhizomeCoinsConfiguration>(
                 Coins.class, Users.class, Exchanges.class, UserExchanges.class,  
                 UserBalances.class, UserOrders.class){
-            @Override
+    
             public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
                 return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
             }

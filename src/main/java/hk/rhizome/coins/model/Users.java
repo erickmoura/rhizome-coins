@@ -1,6 +1,20 @@
 package hk.rhizome.coins.model;
 
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +44,8 @@ public class Users {
     @Column(name = "user_name")
     String name;
 
+    private Set<Exchanges> exchanges = new HashSet<Exchanges>(0);
+
     public Users(){
         
     }
@@ -44,4 +60,14 @@ public class Users {
     public String getName(){
         return this.name;
     }
+    
+    //TODO: Omaida, you may need to adjust this. I haven't tested it.
+    @ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_exchanges",joinColumns = {
+			@JoinColumn(name = "user_id", nullable = false, updatable = false) },
+			inverseJoinColumns = { @JoinColumn(name = "exchange_id",
+					nullable = false, updatable = false) })
+	public Set<Exchanges> getExchanges() {
+		return this.exchanges;
+	}
 }

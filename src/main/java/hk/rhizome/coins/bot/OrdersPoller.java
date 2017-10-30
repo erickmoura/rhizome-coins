@@ -99,6 +99,7 @@ public class OrdersPoller implements Runnable  {
     }
 
 
+    //TODO: Omaida, having userExchanges as argument should suffice here. Please, remove the second arg.
     public OrdersPoller(UserExchanges userExchanges, Exchange exchange, CurrencyPair currencyPair){
         
         this.userExchanges = userExchanges;

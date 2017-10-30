@@ -20,6 +20,7 @@ public class ResponseUtils {
         return map;
     }
 
+    //TODO: if userOrder has the exchange_id, why this method needs to receive mapExchanges?
     public static Map<String, List<UserOrders>> getOrdersResponse(List<UserOrders> orders, Map<Integer, Exchanges> mapExchanges) {
         Map<String, List<UserOrders>> data = new HashMap<String, List<UserOrders>>();
         for (UserOrders order : orders) {
@@ -32,6 +33,7 @@ public class ResponseUtils {
         return data;
     }
 
+    //TODO: if userOrder has the exchange_id, why this method needs to receive mapExchanges?
     public static Map<String, List<UserBalances>> getBalancesResponse(List<UserBalances> balances, Map<Integer, Exchanges> mapExchanges) {
         Map<String, List<UserBalances>> data = new HashMap<String, List<UserBalances>>();
         for (UserBalances b : balances) {
