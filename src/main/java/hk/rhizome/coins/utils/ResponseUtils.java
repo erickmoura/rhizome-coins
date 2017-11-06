@@ -4,6 +4,8 @@ import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
+import hk.rhizome.coins.model.UserTrades;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,4 +40,15 @@ public class ResponseUtils {
         return data;
     }
 
+    public static Map<String, Set<UserTrades>> getTradesResponse(User user, Set<UserTrades> trades){
+        Map<String, Set<UserTrades>> data = new HashMap<String, Set<UserTrades>>();
+        for (UserTrades t : trades) {
+            String nameExchange = user.getExchanges().stream().filter(e -> e.getID() == t.getExchangeID()).collect(Collectors.toList()).get(0).getExchangeName(); 
+            if (!data.containsKey(nameExchange)) {
+                data.put(nameExchange, new HashSet<UserTrades>());
+            }
+            data.get(nameExchange).add(t);
+        }
+        return data;
+    }
 }

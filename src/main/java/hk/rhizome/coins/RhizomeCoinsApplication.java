@@ -47,7 +47,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         });
         hibernate = new HibernateBundle<RhizomeCoinsConfiguration>(
                 Coins.class, User.class, Exchanges.class, UserExchanges.class,  
-                UserBalances.class, UserOrders.class){
+                UserBalances.class, UserOrders.class, UserTrades.class){
     
             public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
                 return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
@@ -131,7 +131,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m3 = new UserTradesManager();
-        //m3.startUserTradesThreads();
+        m3.startUserTradesThreads();
 
         UsersResources usersResources = new UsersResources(usersDAO);
         try {

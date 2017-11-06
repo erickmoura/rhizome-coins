@@ -2,6 +2,7 @@ package hk.rhizome.coins.resources;
 
 import hk.rhizome.coins.bot.BalancesPoller;
 import hk.rhizome.coins.bot.OrdersPoller;
+import hk.rhizome.coins.bot.UserTradesPoller;
 import hk.rhizome.coins.db.UsersDAO;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CurrencySetService;
@@ -9,6 +10,7 @@ import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserExchanges;
 import hk.rhizome.coins.model.UserOrders;
+import hk.rhizome.coins.model.UserTrades;
 import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.utils.ResponseUtils;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -27,9 +29,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.trade.LimitOrder;
-import org.knowm.xchange.service.marketdata.MarketDataService;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -106,6 +105,35 @@ public class UsersResources {
             //balances = userBalancesDAO.findByUserID(userID, collectD);
         }
         return ResponseUtils.getBalancesResponse(user, balances);
+    }
+
+    @GET
+    @UnitOfWork
+    @Path("/trades")
+    public Map<String, Set<UserTrades>> getTrades(@QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate, @QueryParam("forceReload") Optional<Boolean> forceReload) throws Exception{
+        AppLogger.getLogger().debug("Started getBalances");
+        Set<UserTrades> trades = new HashSet<UserTrades>();
+        User user = usersDAO.getByID(1);
+        if(forceReload.isPresent() && (Boolean)forceReload.get()){
+            
+            for(UserExchanges ue : user.getUserExchanges()){
+                try {
+                    UserTradesPoller poller = new UserTradesPoller(ue);
+                    trades.addAll(poller.pollManually());
+                } catch (Exception ex) {
+                    AppLogger.getLogger().error("Error in UserResources in getBalances : " + ex.getLocalizedMessage());
+                    ex.printStackTrace();
+                }
+            }
+            user.setTrades(trades);
+            usersDAO.update(user);
+        }
+        else{
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            Date startD = sdf.parse(startDate);
+            trades = user.getTrades();
+        }
+        return ResponseUtils.getTradesResponse(user, trades);
     }
     
     @GET
