@@ -8,4 +8,5 @@
     <include file="migrations/create_user_balances_orders.sql" />
     <include file="migrations/change_balances.sql" />
     <include file="migrations/insert_coins.sql" />
+    <include file="migrations/changes_tables.sql" />
 </databaseChangeLog>
