@@ -46,7 +46,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
                 }
         });
         hibernate = new HibernateBundle<RhizomeCoinsConfiguration>(
-                Coins.class, Users.class, Exchanges.class, UserExchanges.class,  
+                Coins.class, User.class, Exchanges.class, UserExchanges.class,  
                 UserBalances.class, UserOrders.class){
     
             public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
@@ -133,7 +133,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         UserTradesManager m3 = new UserTradesManager();
         //m3.startUserTradesThreads();
 
-        UsersResources usersResources = new UsersResources(usersDAO, userExchangesDAO);
+        UsersResources usersResources = new UsersResources(usersDAO);
         try {
             environment.jersey().register(usersResources);
         }

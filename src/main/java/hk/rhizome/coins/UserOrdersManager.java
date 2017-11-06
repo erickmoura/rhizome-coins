@@ -22,7 +22,7 @@ public class UserOrdersManager {
         {
             for(UserExchanges ue : userexchanges){
                 try {
-                    OrdersPoller poller = new OrdersPoller(ue, ExchangeUtils.getInstance().getExchange(ue), currencyPair);
+                    OrdersPoller poller = new OrdersPoller(ue, currencyPair);
                     poller.startPolling(i, POLLING_RATE);
                 } catch (Exception e) {
                     AppLogger.getLogger().error("Error in UserOrdersManager in startOrdersThreads : " + e.getLocalizedMessage());

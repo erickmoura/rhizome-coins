@@ -5,7 +5,7 @@ import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.TradingFeePair;
 import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.model.UserExchanges;
-import hk.rhizome.coins.model.Users;
+import hk.rhizome.coins.model.User;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -28,7 +28,7 @@ public class ExchangeUtils {
 
   public void initialize() {
     exchanges =  DbProxyUtils.getInstance().getExchangesProxy().getAllExchanges();
-    Users botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
+    User botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
     createBotData(botUser, DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
   }
 
@@ -44,10 +44,10 @@ public class ExchangeUtils {
     return singleton;
   }
 
-  private void createBotData(Users u, List<UserExchanges> userExchanges) {
+  private void createBotData(User u, List<UserExchanges> userExchanges) {
     for (Exchanges ex : exchanges) {
       for (UserExchanges ue : userExchanges) {
-        if (ex.getID() == ue.getExchangeID()) {
+        if (ex.getID() == ue.getExchange().getID()){
           
           ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
           spec.setApiKey(ue.getKey());
@@ -68,20 +68,6 @@ public class ExchangeUtils {
     return xchanges;
   }
 
-  /*
-  * return the xchange exchange
-  */
-  public Exchange getExchange(String exchangeClassName) {
-    
-    for (Exchanges ex : exchanges) {
-      if (ex.getExchangeName().compareTo(exchangeClassName) == 0) {
-        ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
-        return ExchangeFactory.INSTANCE.createExchange(spec);
-      }
-    }
-    return null;
-  }
-
   public List<Exchange> getBotExchanges() {
     return this.botExchanges;
   }
@@ -95,16 +81,11 @@ public class ExchangeUtils {
     return null;
   }
 
-  public Exchange getExchange(UserExchanges ue) {
-    for (Exchanges ex : exchanges) {
-      if (ex.getID() == ue.getExchangeID()) {
-        ExchangeSpecification spec = new ExchangeSpecification(ex.getXchangeName());
-        spec.setApiKey(ue.getKey());
-        spec.setSecretKey(ue.getSecret());
-        FeesMatrix.setFeesMatrix(ex.getXchangeName(), new TradingFeePair(ex.getMaker(), ex.getTaker()));
-        return ExchangeFactory.INSTANCE.createExchange(spec);
-      }
-    }
-    return null;
+  public Exchange createXChange(UserExchanges ue) {
+    ExchangeSpecification spec = new ExchangeSpecification(ue.getExchange().getXchangeName());
+    spec.setApiKey(ue.getKey());
+    spec.setSecretKey(ue.getSecret());
+    FeesMatrix.setFeesMatrix(ue.getExchange().getXchangeName(), new TradingFeePair(ue.getExchange().getMaker(), ue.getExchange().getTaker()));
+    return ExchangeFactory.INSTANCE.createExchange(spec);
   }
 }

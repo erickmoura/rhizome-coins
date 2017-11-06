@@ -1,45 +1,37 @@
 package hk.rhizome.coins.utils;
 
 import hk.rhizome.coins.model.Exchanges;
+import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ResponseUtils {
 
-    public static Map<Integer, Exchanges> getMapExchanges(List<Exchanges> list) {
-        Map<Integer, Exchanges> map = new HashMap<Integer, Exchanges>();
-        for (Exchanges exchange : list) {
-            if (!map.containsKey(exchange.getID())) {
-                map.put(exchange.getID(), exchange);
-            }
-        }
-        return map;
-    }
-
-    //TODO: if userOrder has the exchange_id, why this method needs to receive mapExchanges?
-    public static Map<String, List<UserOrders>> getOrdersResponse(List<UserOrders> orders, Map<Integer, Exchanges> mapExchanges) {
-        Map<String, List<UserOrders>> data = new HashMap<String, List<UserOrders>>();
+    public static Map<String, Set<UserOrders>> getOrdersResponse(User user, Set<UserOrders> orders) {
+        Map<String, Set<UserOrders>> data = new HashMap<String, Set<UserOrders>>();
         for (UserOrders order : orders) {
-            String nameExchange = mapExchanges.get(order.getExchangeID()).getExchangeName();
+            String nameExchange = user.getExchanges().stream().filter(e -> e.getID() == order.getExchangeID()).collect(Collectors.toList()).get(0).getExchangeName(); 
             if (!data.containsKey(nameExchange)) {
-                data.put(nameExchange, new ArrayList<UserOrders>());
+                data.put(nameExchange, new HashSet<UserOrders>());
             }
             data.get(nameExchange).add(order);
         }
         return data;
     }
 
-    //TODO: if userOrder has the exchange_id, why this method needs to receive mapExchanges?
-    public static Map<String, List<UserBalances>> getBalancesResponse(List<UserBalances> balances, Map<Integer, Exchanges> mapExchanges) {
-        Map<String, List<UserBalances>> data = new HashMap<String, List<UserBalances>>();
+    public static Map<String, Set<UserBalances>> getBalancesResponse(User user, Set<UserBalances> balances){
+        Map<String, Set<UserBalances>> data = new HashMap<String, Set<UserBalances>>();
         for (UserBalances b : balances) {
-            String nameExchange = mapExchanges.get(b.getExchangeID()).getExchangeName();
+            String nameExchange = user.getExchanges().stream().filter(e -> e.getID() == b.getExchangeID()).collect(Collectors.toList()).get(0).getExchangeName(); 
             if (!data.containsKey(nameExchange)) {
-                data.put(nameExchange, new ArrayList<UserBalances>());
+                data.put(nameExchange, new HashSet<UserBalances>());
             }
             data.get(nameExchange).add(b);
         }

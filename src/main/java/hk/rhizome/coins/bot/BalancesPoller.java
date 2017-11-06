@@ -2,11 +2,11 @@ package hk.rhizome.coins.bot;
 
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.marketdata.CurrencySetService;
+import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserExchanges;
+import hk.rhizome.coins.ExchangeUtils;
 
-import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.AccountInfo;
 import org.knowm.xchange.dto.account.Balance;
@@ -15,9 +15,9 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
 import org.knowm.xchange.utils.CertHelper;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +40,10 @@ public class BalancesPoller implements Runnable  {
     public void startPolling(long initialDelay, long period) {
 
         try {
-            generic();
+            Set<UserBalances> set = generic();
+            User user = userExchanges.getUser();
+            user.setBalances(set);
+            DbProxyUtils.getInstance().getUsersProxy().saveUser(user);
             ses.scheduleAtFixedRate(this, initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +54,10 @@ public class BalancesPoller implements Runnable  {
         running = true;
 
         try {
-            generic();
+            Set<UserBalances> set = generic();
+            User user = userExchanges.getUser();
+            user.setBalances(set);
+            DbProxyUtils.getInstance().getUsersProxy().saveUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -59,36 +65,34 @@ public class BalancesPoller implements Runnable  {
     }
 
 
-    private List<UserBalances> generic() throws Exception {
+    private Set<UserBalances> generic() throws Exception {
         try {
-            List<UserBalances> list = new ArrayList<UserBalances>();
+            Set<UserBalances> set = new HashSet<UserBalances>();
             
-            TradeHistoryParamsAll params = new TradeHistoryParamsAll();
+            //TradeHistoryParamsAll params = new TradeHistoryParamsAll();
             Date endDate = new Date();
-            Date startDate = userExchanges.getLastUpdatedBalances() == null ? startsCollectDate : userExchanges.getLastUpdatedBalances();
-            params.setCurrencyPairs(CurrencySetService.getCurrencySet());
-            params.setEndTime(endDate);
-            params.setStartTime(startDate);
+            //Date startDate = userExchanges.getLastUpdatedBalances() == null ? startsCollectDate : userExchanges.getLastUpdatedBalances();
+            //params.setCurrencyPairs(CurrencySetService.getCurrencySet());
+            //params.setEndTime(endDate);
+            //params.setStartTime(startDate);
             
             AccountInfo accountInfo = accountService.getAccountInfo();
-
+            User user = userExchanges.getUser();
             for(Currency currency : accountInfo.getWallet().getBalances().keySet()){
                 Balance balance = accountInfo.getWallet().getBalances().get(currency);
-                if(balance.getTotal() != BigDecimal.ZERO) {
-                    UserBalances userBalances = new UserBalances(userExchanges.getUserID(), userExchanges.getExchangeID(), 
+                if(balance.getTotal().compareTo(BigDecimal.ZERO) !=0) {
+                    UserBalances userBalances = new UserBalances(user.getID(),userExchanges.getExchange().getID(),
                                             currency.getCurrencyCode(),
                                             balance.getTotal(), balance.getAvailable(), balance.getFrozen(),
                                             balance.getLoaned(), balance.getBorrowed(), balance.getWithdrawing(),
                                             balance.getDepositing(), endDate);
-                    DbProxyUtils.getInstance().getUserBalancesProxy().create(userBalances);
-                    list.add(userBalances);
+                    set.add(userBalances);
                 }
-
             }
-            userExchanges.setLastUpdatedBalances(endDate);
-            DbProxyUtils.getInstance().getUserExchangesProxy().update(userExchanges);
-
-            return list;
+            //userExchanges.setLastUpdatedBalances(endDate);
+            //DbProxyUtils.getInstance().getUserExchangesProxy().update(userExchanges);
+            
+            return set;
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,16 +101,16 @@ public class BalancesPoller implements Runnable  {
         }
     }
 
-    public List<UserBalances> pollManually() throws Exception {
+    public Set<UserBalances> pollManually() throws Exception {
         return generic();
     }
 
-    public BalancesPoller(UserExchanges userExchanges, Exchange exchange){
+    public BalancesPoller(UserExchanges userExchanges){
 
         this.userExchanges = userExchanges;
-        
-        this.exchangeName = exchange.getDefaultExchangeSpecification().getExchangeName();
-        this.accountService = exchange.getAccountService();
+
+        this.exchangeName = userExchanges.getExchange().getXchangeName();
+        this.accountService = ExchangeUtils.getInstance().createXChange(userExchanges).getAccountService();
 
         // Go initially to 1000 days back in time
         long startTime = (new Date().getTime() / 1000) - 24 * 60 * 60 * 1000;
