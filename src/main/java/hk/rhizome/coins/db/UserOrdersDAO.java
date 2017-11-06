@@ -19,7 +19,7 @@ public class UserOrdersDAO extends AbstractDAO<UserOrders> {
     }
     
     public List<UserOrders> getOrders(int userID, Date startDate, Date endDate){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findOrders").
+        return list(namedQuery("hk.rhizome.coins.model.User.findOrders").
         setParameter("start_date", startDate).
         setParameter("end_date", endDate).
         setParameter("user_id", userID));

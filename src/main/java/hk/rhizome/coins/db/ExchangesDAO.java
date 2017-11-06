@@ -17,7 +17,7 @@ public class ExchangesDAO extends AbstractDAO<Exchanges> {
     }
 
     public List<Exchanges> getExchangeByUserID(int userID){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findExchanges").
+        return list(namedQuery("hk.rhizome.coins.model.User.findExchanges").
         setParameter("user_id", userID));
     }
     

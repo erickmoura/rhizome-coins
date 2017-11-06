@@ -5,40 +5,48 @@ import java.util.List;
 import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
-import hk.rhizome.coins.model.Users;
+import hk.rhizome.coins.model.User;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
-public class UsersDAO extends AbstractDAO<Users> {
+public class UsersDAO extends AbstractDAO<User> {
     
     public UsersDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
     
-    public List<Users> findAll() {
-        return list(namedQuery("hk.rhizome.coins.model.Users.findAll"));
+    public List<User> findAll() {
+        return list(namedQuery("hk.rhizome.coins.model.User.findAll"));
     }
     
-    public Users findByName(String name) {
-        return (Users)namedQuery("hk.rhizome.coins.model.Users.findByName").setParameter("name", name).uniqueResult();
+    public User findByName(String name) {
+        return (User)namedQuery("hk.rhizome.coins.model.User.findByName").setParameter("name", name).uniqueResult();
     }
 
-    /*
-    public List<UserBalances> getBalances(int userID, Date collectDate){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findBalances").
+    public User getByID(int id){
+        return get(id);
+    }
+
+    public void update(User user){
+        persist(user);
+    }
+
+    
+    public List<UserBalances> getBalances(User user, Date collectDate){
+        return list(namedQuery("hk.rhizome.coins.model.User.findBalances").
         setParameter("collect_date", collectDate).
-        setParameter("user_id", userID));
+        setParameter("user_id", user.getID()));
     }
 
-    public List<UserOrders> getOrders(int userID, Date startDate, Date endDate){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findOrders").
+    public List<UserOrders> getOrders(User user, Date startDate, Date endDate){
+        return list(namedQuery("hk.rhizome.coins.model.User.findOrders").
         setParameter("start_date", startDate).
         setParameter("end_date", endDate).
-        setParameter("user_id", userID));
+        setParameter("user_id", user.getID()));
     }
-
+    /*
     public List<Exchanges> getExchanges(int userID){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findExchanges").
+        return list(namedQuery("hk.rhizome.coins.model.User.findExchanges").
         setParameter("user_id", userID));
     }
     */

@@ -28,7 +28,7 @@ public class UserBalancesDAO extends AbstractDAO<UserBalances> {
     
     //TODO: review these queries in this context
     public List<UserBalances> findByUserID(int userID, Date collectDate){
-        return list(namedQuery("hk.rhizome.coins.model.Users.findBalances").
+        return list(namedQuery("hk.rhizome.coins.model.User.findBalances").
         setParameter("collect_date", collectDate).
         setParameter("user_id", userID));
     }
