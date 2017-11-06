@@ -1,37 +1,64 @@
 package hk.rhizome.coins.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_exchanges")
+@Table(name = "users_exchanges")
 @NamedQueries({
     @NamedQuery(name = "hk.rhizome.coins.model.UserExchanges.findAll",
             query = "from UserExchanges"),
     @NamedQuery(name = "hk.rhizome.coins.model.UserExchanges.findByUserID",
             query = "from UserExchanges ub "
-            + "where ub.userID = :user_id "),
+            + "where ub.user.userID = :user_id "),
     @NamedQuery(name = "hk.rhizome.coins.model.UserExchanges.findByUserIDExchangeID",
             query = "from UserExchanges ub "
-            + "where ub.userID = :user_id and ub.exchangeID = :exchange_id")
+            + "where ub.user.userID = :user_id and ub.exchange.exchangeID = :exchange_id")
 })
 public class UserExchanges {
 
-    @Id
-    int id;
+    @Embeddable
+    public static class Id implements Serializable {
+        @Column(name = "user_id")
+        private int userID;
+        @Column(name = "exchange_id")
+        private int exchangeID;
+
+        public Id() {
+        }
+
+        public Id(int userID, int exchangeID) {
+            this.userID = userID;
+            this.exchangeID = exchangeID;
+        }
+
+        public boolean equals(Object o) {
+            if (o != null && o instanceof Id) {
+                Id that = (Id) o;
+                return this.exchangeID == that.exchangeID && this.userID == that.userID;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
+    @EmbeddedId
+    private Id id = new Id();
+
 
     //TODO: Omaida, see the right way to make mappings/relationships and avoid
     //cumbersome Util methods, line in ExchangeUtils
-    @ManyToOne(targetEntity=Exchanges.class)
-    @JoinColumn(name="id", nullable=false)
-    @Column(name = "user_id")
-    int userID;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false, insertable=false, updatable=false)
+    User user;
+
     
-    @ManyToOne(targetEntity=Exchanges.class)
-    @JoinColumn(name="id", nullable=false)
-    @Column(name = "exchange_id")
-    int exchangeID;
-    
+    @ManyToOne
+    @JoinColumn(name="exchange_id", nullable=false, insertable=false, updatable=false)
+    Exchanges exchange;
+
     @Column(name = "properties")
     String properties;
     
@@ -52,25 +79,28 @@ public class UserExchanges {
         
     }
 
-    public UserExchanges(int userID, int exchangeID, String properties, String pKey, String secret, Date lastUpdatedBalances, Date lastUpdatedOrders){
-        this.userID = userID;
-        this.exchangeID = exchangeID;
+    public UserExchanges(User user, Exchanges exchange,  String properties, String pKey, String secret, Date lastUpdatedBalances, Date lastUpdatedOrders){
+        this.user = user;
+        this.exchange = exchange;
         this.properties = properties;
         this.pKey = pKey;
         this.secret = secret;
         this.lastUpdatedBalances = lastUpdatedBalances;
         this.lastUpdatedOrders = lastUpdatedOrders;
+
+        this.id.exchangeID = exchange.getID();
+        this.id.userID = user.getID();
     }
 
-    public int getID(){
-        return this.id;
-    }
+    //public int getID(){
+      //  return this.id;
+    //}
 
-    public int getUserID(){
-        return this.userID;
+    public User getUser(){
+        return this.user;
     }
-    public int getExchangeID(){
-        return this.exchangeID;
+    public Exchanges getExchange(){
+        return this.exchange;
     }
     public String getProperties(){
         return this.properties;

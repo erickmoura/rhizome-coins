@@ -1,21 +1,37 @@
 package hk.rhizome.coins.model;
 
 import java.math.BigDecimal;
-
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "exchanges")
+@Table(name = "exchanges", uniqueConstraints = {
+            @UniqueConstraint(columnNames = "exchange_name")})
 @NamedQueries({
     @NamedQuery(name = "hk.rhizome.coins.model.Exchanges.findAll",
             query = "from Exchanges"),
             @NamedQuery(name = "hk.rhizome.coins.model.Exchanges.getByID",
-            query = "from Exchanges where id = :id" )
+            query = "from Exchanges where exchangeID = :id" )
 })
 public class Exchanges {
     
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "exchange_id", unique = true, nullable = false)
+    int exchangeID;
     
     @Column(name = "exchange_name")
     String exchangeName;
@@ -37,7 +53,7 @@ public class Exchanges {
     }
 
     public Exchanges(int id, String exchangeName, String xchangeName, BigDecimal taker,  BigDecimal maker, int pollingRate){
-        this.id = id;
+        this.exchangeID = id;
         this.exchangeName = exchangeName;
         this.xchangeName = xchangeName;
         this.taker = taker;
@@ -46,7 +62,7 @@ public class Exchanges {
     }
 
 	public int getID(){
-        return this.id;
+        return this.exchangeID;
     }
     public String getExchangeName(){
         return this.exchangeName;
