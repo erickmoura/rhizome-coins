@@ -61,6 +61,11 @@ public class User {
         @Cascade(CascadeType.ALL)
         private Set<UserOrders> orders = new HashSet<UserOrders>(0);
 
+        @OneToMany
+        @JoinColumn(name="user_id", nullable=false, insertable=false, updatable=false)
+        @Cascade(CascadeType.ALL)
+        private Set<UserTrades> trades = new HashSet<UserTrades>(0);
+
         public User() {
 
         }
@@ -112,6 +117,13 @@ public class User {
         }
         public void setOrders(Set<UserOrders> userOrders){
                 this.orders = userOrders;
+        }
+
+        public Set<UserTrades> getTrades(){
+                return this.trades;
+        }
+        public void setTrades(Set<UserTrades> trades){
+                this.trades = trades;
         }
 
 }
