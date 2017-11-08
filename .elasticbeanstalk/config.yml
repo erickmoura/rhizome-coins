@@ -1,4 +1,6 @@
 branch-defaults:
+  erick_review:
+    environment: staging-env
   master:
     environment: staging-env
 deploy:
