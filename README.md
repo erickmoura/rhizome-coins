@@ -17,7 +17,7 @@ AWS console
  
 ### Installing 
  
-1. 
+Run `mvn package` will run the tests, generate the fat jar and Elastic Beanstalk's zip file.
 
 ## Running pending migrations 
  

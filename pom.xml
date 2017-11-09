@@ -7,7 +7,7 @@
 	<artifactId>rhizome-coins</artifactId>
 
 	<name>Rhizome Coins</name>
-	<description>Fetches Market Data from Multiple Exchanges</description>
+	<description>Collects and Stores Market and Traders’ Data from Multiple Exchanges</description>
 
 	<groupId>hk.rhizome.coins</groupId>
 	<version>0.1</version>
@@ -17,7 +17,7 @@
 	<inceptionYear>2017</inceptionYear>
 
 	<organization>
-		<name>Rhizome Technologies Ltd.</name>
+		<name>Rhizome Technologies LTD</name>
 		<url>http://rhizome.hk</url>
 	</organization>
 
