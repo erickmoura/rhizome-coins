@@ -3,11 +3,17 @@
   <format>zip</format>
 </formats>
 
+<files>
+  <file>
+    <source>config.yml.original</source>
+    <outputDirectory>.</outputDirectory>
+    <destName>config.yml</destName>
+  </file>
+</files>
 <fileSets>
   <fileSet>
     <outputDirectory>.</outputDirectory>
     <includes>
-      <include>config.yml</include>
       <include>Procfile</include>
     </includes>
   </fileSet>
