@@ -102,6 +102,9 @@ public class UserExchanges {
     public Exchanges getExchange(){
         return this.exchange;
     }
+    public void setExchange(Exchanges exchanges){
+        this.exchange = exchanges;
+    }
     public String getProperties(){
         return this.properties;
     }

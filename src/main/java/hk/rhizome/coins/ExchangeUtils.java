@@ -29,7 +29,7 @@ public class ExchangeUtils {
   public void initialize() {
     exchanges =  DbProxyUtils.getInstance().getExchangesProxy().getAllExchanges();
     User botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
-    createBotData(botUser, DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
+    createBotData(DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
   }
 
   public List<Exchanges> AllExchanges(){
@@ -44,7 +44,7 @@ public class ExchangeUtils {
     return singleton;
   }
 
-  private void createBotData(User u, List<UserExchanges> userExchanges) {
+  private void createBotData(List<UserExchanges> userExchanges) {
     for (Exchanges ex : exchanges) {
       for (UserExchanges ue : userExchanges) {
         if (ex.getID() == ue.getExchange().getID()){
