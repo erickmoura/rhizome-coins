@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.knowm.xchange.service.account.AccountService;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.knowm.xchange.Exchange;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ExchangeUtils.class, AccountInfo.class, Wallet.class, Balance.class})
+@PowerMockIgnore({ "javax.net.ssl.*", "sun.security.ssl.*" })
 public class BalancesPollerTest {
     
     @Before
