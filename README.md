@@ -26,3 +26,9 @@ Run `java -jar target/rhizome-coins.jar db migrate config.yml`
 ## Running the tests 
  
 ## Deployment 
+
+
+## ES webservices
+
+To test ES webservices
+1. CoinMarkertCap use the url -> http://0.0.0.0:8080/search/coinmarketcap/?startDate=2017-10-25 0:00:00
