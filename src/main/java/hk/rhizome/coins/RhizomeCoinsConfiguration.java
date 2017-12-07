@@ -24,10 +24,24 @@ public class RhizomeCoinsConfiguration extends Configuration {
     @NotNull
     private Map<String, String> database = Collections.emptyMap();
 
+    @NotNull
+    private Map<String, String> elastic = Collections.emptyMap();
+
     @JsonProperty("exchanges")
     public Map<String, Map<String, String>> getExchanges() {
         return exchanges;
     }
+
+    @JsonProperty("elastic")
+    public Map<String, String> getElastic(){
+        return elastic;
+    }
+
+    @JsonProperty("elastic")
+    public void setElastic(Map<String, String> elastic){
+        this.elastic = elastic;
+    }
+    
 
     @JsonProperty("exchanges")
     public void setExchanges(Map<String, Map<String, String>> viewRendererConfiguration) {

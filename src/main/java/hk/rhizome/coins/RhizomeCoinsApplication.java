@@ -7,8 +7,10 @@ import hk.rhizome.coins.logger.LoggerUtils;
 import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.*;
 import hk.rhizome.coins.resources.CoinsResources;
+import hk.rhizome.coins.resources.ESCoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
 import hk.rhizome.coins.resources.UsersResources;
+import hk.rhizome.coins.service.ESCoinsService;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -107,6 +109,14 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         } catch (Exception ex) {
             AppLogger.getLogger().warn("Unable to register CoinsResources: " + ex.getLocalizedMessage());
         }
+
+        ESCoinsService esCoinsService = new ESCoinsService(configuration.getElastic());
+        ESCoinsResources esCoinsResources = new ESCoinsResources(esCoinsService);
+        try {
+            environment.jersey().register(esCoinsResources);
+        } catch (Exception ex) {
+            AppLogger.getLogger().warn("Unable to register ExchangesResources", ex);
+        }
         
         //BOTS
         //Start Collection Bots...
@@ -127,7 +137,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         UserOrdersDAOProxy userOrdersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserOrdersDAOProxy.class, UserOrdersDAO.class, userOrdersDAO);
         DbProxyUtils.getInstance().setUserOrdersProxy(userOrdersDAOProxy);
         UserOrdersManager m2 = new UserOrdersManager();
-        // m2.startOrdersThreads();
+        //m2.startOrdersThreads();
 
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
