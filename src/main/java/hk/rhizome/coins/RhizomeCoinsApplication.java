@@ -19,7 +19,17 @@ import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import org.quartz.Job;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
+import org.quartz.impl.StdSchedulerFactory;
 import hk.rhizome.coins.bot.BalancesPoller;
 import hk.rhizome.coins.bot.CoinMarketCapPoller;
 import hk.rhizome.coins.db.*;
@@ -56,6 +66,8 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         bootstrap.addBundle(hibernate);
     }
 
+   
+    
     @Override
     public void run(RhizomeCoinsConfiguration configuration,
                     Environment environment) {
@@ -67,7 +79,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         DataSourceFactory dataSourceFactory = DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
 
         DbProxyUtils.initialize();
-        
+
         //EXCHANGES
         AppLogger.getLogger().info("Get exchanges");
         ExchangesDAO exchangesDAO = new ExchangesDAO(hibernate.getSessionFactory());
@@ -107,6 +119,11 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
             AppLogger.getLogger().warn("Unable to register CoinsResources: " + ex.getLocalizedMessage());
         }
         
+        //JOBS 
+        JobManager jobsManager = new JobManager();
+        jobsManager.initializeJobs();
+        jobsManager.runJobs();
+
         //BOTS
         //Start Collection Bots...
         AppLogger.getLogger().info("Start collections bots...");
@@ -131,7 +148,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m3 = new UserTradesManager();
-        m3.startUserTradesThreads();
+        //m3.startUserTradesThreads();
 
         UsersResources usersResources = new UsersResources(usersDAO);
         try {
