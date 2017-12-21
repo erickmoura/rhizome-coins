@@ -3,7 +3,7 @@ package hk.rhizome.coins;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -24,6 +24,8 @@ import hk.rhizome.coins.jobs.CoinMarketCapJob;
 import hk.rhizome.coins.jobs.RhizomeJob;
 import hk.rhizome.coins.jobs.XChangeJob;
 import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.marketdata.CoinsSetService;
+import hk.rhizome.coins.model.Coins;
 import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.utils.Constants;
 import hk.rhizome.coins.utils.RhizomeCoinsUtil;
@@ -50,6 +52,11 @@ public class JobManager {
         Scheduler scheduler;
         try {
             scheduler = new StdSchedulerFactory().getScheduler();
+            
+            AppLogger.getLogger().info("Deleting existing jobs and triggers");
+            scheduler.clear();
+
+            AppLogger.getLogger().info("Adding new jobs and triggers");
             scheduler.start();
             for(String jobName : jobs.keySet()){
                 scheduler.scheduleJob(jobs.get(jobName), triggers.get(jobName));
@@ -65,6 +72,9 @@ public class JobManager {
         AppLogger.getLogger().debug("Creating XchangeJob in JobManager");
         
         ExchangesDAOProxy proxy = DbProxyUtils.getInstance().getExchangesProxy();
+        CoinsSetService coinsService = CoinsSetService.getInstance();
+        List<Coins> coins = coinsService.getCoins();
+       
         for(Exchanges exchanges : proxy.getAllExchanges()){
             ExchangeSpecification exSpec = new ExchangeSpecification(exchanges.getXchangeName());
             exSpec.setApiKey("key");
@@ -73,34 +83,44 @@ public class JobManager {
             
             List<CurrencyPair> currencyPairs = e.getExchangeSymbols();
             for(CurrencyPair c : currencyPairs){
-                StringBuilder jobName = new StringBuilder();
-                jobName.append(exchanges.getExchangeName()).append("_").append(c.toString()).append("_").append("Job");
-                StringBuilder triggerName = new StringBuilder();
-                triggerName.append(exchanges.getExchangeName()).append("_").append(c.toString()).append("_").append("Trigger");
-                
-                JobDataMap map = new JobDataMap();
-                map.put("exchangeID", exchanges.getXchangeName());
-                map.put("currencyPair", c.toString());
-                JobDetail job = JobBuilder.newJob(XChangeJob.class).withIdentity(jobName.toString(), JOB_GROUP_NAME).usingJobData(map).build();
-                
-                int intervalSeconds = RhizomeCoinsUtil.CalculatePollingRate(exchanges.getPollingRate());
-                
-                Trigger trigger = TriggerBuilder
-                    .newTrigger()
-                    .startNow()
-                    .withIdentity(triggerName.toString(), JOB_GROUP_NAME)
-                    .withSchedule(
-                        SimpleScheduleBuilder.simpleSchedule()
-                            .withIntervalInSeconds(intervalSeconds).repeatForever())
-                    .build();
-          
-                jobs.put(jobName.toString(), job);
-                triggers.put(jobName.toString(), trigger);
+                if( filterCoin(coins, c.base.getDisplayName()) && filterCoin(coins, c.counter.getDisplayName())){
+                    StringBuilder jobName = new StringBuilder();
+                    jobName.append(exchanges.getExchangeName()).append("_").append(c.toString()).append("_").append("Job");
+                    StringBuilder triggerName = new StringBuilder();
+                    triggerName.append(exchanges.getExchangeName()).append("_").append(c.toString()).append("_").append("Trigger");
+                    
+                    JobDataMap map = new JobDataMap();
+                    map.put("exchangeID", exchanges.getXchangeName());
+                    map.put("currencyPair", c.toString());
+                    JobDetail job = JobBuilder.newJob(XChangeJob.class).withIdentity(jobName.toString(), JOB_GROUP_NAME).usingJobData(map).build();
+                    
+                    int intervalSeconds = RhizomeCoinsUtil.CalculatePollingRate(exchanges.getPollingRate());
+                    
+                    Trigger trigger = TriggerBuilder
+                        .newTrigger()
+                        .startNow()
+                        .withIdentity(triggerName.toString(), JOB_GROUP_NAME)
+                        .withSchedule(
+                            SimpleScheduleBuilder.simpleSchedule()
+                                .withIntervalInSeconds(intervalSeconds).repeatForever())
+                        .build();
+            
+                    jobs.put(jobName.toString(), job);
+                    triggers.put(jobName.toString(), trigger);
+                }
             }
         }
 
         AppLogger.getLogger().debug("Finished CoinMarketCapJob in JobManager");
         
+    }
+
+    boolean filterCoin(List<Coins> coins, String name){
+        for(Coins c : coins){
+            if(c.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     void createCoinMarketCapJob(){
