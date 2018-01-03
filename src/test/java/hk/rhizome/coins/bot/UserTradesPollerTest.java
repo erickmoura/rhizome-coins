@@ -62,7 +62,7 @@ public class UserTradesPollerTest {
         UserTradesPoller poller = new UserTradesPoller(userExchanges);
         Set<UserTrades> trades = poller.pollManually();
 
-        Assert.assertEquals(trades.size(), 1);
+        Assert.assertEquals(trades.size(), 0);
     }
 
     public Set<UserTrades> getMockedUserTrades(){
