@@ -104,6 +104,51 @@
 			<version>4.2.1</version>
 		</dependency>
 
+		<!-- XChange Bitstamp exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-bitstamp</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- XChange BitFinex exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-bitfinex</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- XChange Coinbase exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-coinbase</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- XChange BTC-e exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-btce</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- XChange Kraken exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-kraken</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!-- XChange BTCChina exchange support -->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-btcchina</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		
+
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
