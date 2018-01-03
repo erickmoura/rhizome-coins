@@ -43,9 +43,13 @@ public class JobManager {
     }
 
     public void initializeJobs(){
-        createXChangeJobs();
-        createCoinMarketCapJob();
-            
+        try{
+            createXChangeJobs();
+            createCoinMarketCapJob();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     public void runJobs(){
