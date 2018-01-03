@@ -11,4 +11,5 @@
     <include file="migrations/changes_tables.sql" />
     <include file="migrations/create_user_trades.sql" />
     <include file="migrations/create_quartz_tables.sql" />
+    <include file="migrations/insert_data.sql" />
 </databaseChangeLog>
