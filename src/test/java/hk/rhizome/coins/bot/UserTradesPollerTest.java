@@ -1,63 +1,83 @@
 package hk.rhizome.coins.bot;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.dto.trade.UserTrades;
+import org.junit.runner.RunWith;
 import org.knowm.xchange.service.trade.TradeService;
-import com.amazonaws.services.kinesisfirehose.model.*;
+import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.currency.Currency;
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.trade.UserTrade;
+import org.knowm.xchange.dto.Order.OrderType;
 import hk.rhizome.coins.ExchangeUtils;
-import hk.rhizome.coins.RhizomeCoinsConfiguration;
-import hk.rhizome.coins.marketdata.FeesMatrix;
-import hk.rhizome.coins.marketdata.TradingFeePair;
-import hk.rhizome.coins.KinesisGateway;
-import java.util.HashMap;
-import java.util.Map;
+import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.marketdata.CurrencySetService;
+import hk.rhizome.coins.model.Exchanges;
+import hk.rhizome.coins.model.UserExchanges;
+import hk.rhizome.coins.model.UserTrades;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import static org.mockito.Mockito.*;
 
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(ExchangeUtils.class)
 public class UserTradesPollerTest {
     
+    @Before
+    public void setup(){
+        AppLogger.initialize();
+    }
 
     @Test
     public void sendUserTrade() throws Exception {
-
-        TradeHistoryParamsAll params = new TradeHistoryParamsAll();
-        Set<CurrencyPair> currencyPairs = new HashSet<CurrencyPair>();
-        currencyPairs.add(CurrencyPair.BTC_USD);
+        Set<UserTrades> mockedTrades = getMockedUserTrades();
         
-        params.setCurrencyPairs(currencyPairs);
-        params.setEndTime(new Date());
-        params.setStartTime(new Date());
+        UserExchanges userExchanges = mock(UserExchanges.class, RETURNS_DEEP_STUBS);
+        when(userExchanges.getExchange().getXchangeName()).thenReturn("org.knowm.xchange.poloniex.PoloniexExchange");
+        TradeService tradeService = mock(TradeService.class, RETURNS_DEEP_STUBS);
+        PowerMockito.mockStatic(ExchangeUtils.class );
+        Exchange exchange = mock(Exchange.class);
+        ExchangeUtils utils = mock(ExchangeUtils.class);
+        when(ExchangeUtils.getInstance()).thenReturn(utils); 
+        when(ExchangeUtils.getInstance().createXChange(userExchanges)).thenReturn(exchange);
+        PowerMockito.when(ExchangeUtils.getInstance().createXChange(userExchanges).getTradeService()).thenReturn(tradeService);
 
-        Exchange exchange = getExchangeTest(); 
-            TradeService tradeService = exchange.getTradeService();
-    
-        UserTrades userTrades = tradeService.getTradeHistory(params);
-        for(UserTrade trade : userTrades.getUserTrades()){
-            KinesisGateway kinesisGateway = new KinesisGateway();
-            kinesisGateway.validateStream();
-            PutRecordResult res = kinesisGateway.sendUserTrade(trade);
-            if(res == null || res.getRecordId() == null)
-                throw new Exception("Error sending the user trades");
-            
-        }
+        TradeHistoryParamsAll params = mock(TradeHistoryParamsAll.class);
+        List<UserTrade> list = getMockedTrade();
+        org.knowm.xchange.dto.trade.UserTrades t = mock(org.knowm.xchange.dto.trade.UserTrades.class);
+        when(tradeService.getTradeHistory(params)).thenReturn(t);
+        when(tradeService.getTradeHistory(params).getUserTrades()).thenReturn(list);
+        Set<UserTrades> set = new HashSet<>();
+        
+        UserTradesPoller poller = new UserTradesPoller(userExchanges);
+        Set<UserTrades> trades = poller.pollManually();
+
+        Assert.assertEquals(trades.size(), 1);
     }
-    
-   
-    public Exchange getExchangeTest(){
-		ExchangeSpecification spec = new ExchangeSpecification("org.knowm.xchange.poloniex.PoloniexExchange");
-        spec.setApiKey("0YLYH5CW-ZFBDX4T6-0V74ZN74-D5BW5LBV");
-        spec.setSecretKey("7c565d4e144fdcf8f707ece71a68a377980ceafa6a66757121fefa2a1db8942d4a0a217263808bec0922be571de7835b39c4ba6ebbe1ae005bf642223ee26526");
-        FeesMatrix.setFeesMatrix("org.knowm.xchange.poloniex.PoloniexExchange", new TradingFeePair(new BigDecimal(0.3), new BigDecimal(0.6)));
-        return ExchangeFactory.INSTANCE.createExchange(spec);
-	}
 
+    public Set<UserTrades> getMockedUserTrades(){
+        UserTrades t = new UserTrades(1, 1, "3304477", "115369066954132", "BTC/EUR", new BigDecimal(0.00000040625), "Bitcoin", new BigDecimal(50),new BigDecimal(0.00000325),  new Date(), "ASK");
+        Set<UserTrades> trades = new HashSet<UserTrades>();
+        trades.add(t);
+        return trades;
+    }
+
+    public List<UserTrade> getMockedTrade(){
+        UserTrade t = new UserTrade(OrderType.ASK, new BigDecimal(50), CurrencyPair.BTC_EUR, new BigDecimal(0.00000325), new Date(), "3304477", "115369066954132", new BigDecimal(0.00000040625), Currency.BTC);
+        List<UserTrade> trades = new ArrayList<UserTrade>();
+        trades.add(t);
+        return trades;
+    }
+
+    
 }

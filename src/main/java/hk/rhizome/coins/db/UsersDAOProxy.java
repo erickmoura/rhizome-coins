@@ -1,7 +1,10 @@
 package hk.rhizome.coins.db;
 
 import java.util.List;
-import hk.rhizome.coins.model.Users;
+
+import org.hibernate.Hibernate;
+
+import hk.rhizome.coins.model.User;
 import io.dropwizard.hibernate.UnitOfWork;
 
 public class UsersDAOProxy{
@@ -13,13 +16,26 @@ public class UsersDAOProxy{
     }
 
     @UnitOfWork
-    public List<Users> getAllUsers(){
-        return dao.findAll();
+    public List<User> getAllUsers(){
+        List<User> users = dao.findAll();
+        for(User u : users){
+            Hibernate.initialize(u.getExchanges());
+            Hibernate.initialize(u.getUserExchanges());
+        }
+        return users;
     }
 
     @UnitOfWork
-    public Users getUsersByName(String name){
-        return dao.findByName(name);
+    public User getUsersByName(String name){
+        User u = dao.findByName(name);
+        Hibernate.initialize(u.getExchanges());
+        Hibernate.initialize(u.getUserExchanges());
+        return u;
+    }
+
+    @UnitOfWork
+    public void saveUser(User user){
+        dao.update(user);
     }
 
 }

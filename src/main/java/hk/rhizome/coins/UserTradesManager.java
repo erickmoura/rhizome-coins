@@ -1,7 +1,10 @@
 package hk.rhizome.coins;
 
 import hk.rhizome.coins.bot.UserTradesPoller;
+import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.model.UserExchanges;
+import java.util.List;
 import org.knowm.xchange.Exchange;
 
 /**
@@ -20,10 +23,10 @@ public class UserTradesManager {
     public void startUserTradesThreads() {
 
         int i = 0;
-        for (Exchange exchange: ExchangeUtils.getInstance().getBotExchanges()) {
-
+        List<UserExchanges> userexchanges = DbProxyUtils.getInstance().getUserExchangesProxy().getAllUserExchanges();
+        for (UserExchanges ue : userexchanges) {
             try {
-                UserTradesPoller userTradesPoller = new UserTradesPoller(exchange);
+                UserTradesPoller userTradesPoller = new UserTradesPoller(ue);
                 userTradesPoller.startPolling(i, POLLING_PERIOD);
             } catch (Exception e) {
             		AppLogger.getLogger().error("Error in UserTradesManager in startUserTradesThreads : " + e.getLocalizedMessage());

@@ -4,8 +4,11 @@ import java.nio.file.Files;
 import java.io.InputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+
 import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
+
 import hk.rhizome.coins.logger.AppLogger;
 
 
@@ -24,7 +27,7 @@ public class RhizomeCoinsUtil {
 		return sqlFile;
     }
     
-    public File convertStreamToSqlFile(InputStream is, String name) throws IOException {
+    public File convertStreamToSqlFile(InputStream is, String name) throws Exception {
 		File tempFile = File.createTempFile(name, ".sql");
 		try {
 			tempFile.deleteOnExit();

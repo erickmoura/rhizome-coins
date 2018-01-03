@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 import java.util.Optional;
 
-public class CoinsDAO extends AbstractDAO<CoinsDAO> {
+public class CoinsDAO extends AbstractDAO<Coins> {
     
     public CoinsDAO(SessionFactory sessionFactory) {
         super(sessionFactory);

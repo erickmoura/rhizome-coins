@@ -72,8 +72,8 @@ public class CoinMarketCapPoller  implements Runnable  {
     private List<CoinMarketCapTicker> getFilterList(List<CoinMarketCapTicker> list){
         List<CoinMarketCapTicker> response = new ArrayList<CoinMarketCapTicker>();
 
-        
-        List<Coins> coins = CoinsSetService.getInstance().getCoins();
+        CoinsSetService coinsService = CoinsSetService.getInstance();
+        List<Coins> coins = coinsService.getCoins();
         
         for(CoinMarketCapTicker ticker : list){
             for(Coins c : coins){

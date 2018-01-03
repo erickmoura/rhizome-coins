@@ -3,26 +3,26 @@ logging:
 
 database: 
   driverClass: com.mysql.jdbc.Driver 
-  user:  
-  password:  
-  url: jdbc:mysql://localhost:3306/test 
+  user: ${RDS_USERNAME} 
+  password: ${RDS_PASSWORD} 
+  url: jdbc:mysql://${RDS_HOSTNAME}/${RDS_DB_NAME}
 
 exchanges:
    'org.knowm.xchange.poloniex.PoloniexExchange':
     name: Poloniex
-    key: key1
-    secret: secret1
+    key: ${EXCHANGE_KEY_POLONIEX}
+    secret: ${EXCHANGE_SECRET_POLONIEX}
     taker: 0.25
     maker: 0.15
   'org.knowm.xchange.anx.v2.ANXExchange':
     name: ANXPRO
-    key: key2
-    secret: secret2
+    key: ${EXCHANGE_KEY_ANX}
+    secret: ${EXCHANGE_SECRET_ANX}
     taker: 0.6
     maker: 0.3
  'org.knowm.xchange.bittrex.v1.BittrexExchange':
     name: Bittrex
-    key: xxxx
-    secret: xxxx
+    key: ${EXCHANGE_KEY_BITTREX}
+    secret: ${EXCHANGE_KEY_BITTREX}
     taker: 0.25
     maker: 0.25

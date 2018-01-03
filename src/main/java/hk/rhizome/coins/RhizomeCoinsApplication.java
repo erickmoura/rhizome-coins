@@ -41,15 +41,14 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
     public void initialize(Bootstrap<RhizomeCoinsConfiguration> bootstrap) {
     		//migrations
     		bootstrap.addBundle(new MigrationsBundle<RhizomeCoinsConfiguration>() {
-            @Override
-                public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
+            public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
                     return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
                 }
         });
         hibernate = new HibernateBundle<RhizomeCoinsConfiguration>(
-                Coins.class, Users.class, Exchanges.class, UserExchanges.class,  
-                UserBalances.class, UserOrders.class){
-            @Override
+                Coins.class, User.class, Exchanges.class, UserExchanges.class,  
+                UserBalances.class, UserOrders.class, UserTrades.class){
+    
             public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
                 return DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
             }
@@ -132,9 +131,9 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
         UserTradesManager m3 = new UserTradesManager();
-        //m3.startUserTradesThreads();
+        m3.startUserTradesThreads();
 
-        UsersResources usersResources = new UsersResources(usersDAO, userExchangesDAO);
+        UsersResources usersResources = new UsersResources(usersDAO);
         try {
             environment.jersey().register(usersResources);
         }

@@ -1,20 +1,21 @@
 package hk.rhizome.coins.bot;
 
+import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserExchanges;
 import hk.rhizome.coins.model.UserOrders;
 
-import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.utils.CertHelper;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +38,10 @@ public class OrdersPoller implements Runnable  {
     public void startPolling(long initialDelay, long period) {
 
         try {
-            generic();
+            Set<UserOrders> set = generic();
+            User user = userExchanges.getUser();
+            user.setOrders(set);
+            DbProxyUtils.getInstance().getUsersProxy().saveUser(user);
             ses.scheduleAtFixedRate(this, initialDelay, period, TimeUnit.SECONDS);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,9 +50,11 @@ public class OrdersPoller implements Runnable  {
 
     public void run() {
         running = true;
-
         try {
-            generic();
+            Set<UserOrders> set = generic();
+            User user = userExchanges.getUser();
+            user.setOrders(set);
+            DbProxyUtils.getInstance().getUsersProxy().saveUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,36 +62,30 @@ public class OrdersPoller implements Runnable  {
     }
 
 
-    private List<UserOrders> generic() throws Exception {
+    private Set<UserOrders> generic() throws Exception {
         try {
-            List<UserOrders> listOrders = new ArrayList<UserOrders>();
+            Set<UserOrders> set = new HashSet<UserOrders>();
             
             OrderBook orderBook = dataServices.get(exchangeName).getOrderBook(currencyPair);
-            System.out.println("*******************");
             for(LimitOrder order : orderBook.getAsks()){
                 if(order.getId() != null){
-                    UserOrders o = new UserOrders(order.getId(), userExchanges.getUserID(), userExchanges.getExchangeID(),
+                    UserOrders o = new UserOrders(order.getId(), userExchanges.getUser().getID(), userExchanges.getExchange().getID(),
                                                 order.getCurrencyPair().toString(),order.getType().toString(),
                                                 order.getStatus().toString(), order.getTradableAmount(),
                                                 order.getCumulativeAmount(), order.getAveragePrice(), order.getTimestamp());
-                    DbProxyUtils.getInstance().getUserOrdersProxy().create(o);
-                    listOrders.add(o);
+                    set.add(o);
                 }
             }
             for(LimitOrder order : orderBook.getBids()){
                 if(order.getId() != null){
-                    UserOrders o = new UserOrders(order.getId(), userExchanges.getUserID(), userExchanges.getExchangeID(),
+                    UserOrders o = new UserOrders(order.getId(), userExchanges.getUser().getID(), userExchanges.getExchange().getID(),
                                                 order.getCurrencyPair().toString(),order.getType().toString(),
                                                 order.getStatus().toString(), order.getTradableAmount(),
                                                 order.getCumulativeAmount(), order.getAveragePrice(), order.getTimestamp());
-                    DbProxyUtils.getInstance().getUserOrdersProxy().create(o);
-                    listOrders.add(o);
+                    set.add(o);
                 }
             }
-            
-            //userExchanges.setLastUpdatedOrders(endDate);
-            //DbProxyUtils.getInstance().getUserExchangesProxy().update(userExchanges);
-            return listOrders;
+            return set;
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,19 +94,19 @@ public class OrdersPoller implements Runnable  {
         }
     }
 
-    public List<UserOrders> pollManually() throws Exception {
+    public Set<UserOrders> pollManually() throws Exception {
         return generic();
     }
 
 
-    public OrdersPoller(UserExchanges userExchanges, Exchange exchange, CurrencyPair currencyPair){
+    public OrdersPoller(UserExchanges userExchanges, CurrencyPair currencyPair){
         
         this.userExchanges = userExchanges;
-        this.exchangeName = exchange.getDefaultExchangeSpecification().getExchangeName();
+        this.exchangeName = userExchanges.getExchange().getXchangeName();
         this.currencyPair = currencyPair;
 
         if(dataServices.get(exchangeName) == null) {
-            dataServices.put(exchangeName, exchange.getMarketDataService());
+            dataServices.put(exchangeName, ExchangeUtils.getInstance().createXChange(userExchanges).getMarketDataService());
         }
         
         // Go initially to 1000 days back in time

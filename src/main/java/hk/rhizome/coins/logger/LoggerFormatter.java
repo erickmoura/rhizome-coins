@@ -9,7 +9,7 @@ public class LoggerFormatter {
 	
 	private final static String SPACE = " ";
 
-    public String formatLogMsg(String message, LoggerUtils.Level level) {
+    public String formatLogMsg(Object message, LoggerUtils.Level level) {
         return formatLogMap(Collections.singletonMap("message", message), level);
     }
    

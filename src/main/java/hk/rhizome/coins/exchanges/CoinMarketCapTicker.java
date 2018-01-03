@@ -84,7 +84,7 @@ public class CoinMarketCapTicker {
     this.id = (String)data.get("id");
     this.name = (String)data.get("name");;
     this.symbol = (String)data.get("symbol");;
-    this.rank = (int)data.get("rank");;
+    this.rank = (Integer)data.get("rank");;
     this.priceUSD = (BigDecimal)data.get("price_usd");
     this.priceBTC = (BigDecimal)data.get("price_btc");
     this.t4hvolumeUSD = (BigDecimal)data.get("24h_volume_usd");
