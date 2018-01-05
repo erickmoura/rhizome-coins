@@ -10,3 +10,7 @@ config.yml
 .metadata/
 .project
 .settings/
+
+\.vscode/
+
+bin/
