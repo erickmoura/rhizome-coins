@@ -1,0 +1,8 @@
+username: erick
+exchanges: 
+  Poloniex:
+    key: key
+    secret: secret
+  ANXPRO:
+    key: key
+    secret: secret
