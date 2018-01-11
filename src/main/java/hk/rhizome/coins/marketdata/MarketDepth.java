@@ -24,7 +24,8 @@ public final class MarketDepth {
         this.timestamp = timestamp;
         
         BigDecimal sum = BigDecimal.valueOf(0);
-        double min = 0, max = 0;
+        double min = 0;
+        double max = 0;
         
         for(LimitOrder limitOrder : orderBook.getAsks()){
             double limitPrice = limitOrder.getLimitPrice().doubleValue();

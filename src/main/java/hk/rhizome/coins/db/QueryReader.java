@@ -7,7 +7,7 @@ import hk.rhizome.coins.logger.AppLogger;
 
 public class QueryReader {
 
-    RhizomeCoinsUtil util;
+    private RhizomeCoinsUtil util;
 
     public QueryReader() {
         util = new RhizomeCoinsUtil();

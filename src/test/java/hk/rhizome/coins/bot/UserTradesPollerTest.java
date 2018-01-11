@@ -66,14 +66,14 @@ public class UserTradesPollerTest {
     }
 
     public Set<UserTrades> getMockedUserTrades(){
-        UserTrades t = new UserTrades(1, 1, "3304477", "115369066954132", "BTC/EUR", new BigDecimal(0.00000040625), "Bitcoin", new BigDecimal(50),new BigDecimal(0.00000325),  new Date(), "ASK");
+        UserTrades t = new UserTrades(1, 1, "3304477", "115369066954132", "BTC/EUR", new BigDecimal("0.00000040625"), "Bitcoin", new BigDecimal("50"),new BigDecimal("0.00000325"),  new Date(), "ASK");
         Set<UserTrades> trades = new HashSet<UserTrades>();
         trades.add(t);
         return trades;
     }
 
     public List<UserTrade> getMockedTrade(){
-        UserTrade t = new UserTrade(OrderType.ASK, new BigDecimal(50), CurrencyPair.BTC_EUR, new BigDecimal(0.00000325), new Date(), "3304477", "115369066954132", new BigDecimal(0.00000040625), Currency.BTC);
+        UserTrade t = new UserTrade(OrderType.ASK, new BigDecimal("50"), CurrencyPair.BTC_EUR, new BigDecimal("0.00000325"), new Date(), "3304477", "115369066954132", new BigDecimal("0.00000040625"), Currency.BTC);
         List<UserTrade> trades = new ArrayList<UserTrade>();
         trades.add(t);
         return trades;

@@ -41,8 +41,8 @@ import static org.mockito.Mockito.*;
 @RunWith(PowerMockRunner.class)
 public class MarketDataPollerTest {
 	
-	AmazonKinesisFirehose kinesisClient;
-	KinesisGateway kinesisGateway;
+	private AmazonKinesisFirehose kinesisClient;
+	private KinesisGateway kinesisGateway;
 
 	@Before
 	public void setUp() throws Exception{

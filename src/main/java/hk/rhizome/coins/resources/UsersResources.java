@@ -34,9 +34,9 @@ import org.knowm.xchange.currency.CurrencyPair;
 @Produces(MediaType.APPLICATION_JSON)
 public class UsersResources {
     
-    UsersDAO usersDAO;
+    private UsersDAO usersDAO;
     
-    static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public UsersResources(UsersDAO usersDAO){
 		this.usersDAO = usersDAO;

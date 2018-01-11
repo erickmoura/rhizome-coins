@@ -126,7 +126,7 @@ public class UsersResourcesTest {
 
     public Set<Exchanges> getMockedExchanges(){
         Set<Exchanges> exchanges = new HashSet<Exchanges>();
-        Exchanges ex1 = new Exchanges(1, "Poloniex", "org.knowm.xchange.poloniex.PoloniexExchange",	new BigDecimal(0.25), new BigDecimal(0.15),	20);
+        Exchanges ex1 = new Exchanges(1, "Poloniex", "org.knowm.xchange.poloniex.PoloniexExchange",	new BigDecimal("0.25"), new BigDecimal("0.15"),	20);
         exchanges.add(ex1);
         return exchanges;
     }
@@ -137,8 +137,8 @@ public class UsersResourcesTest {
         Date d = sdf.parse(start);
 
         Set<UserOrders> orders = new HashSet<UserOrders>();
-        UserOrders o1 = new UserOrders("12", 1, 1, "ETH/BTC", "ASK", "PENDING_NEW", new BigDecimal(222.22), BigDecimal.ZERO, BigDecimal.ZERO, d);
-        UserOrders o2 = new UserOrders("34", 1, 1, "ETH/BTC", "BID", "PENDING_NEW", new BigDecimal(262.00), BigDecimal.ZERO, BigDecimal.ZERO, d);
+        UserOrders o1 = new UserOrders("12", 1, 1, "ETH/BTC", "ASK", "PENDING_NEW", new BigDecimal("222.22"), BigDecimal.ZERO, BigDecimal.ZERO, d);
+        UserOrders o2 = new UserOrders("34", 1, 1, "ETH/BTC", "BID", "PENDING_NEW", new BigDecimal("262.00"), BigDecimal.ZERO, BigDecimal.ZERO, d);
         orders.add(o1);
         orders.add(o2);
         return orders;
@@ -150,13 +150,13 @@ public class UsersResourcesTest {
         Date d = sdf.parse(start);
 
         Set<UserBalances> balances = new HashSet<UserBalances>();
-        UserBalances b1 = new UserBalances(1, 1, "ETH/BTC", new BigDecimal(2322.23), new BigDecimal(2322.23), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, d);
+        UserBalances b1 = new UserBalances(1, 1, "ETH/BTC", new BigDecimal("2322.23"), new BigDecimal("2322.23"), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, d);
         balances.add(b1);
         return balances;
     }
 
     public Set<UserTrades> getMockedUserTrades(){
-        UserTrades t = new UserTrades(1, 1, "3304477", "115369066954132", "SC/BTC", new BigDecimal(0.00000040625), "Bitcoin", new BigDecimal(50),new BigDecimal(0.00000325),  new Date(), "ASK");
+        UserTrades t = new UserTrades(1, 1, "3304477", "115369066954132", "SC/BTC", new BigDecimal("0.00000040625"), "Bitcoin", new BigDecimal("50"),new BigDecimal("0.00000325"),  new Date(), "ASK");
         Set<UserTrades> trades = new HashSet<UserTrades>();
         trades.add(t);
         return trades;

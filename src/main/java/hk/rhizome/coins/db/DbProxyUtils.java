@@ -15,9 +15,6 @@ public class DbProxyUtils {
     private ExchangesDAOProxy exchangesProxy;
     private CoinsDAOProxy coinsProxy;
 
-    public DbProxyUtils(){
-    }
-
     public static DbProxyUtils getInstance() {
         if(singleton == null)
             AppLogger.getLogger().error("DbProxyUtils not initialized");

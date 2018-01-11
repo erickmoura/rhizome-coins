@@ -72,7 +72,7 @@ public class JobManager {
         }
     }
 
-    void createXChangeJobs(){
+    private void createXChangeJobs(){
         AppLogger.getLogger().debug("Creating XchangeJob in JobManager");
         
         ExchangesDAOProxy proxy = DbProxyUtils.getInstance().getExchangesProxy();
@@ -119,7 +119,7 @@ public class JobManager {
         
     }
 
-    boolean filterCoin(List<Coins> coins, String name){
+    private boolean filterCoin(List<Coins> coins, String name){
         for(Coins c : coins){
             if(c.getName().equals(name))
                 return true;
@@ -127,7 +127,7 @@ public class JobManager {
         return false;
     }
 
-    void createCoinMarketCapJob(){
+    private void createCoinMarketCapJob(){
         AppLogger.getLogger().debug("Creating CoinMarketCapJob in JobManager");
         
         String jobName = "CoinMarketCapJob";

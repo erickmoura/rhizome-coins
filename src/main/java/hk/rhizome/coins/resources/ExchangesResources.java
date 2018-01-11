@@ -17,7 +17,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 @Produces(MediaType.APPLICATION_JSON)
 public class ExchangesResources {
     
-    ExchangesDAO exchangesDAO;
+    private ExchangesDAO exchangesDAO;
 
     public ExchangesResources(ExchangesDAO exchangesDAO){
         this.exchangesDAO = exchangesDAO;

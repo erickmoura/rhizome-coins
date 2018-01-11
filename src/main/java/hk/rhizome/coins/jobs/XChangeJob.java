@@ -97,7 +97,7 @@ public class XChangeJob extends RhizomeJob {
         
     }
 
-    void rescheduleTrigger(Scheduler scheduler, Trigger oldTrigger){
+    private void rescheduleTrigger(Scheduler scheduler, Trigger oldTrigger){
         
         AppLogger.getLogger().info("Scheduling the job with 5 seconds interval.");
         TriggerBuilder builder = oldTrigger.getTriggerBuilder();

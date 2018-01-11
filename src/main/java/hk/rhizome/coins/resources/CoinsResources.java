@@ -17,7 +17,7 @@ import io.dropwizard.hibernate.UnitOfWork;
 @Produces(MediaType.APPLICATION_JSON)
 public class CoinsResources{
     
-    CoinsDAO coinsDAO;
+    private CoinsDAO coinsDAO;
     public CoinsResources(CoinsDAO coinsDAO){
         this.coinsDAO = coinsDAO;
     }

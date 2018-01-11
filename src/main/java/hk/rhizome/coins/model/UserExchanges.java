@@ -18,43 +18,14 @@ import javax.persistence.*;
 })
 public class UserExchanges {
 
-    @Embeddable
-    public static class Id implements Serializable {
-        @Column(name = "user_id")
-        private int userID;
-        
-        @Column(name = "exchange_id")
-        private int exchangeID;
-
-        public Id() {
-        }
-
-        public Id(int userID, int exchangeID) {
-            this.userID = userID;
-            this.exchangeID = exchangeID;
-        }
-
-        public boolean equals(Object o) {
-            if (o != null && o instanceof Id) {
-                Id that = (Id) o;
-                return this.exchangeID == that.exchangeID && this.userID == that.userID;
-            } else {
-                return false;
-            }
-        }
-
-    }
-
     @EmbeddedId
     private Id id = new Id();
-
 
     //TODO: Omaida, see the right way to make mappings/relationships and avoid
     //cumbersome Util methods, line in ExchangeUtils
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false, insertable=false, updatable=false)
     User user;
-
     
     @ManyToOne
     @JoinColumn(name="exchange_id", nullable=false, insertable=false, updatable=false)
@@ -93,10 +64,33 @@ public class UserExchanges {
         this.id.userID = user.getID();
     }
 
-    //public int getID(){
-      //  return this.id;
-    //}
+    @Embeddable
+    public static class Id implements Serializable {
+        @Column(name = "user_id")
+        private int userID;
+        
+        @Column(name = "exchange_id")
+        private int exchangeID;
 
+        public Id() {
+        }
+
+        public Id(int userID, int exchangeID) {
+            this.userID = userID;
+            this.exchangeID = exchangeID;
+        }
+
+        public boolean equals(Object o) {
+            if (o != null && o instanceof Id) {
+                Id that = (Id) o;
+                return this.exchangeID == that.exchangeID && this.userID == that.userID;
+            } else {
+                return false;
+            }
+        }
+
+    }
+    
     public User getUser(){
         return this.user;
     }
