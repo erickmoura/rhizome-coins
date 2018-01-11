@@ -98,7 +98,7 @@ public class JobManager {
                     map.put("currencyPair", c.toString());
                     JobDetail job = JobBuilder.newJob(XChangeJob.class).withIdentity(jobName.toString(), JOB_GROUP_NAME).usingJobData(map).build();
                     
-                    int intervalSeconds = RhizomeCoinsUtil.CalculatePollingRate(exchanges.getPollingRate());
+                    int intervalSeconds = RhizomeCoinsUtil.calculatePollingRate(exchanges.getPollingRate());
                     
                     Trigger trigger = TriggerBuilder
                         .newTrigger()
@@ -136,7 +136,7 @@ public class JobManager {
         //createJobTriggers(CoinMarketCapJob.class,jobName, triggerName, JOB_GROUP_NAME, Constants.COINMARKETCAP_POLLING_PERIODICITY);
         JobDetail job = JobBuilder.newJob(CoinMarketCapJob.class).withIdentity(jobName, JOB_GROUP_NAME).build();
         
-        int intervalSeconds = RhizomeCoinsUtil.CalculatePollingRate(Constants.COINMARKETCAP_POLLING_PERIODICITY);
+        int intervalSeconds = RhizomeCoinsUtil.calculatePollingRate(Constants.COINMARKETCAP_POLLING_PERIODICITY);
         Trigger trigger = TriggerBuilder
             .newTrigger()
             .startNow()

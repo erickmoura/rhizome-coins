@@ -57,7 +57,7 @@ public class RhizomeCoinsUtil {
 	 * Calculates how frequent the jobs should make a request to specific exchange.
 	 * For safety purposes left a margin 10% of the requests permited in a minute.
 	 */
-	public static int CalculatePollingRate(int requestsPerMinute){
+	public static int calculatePollingRate(int requestsPerMinute){
 		//return (int) (60/(0.9*requestsPerMinute));
 		return 1;
 	}

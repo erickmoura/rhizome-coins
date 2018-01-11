@@ -55,7 +55,7 @@ public class KinesisGateway {
         		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
         }
         if(status.equalsIgnoreCase("ACTIVE")){
-            //return;
+            AppLogger.getLogger().info("Stream " + streamName + " is ACTIVE");;
         }
         else if(status.equalsIgnoreCase("CREATING")){
             try {

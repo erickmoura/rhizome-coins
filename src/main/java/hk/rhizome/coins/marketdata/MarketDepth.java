@@ -36,24 +36,24 @@ public final class MarketDepth {
                 this.currencyPair = limitOrder.getCurrencyPair();
             }
 
-            if(getAsk_05() == null && limitPrice > min*1.005){
-                setAsk_05(sum);
+            if(getAsk05() == null && limitPrice > min*1.005){
+                setAsk05(sum);
             }
 
-            if(getAsk_1() == null && limitPrice > min*1.01){
-                setAsk_1(sum);
+            if(getAsk1() == null && limitPrice > min*1.01){
+                setAsk1(sum);
             }
 
-            if(getAsk_2() == null && limitPrice > min*1.02){
-                setAsk_2(sum);
+            if(getAsk2() == null && limitPrice > min*1.02){
+                setAsk2(sum);
             }
 
-            if(getAsk_5() == null && limitPrice > min*1.05){
-                setAsk_5(sum);
+            if(getAsk5() == null && limitPrice > min*1.05){
+                setAsk5(sum);
             }
 
-            if(getAsk_10() == null && limitPrice > min*1.1){
-                setAsk_10(sum);
+            if(getAsk10() == null && limitPrice > min*1.1){
+                setAsk10(sum);
             }
 
             sum = sum.add(tradableAmount);
@@ -69,24 +69,24 @@ public final class MarketDepth {
                 sum = tradableAmount;
             }
 
-            if(getBid_05() == null && limitPrice < max*.995){
-                setBid_05(sum);
+            if(getBid05() == null && limitPrice < max*.995){
+                setBid05(sum);
             }
 
-            if(getBid_1() == null && limitPrice < max*.99){
-                setBid_1(sum);
+            if(getBid1() == null && limitPrice < max*.99){
+                setBid1(sum);
             }
 
-            if(getBid_2() == null && limitPrice < max*.98){
-                setBid_2(sum);
+            if(getBid2() == null && limitPrice < max*.98){
+                setBid2(sum);
             }
 
-            if(getBid_5() == null && limitPrice < max*.95){
-                setBid_5(sum);
+            if(getBid5() == null && limitPrice < max*.95){
+                setBid5(sum);
             }
 
-            if(getBid_10() == null && limitPrice < max*.9){
-                setBid_10(sum);
+            if(getBid10() == null && limitPrice < max*.9){
+                setBid10(sum);
             }
 
             sum = sum.add(tradableAmount);
@@ -103,83 +103,83 @@ public final class MarketDepth {
         return timestamp;
     }
 
-    public BigDecimal getAsk_05() {
+    public BigDecimal getAsk05() {
         return ask_05;
     }
 
-    public void setAsk_05(BigDecimal ask_05) {
+    public void setAsk05(BigDecimal ask_05) {
         this.ask_05 = ask_05;
     }
 
-    public BigDecimal getAsk_1() {
+    public BigDecimal getAsk1() {
         return ask_1;
     }
 
-    public void setAsk_1(BigDecimal ask_1) {
+    public void setAsk1(BigDecimal ask_1) {
         this.ask_1 = ask_1;
     }
 
-    public BigDecimal getAsk_2() {
+    public BigDecimal getAsk2() {
         return ask_2;
     }
 
-    public void setAsk_2(BigDecimal ask_2) {
+    public void setAsk2(BigDecimal ask_2) {
         this.ask_2 = ask_2;
     }
 
-    public BigDecimal getAsk_5() {
+    public BigDecimal getAsk5() {
         return ask_5;
     }
 
-    public void setAsk_5(BigDecimal ask_5) {
+    public void setAsk5(BigDecimal ask_5) {
         this.ask_5 = ask_5;
     }
 
-    public BigDecimal getAsk_10() {
+    public BigDecimal getAsk10() {
         return ask_10;
     }
 
-    public void setAsk_10(BigDecimal ask_10) {
+    public void setAsk10(BigDecimal ask_10) {
         this.ask_10 = ask_10;
     }
 
-    public BigDecimal getBid_05() {
+    public BigDecimal getBid05() {
         return bid_05;
     }
 
-    public void setBid_05(BigDecimal bid_05) {
+    public void setBid05(BigDecimal bid_05) {
         this.bid_05 = bid_05;
     }
 
-    public BigDecimal getBid_1() {
+    public BigDecimal getBid1() {
         return bid_1;
     }
 
-    public void setBid_1(BigDecimal bid_1) {
+    public void setBid1(BigDecimal bid_1) {
         this.bid_1 = bid_1;
     }
 
-    public BigDecimal getBid_2() {
+    public BigDecimal getBid2() {
         return bid_2;
     }
 
-    public void setBid_2(BigDecimal bid_2) {
+    public void setBid2(BigDecimal bid_2) {
         this.bid_2 = bid_2;
     }
 
-    public BigDecimal getBid_5() {
+    public BigDecimal getBid5() {
         return bid_5;
     }
 
-    public void setBid_5(BigDecimal bid_5) {
+    public void setBid5(BigDecimal bid_5) {
         this.bid_5 = bid_5;
     }
 
-    public BigDecimal getBid_10() {
+    public BigDecimal getBid10() {
         return bid_10;
     }
 
-    public void setBid_10(BigDecimal bid_10) {
+    public void setBid10(BigDecimal bid_10) {
         this.bid_10 = bid_10;
     }
 

@@ -42,7 +42,7 @@ import static org.mockito.Mockito.*;
 public class OrdersPollerTest {
     
     @Before
-    public void setup(){
+    public void setUp(){
         AppLogger.initialize();
     }
 

@@ -47,7 +47,7 @@ public class UsersResources {
     @Path("/orders")
     public Map<String, Set<UserOrders>> getOrders(@QueryParam("startDate") String startDate, @QueryParam("endDate") String endDate, @QueryParam("forceReload") Optional<Boolean> forceReload) throws Exception{
         AppLogger.getLogger().debug("Started getOrders");
-        Set<UserOrders> orders = new HashSet<UserOrders>();;
+        Set<UserOrders> orders = new HashSet<UserOrders>();
         User user = usersDAO.getByID(1);
         
         if(forceReload.isPresent() && (Boolean)forceReload.get()){
