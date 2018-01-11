@@ -8,11 +8,11 @@ import hk.rhizome.coins.logger.AppLogger;
 public class CoinMarketCapService{
 
     private CoinMarketCap coinMarketCap;
-    private CoinMarketCapExchange exchange;
+    private CoinMarketCapExchange coinMarketCapExchange;
 
     public CoinMarketCapService(){
-        this.exchange = new CoinMarketCapExchange();
-        this.coinMarketCap = RestProxyFactory.createProxy(CoinMarketCap.class, exchange.getURI());
+        this.coinMarketCapExchange = new CoinMarketCapExchange();
+        this.coinMarketCap = RestProxyFactory.createProxy(CoinMarketCap.class, coinMarketCapExchange.getURI());
     }
 
     public List<CoinMarketCapTicker> getTickers() throws Exception {

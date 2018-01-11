@@ -14,19 +14,19 @@ import javax.persistence.*;
 public class Coins {
     
     @Id
-    String id;
+    private String id;
     
     @Column(name = "coin_name")
-    String name;
+    private String name;
 
     @Column(name = "symbol")
-    String symbol;
+    private String symbol;
 
     @Column(name = "inserted_date")
-    Date insertedDate;
+    private Date insertedDate;
 
     @Column(name = "removed_date")
-    Date removedDate;
+    private Date removedDate;
 
     public Coins(){
         

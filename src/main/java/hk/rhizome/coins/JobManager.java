@@ -32,10 +32,10 @@ import hk.rhizome.coins.utils.RhizomeCoinsUtil;
 
 public class JobManager {
 
-    Map<String,JobDetail> jobs;
-    Map<String,Trigger> triggers;
+    private Map<String,JobDetail> jobs;
+    private Map<String,Trigger> triggers;
 
-    static final String JOB_GROUP_NAME = "ExchangesPoller";
+    private static final String JOB_GROUP_NAME = "ExchangesPoller";
 
     public JobManager(){
         this.jobs = new HashMap<String, JobDetail>();

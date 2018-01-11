@@ -22,6 +22,7 @@ public class UserExchanges {
     public static class Id implements Serializable {
         @Column(name = "user_id")
         private int userID;
+        
         @Column(name = "exchange_id")
         private int exchangeID;
 

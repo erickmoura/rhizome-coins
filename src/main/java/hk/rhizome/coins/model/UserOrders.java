@@ -19,37 +19,37 @@ public class UserOrders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
 
     @Column(name="order_id")
-    String orderID;
+    private String orderID;
 
     @Column(name = "user_id")
-    int userID;
+    private int userID;
 
     @Column(name = "exchange_id")
-    int exchangeID;
+    private int exchangeID;
 
     @Column(name = "currency")
-    String currency;
+    private String currency;
 
     @Column(name = "order_type")
-    String orderType;
+    private String orderType;
 
     @Column(name = "order_status")
-    String orderStatus;
+    private String orderStatus;
     
     @Column(name = "tradable_amount")
-    BigDecimal tradableAmount;
+    private BigDecimal tradableAmount;
     
     @Column(name = "cumlative_amount")
-    BigDecimal cumlativeAmount;
+    private BigDecimal cumlativeAmount;
     
     @Column(name = "average_price")
-    BigDecimal averagePrice;
+    private BigDecimal averagePrice;
 
     @Column(name = "order_date")
-    Date orderDate;
+    private Date orderDate;
 
     public UserOrders(){
         

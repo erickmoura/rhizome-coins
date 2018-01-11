@@ -31,22 +31,22 @@ public class Exchanges {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exchange_id", unique = true, nullable = false)
-    int exchangeID;
+    private int exchangeID;
     
     @Column(name = "exchange_name")
-    String exchangeName;
+    private String exchangeName;
 
     @Column(name = "xchange_name")
-    String xchangeName;
+    private String xchangeName;
 
     @Column(name = "taker")
-    BigDecimal taker;
+    private BigDecimal taker;
 
     @Column(name = "maker")
-    BigDecimal maker;
+    private BigDecimal maker;
 
     @Column(name = "polling_rate")
-    int pollingRate;
+    private int pollingRate;
 
     public Exchanges(){
         

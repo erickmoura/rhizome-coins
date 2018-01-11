@@ -19,40 +19,40 @@ public class UserTrades {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Column(name = "user_id")
-    int userID;
+    private int userID;
 
     @Column(name = "exchange_id")
-    int exchangeID;
+    private int exchangeID;
 
     @Column(name="trade_id")
-    String tradeID;
+    private String tradeID;
 
     @Column(name="order_id")
-    String orderID;
+    private String orderID;
 
     @Column(name="currency_pair")
-    String currencyPair;
+    private String currencyPair;
 
     @Column(name = "fee_amount")
-    BigDecimal feeAmount;
+    private BigDecimal feeAmount;
 
     @Column(name = "fee_currency")
-    String feeCurrency;
+    private String feeCurrency;
 
     @Column(name = "tradable_amount")
-    BigDecimal tradableAmount;
+    private BigDecimal tradableAmount;
     
     @Column(name = "price")
-    BigDecimal price;
+    private BigDecimal price;
     
     @Column(name = "trade_date")
-    Date tradeDate;
+    private Date tradeDate;
     
     @Column(name = "trade_type")
-    String tradeType;
+    private String tradeType;
 
     public UserTrades(){
         

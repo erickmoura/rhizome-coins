@@ -32,7 +32,7 @@ public class ExchangeUtils {
     createBotData(DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
   }
 
-  public List<Exchanges> AllExchanges(){
+  public List<Exchanges> getAllExchanges(){
     return this.exchanges;
   }
 

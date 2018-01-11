@@ -17,40 +17,40 @@ public class UserBalances {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private int id;
     
     @Column(name = "user_id")
-    int userID;
+    private int userID;
     
     @Column(name = "exchange_id")
-    int exchangeID;
+    private int exchangeID;
 
     @Column(name = "currency")
-    String currencyCode;
+    private String currencyCode;
 
     @Column(name = "total")
-    BigDecimal total;
+    private BigDecimal total;
 
     @Column(name = "available")
-    BigDecimal available;
+    private BigDecimal available;
 
     @Column(name = "frozen")
-    BigDecimal frozen;
+    private BigDecimal frozen;
 
     @Column(name = "loaned")
-    BigDecimal loaned;
+    private BigDecimal loaned;
 
     @Column(name = "borrowed")
-    BigDecimal borrowed;
+    private BigDecimal borrowed;
 
     @Column(name = "withdrawing")
-    BigDecimal withdrawing;
+    private BigDecimal withdrawing;
 
     @Column(name = "depositing")
-    BigDecimal depositing;
+    private BigDecimal depositing;
 
     @Column(name = "collect_date")
-    Date collectDate;
+    private Date collectDate;
 
     
     public UserBalances(){

@@ -135,6 +135,7 @@ public class LoggerUtils{
         }
         if(status.equalsIgnoreCase("ACTIVE")){
             //return;
+            AppLogger.getLogger().info("Stream with status ACTIVE");
         }
         else if(status.equalsIgnoreCase("CREATING")){
             try {

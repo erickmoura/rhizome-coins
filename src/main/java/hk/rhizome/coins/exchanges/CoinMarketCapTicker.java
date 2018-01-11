@@ -82,19 +82,19 @@ public class CoinMarketCapTicker {
 
   public CoinMarketCapTicker(Map<String, Object> data){
     this.id = (String)data.get("id");
-    this.name = (String)data.get("name");;
-    this.symbol = (String)data.get("symbol");;
-    this.rank = (Integer)data.get("rank");;
+    this.name = (String)data.get("name");
+    this.symbol = (String)data.get("symbol");
+    this.rank = (Integer)data.get("rank");
     this.priceUSD = (BigDecimal)data.get("price_usd");
     this.priceBTC = (BigDecimal)data.get("price_btc");
     this.t4hvolumeUSD = (BigDecimal)data.get("24h_volume_usd");
-    this.marketCapUSD = (BigDecimal)data.get("market_cap_usd");;
-    this.availableSupply = (BigDecimal)data.get("available_supply");;
-    this.totalSupply = (BigDecimal)data.get("total_supply");;
-    this.percentChange1h = (BigDecimal)data.get("percent_change_1h");;
-    this.percentChange24h = (BigDecimal)data.get("percent_change_24h");;
-    this.percentChange7d = (BigDecimal)data.get("percent_change_7d");;
-    this.lastUpdated = (Date)data.get("last_updated");;
+    this.marketCapUSD = (BigDecimal)data.get("market_cap_usd");
+    this.availableSupply = (BigDecimal)data.get("available_supply");
+    this.totalSupply = (BigDecimal)data.get("total_supply");
+    this.percentChange1h = (BigDecimal)data.get("percent_change_1h");
+    this.percentChange24h = (BigDecimal)data.get("percent_change_24h");
+    this.percentChange7d = (BigDecimal)data.get("percent_change_7d");
+    this.lastUpdated = (Date)data.get("last_updated");
   }
 
   public String getExchange(){

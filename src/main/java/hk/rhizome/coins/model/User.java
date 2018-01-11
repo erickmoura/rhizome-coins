@@ -36,10 +36,10 @@ public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "user_id", unique = true, nullable = false)
-        int userID;
+        private int userID;
 
         @Column(name = "user_name")
-        String name;
+        private String name;
 
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(name = "users_exchanges", joinColumns = {

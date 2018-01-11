@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 public class UserTradesPollerTest {
     
     @Before
-    public void setup(){
+    public void setUp(){
         AppLogger.initialize();
     }
 

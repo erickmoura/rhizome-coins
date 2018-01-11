@@ -27,7 +27,7 @@ import java.util.List;
 public class CoinMarketCapPollerTest {
 
     @Before
-    public void setup(){
+    public void setUp(){
         AppLogger.initialize();
     }
 
@@ -67,9 +67,9 @@ public class CoinMarketCapPollerTest {
     public List<CoinMarketCapTicker> getMockedTickers(){
         List<CoinMarketCapTicker> list = new ArrayList<CoinMarketCapTicker>();
 
-        CoinMarketCapTicker t1 = new CoinMarketCapTicker("bitcoin", "Bitcoin", "BTC", 1, new BigDecimal(12), new BigDecimal(33), new BigDecimal(0.1), new BigDecimal(0.0123), new BigDecimal(12), new BigDecimal(22), new BigDecimal(2), new BigDecimal(222), new BigDecimal(333), new Long(524245243));
-        CoinMarketCapTicker t2 = new CoinMarketCapTicker("litecoin", "Litecoin", "LTC", 1, new BigDecimal(12), new BigDecimal(33), new BigDecimal(0.1), new BigDecimal(0.0123), new BigDecimal(12), new BigDecimal(22), new BigDecimal(2), new BigDecimal(222), new BigDecimal(333), new Long(512523525));
-        CoinMarketCapTicker t3 = new CoinMarketCapTicker("lisk", "Lisk", "LSK", 1, new BigDecimal(12), new BigDecimal(33), new BigDecimal(0.1), new BigDecimal(0.0123), new BigDecimal(12), new BigDecimal(22), new BigDecimal(2), new BigDecimal(222), new BigDecimal(333), new Long(4123432));
+        CoinMarketCapTicker t1 = new CoinMarketCapTicker("bitcoin", "Bitcoin", "BTC", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("524245243"));
+        CoinMarketCapTicker t2 = new CoinMarketCapTicker("litecoin", "Litecoin", "LTC", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("512523525"));
+        CoinMarketCapTicker t3 = new CoinMarketCapTicker("lisk", "Lisk", "LSK", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("4123432"));
 
         list.add(t1);
         list.add(t2);
