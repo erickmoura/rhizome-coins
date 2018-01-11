@@ -1,10 +1,11 @@
 package hk.rhizome.coins.db;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.hibernate.SessionFactory;
+
 import hk.rhizome.coins.model.Exchanges;
 import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.SessionFactory;
 
 public class ExchangesDAO extends AbstractDAO<Exchanges> {
     

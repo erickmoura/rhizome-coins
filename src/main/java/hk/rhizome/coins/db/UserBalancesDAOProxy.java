@@ -1,7 +1,7 @@
 package hk.rhizome.coins.db;
 
 import java.util.List;
-import hk.rhizome.coins.db.UserBalancesDAO;
+
 import hk.rhizome.coins.model.UserBalances;
 import io.dropwizard.hibernate.UnitOfWork;
 

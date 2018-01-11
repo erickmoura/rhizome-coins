@@ -1,15 +1,20 @@
 package hk.rhizome.coins.bot;
 
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.amazonaws.services.kinesis.model.PutRecordResult;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.reflect.Whitebox;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import com.amazonaws.services.kinesis.model.PutRecordResult;
-
-import static org.mockito.Mockito.*;
+import org.powermock.reflect.Whitebox;
 
 import hk.rhizome.coins.KinesisGateway;
 import hk.rhizome.coins.exchanges.CoinMarketCapService;
@@ -17,11 +22,6 @@ import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.Coins;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @RunWith(PowerMockRunner.class)
 public class CoinMarketCapPollerTest {

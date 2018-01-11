@@ -2,7 +2,6 @@ package hk.rhizome.coins.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import org.knowm.xchange.currency.Currency;
 
 import javax.persistence.*;
 

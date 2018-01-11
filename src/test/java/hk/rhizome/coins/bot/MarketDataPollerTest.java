@@ -1,42 +1,32 @@
 package hk.rhizome.coins.bot;
 
-import org.junit.Assert;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.knowm.xchange.service.marketdata.MarketDataService;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.dto.marketdata.Ticker;
+import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
-import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.marketdata.Ticker;
+import org.knowm.xchange.dto.trade.LimitOrder;
+import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
-import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
-import com.amazonaws.services.kinesisfirehose.model.*;
-import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
+import hk.rhizome.coins.KinesisGateway;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
-import hk.rhizome.coins.marketdata.FeesMatrix;
 import hk.rhizome.coins.marketdata.MarketDepth;
 import hk.rhizome.coins.marketdata.PricingsMatrix;
-import hk.rhizome.coins.marketdata.TradingFeePair;
-import hk.rhizome.coins.KinesisGateway;
-import java.util.List;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 public class MarketDataPollerTest {

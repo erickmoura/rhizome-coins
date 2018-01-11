@@ -1,26 +1,25 @@
 package hk.rhizome.coins.bot;
 
-import hk.rhizome.coins.db.DbProxyUtils;
-import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.model.User;
-import hk.rhizome.coins.model.UserBalances;
-import hk.rhizome.coins.model.UserExchanges;
-import hk.rhizome.coins.ExchangeUtils;
-
-import org.knowm.xchange.currency.Currency;
-import org.knowm.xchange.dto.account.AccountInfo;
-import org.knowm.xchange.dto.account.Balance;
-import org.knowm.xchange.service.account.AccountService;
-import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
-import org.knowm.xchange.utils.CertHelper;
-
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import org.knowm.xchange.dto.account.AccountInfo;
+import org.knowm.xchange.dto.account.Balance;
+import org.knowm.xchange.service.account.AccountService;
+import org.knowm.xchange.utils.CertHelper;
+
+import hk.rhizome.coins.ExchangeUtils;
+import hk.rhizome.coins.db.DbProxyUtils;
+import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.model.User;
+import hk.rhizome.coins.model.UserBalances;
+import hk.rhizome.coins.model.UserExchanges;
 
 /**
  * Created by erickmoura on 8/7/2017.

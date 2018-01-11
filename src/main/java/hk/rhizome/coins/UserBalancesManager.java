@@ -1,10 +1,11 @@
 package hk.rhizome.coins;
 
+import java.util.List;
+
 import hk.rhizome.coins.bot.BalancesPoller;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.model.UserExchanges;
-import java.util.List;
 
 public class UserBalancesManager {
 

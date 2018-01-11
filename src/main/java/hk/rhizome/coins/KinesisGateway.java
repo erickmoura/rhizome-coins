@@ -1,26 +1,26 @@
 package hk.rhizome.coins;
 
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.List;
+
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.prism.impl.Disposer.Record;
+
+import org.knowm.xchange.dto.Order;
+import org.knowm.xchange.dto.trade.UserTrade;
+
 import hk.rhizome.coins.account.ExchangeBalance;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.knowm.xchange.dto.Order;
-import org.knowm.xchange.dto.trade.UserTrade;
-
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.List;
 
 /**
  * Created by erickmoura on 2/7/2017.

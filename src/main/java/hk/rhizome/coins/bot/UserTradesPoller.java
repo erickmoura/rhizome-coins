@@ -1,5 +1,17 @@
 package hk.rhizome.coins.bot;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import org.knowm.xchange.dto.trade.UserTrade;
+import org.knowm.xchange.service.trade.TradeService;
+import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
+import org.knowm.xchange.utils.CertHelper;
+
 import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.KinesisGateway;
 import hk.rhizome.coins.db.DbProxyUtils;
@@ -8,18 +20,6 @@ import hk.rhizome.coins.marketdata.CurrencySetService;
 import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserExchanges;
 import hk.rhizome.coins.model.UserTrades;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.service.trade.TradeService;
-import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
-import org.knowm.xchange.utils.CertHelper;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by erickmoura on 8/7/2017.

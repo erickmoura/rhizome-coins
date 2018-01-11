@@ -1,13 +1,13 @@
 package hk.rhizome.coins.db;
 
-import io.dropwizard.db.DataSourceFactory;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.setup.Environment;
 import java.util.Map;
 
+import org.omg.CORBA.Environment;
 import org.skife.jdbi.v2.DBI;
 
 import hk.rhizome.coins.logger.AppLogger;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.jdbi.DBIFactory;
 
 public class DataSourceUtil {
 

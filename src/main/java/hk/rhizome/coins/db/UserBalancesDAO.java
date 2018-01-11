@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+
 import hk.rhizome.coins.model.UserBalances;
 import io.dropwizard.hibernate.AbstractDAO;
-
-import org.hibernate.SessionFactory;
 
 public class UserBalancesDAO extends AbstractDAO<UserBalances> {
     

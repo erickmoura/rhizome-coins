@@ -1,20 +1,6 @@
 package hk.rhizome.coins.resources;
 
-import hk.rhizome.coins.bot.BalancesPoller;
-import hk.rhizome.coins.bot.OrdersPoller;
-import hk.rhizome.coins.bot.UserTradesPoller;
-import hk.rhizome.coins.db.UsersDAO;
-import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.marketdata.CurrencySetService;
-import hk.rhizome.coins.model.Exchanges;
-import hk.rhizome.coins.model.UserBalances;
-import hk.rhizome.coins.model.UserExchanges;
-import hk.rhizome.coins.model.UserOrders;
-import hk.rhizome.coins.model.UserTrades;
-import hk.rhizome.coins.model.User;
-import hk.rhizome.coins.utils.ResponseUtils;
-import io.dropwizard.hibernate.UnitOfWork;
-
+import java.awt.PageAttributes.MediaType;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,9 +12,23 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 
 import org.knowm.xchange.currency.CurrencyPair;
+
+import hk.rhizome.coins.bot.BalancesPoller;
+import hk.rhizome.coins.bot.OrdersPoller;
+import hk.rhizome.coins.bot.UserTradesPoller;
+import hk.rhizome.coins.db.UsersDAO;
+import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.marketdata.CurrencySetService;
+import hk.rhizome.coins.model.Exchanges;
+import hk.rhizome.coins.model.User;
+import hk.rhizome.coins.model.UserBalances;
+import hk.rhizome.coins.model.UserExchanges;
+import hk.rhizome.coins.model.UserOrders;
+import hk.rhizome.coins.model.UserTrades;
+import hk.rhizome.coins.utils.ResponseUtils;
+import io.dropwizard.hibernate.UnitOfWork;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)

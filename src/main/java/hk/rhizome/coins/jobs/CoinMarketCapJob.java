@@ -1,14 +1,16 @@
 package hk.rhizome.coins.jobs;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
 import hk.rhizome.coins.exchanges.CoinMarketCapService;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.Coins;
-import java.util.ArrayList;
-import java.util.List;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
 public class CoinMarketCapJob extends RhizomeJob {
     

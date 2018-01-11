@@ -1,16 +1,9 @@
 package hk.rhizome.coins.jobs;
 
-import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.marketdata.CoinsSetService;
-import hk.rhizome.coins.marketdata.ExchangeTicker;
-import hk.rhizome.coins.marketdata.MarketDepth;
-import hk.rhizome.coins.marketdata.PricingsMatrix;
-import hk.rhizome.coins.model.Coins;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -27,6 +20,11 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+
+import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.marketdata.ExchangeTicker;
+import hk.rhizome.coins.marketdata.MarketDepth;
+import hk.rhizome.coins.marketdata.PricingsMatrix;
 
 public class XChangeJob extends RhizomeJob {
 

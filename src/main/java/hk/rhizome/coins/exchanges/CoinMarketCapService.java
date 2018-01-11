@@ -1,8 +1,9 @@
 package hk.rhizome.coins.exchanges;
 
 import java.util.List;
-import si.mazi.rescu.RestProxyFactory;
+
 import hk.rhizome.coins.logger.AppLogger;
+import si.mazi.rescu.RestProxyFactory;
 
 
 public class CoinMarketCapService{

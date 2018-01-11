@@ -1,12 +1,12 @@
 package hk.rhizome.coins.db;
 
-import hk.rhizome.coins.model.UserOrders;
-import io.dropwizard.hibernate.AbstractDAO;
-
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+
+import hk.rhizome.coins.model.UserOrders;
+import io.dropwizard.hibernate.AbstractDAO;
 
 public class UserOrdersDAO extends AbstractDAO<UserOrders> {
     

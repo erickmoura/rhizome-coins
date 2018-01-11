@@ -1,21 +1,22 @@
 package hk.rhizome.coins.bot;
 
-import hk.rhizome.coins.KinesisGateway;
-import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.marketdata.ExchangeTicker;
-import hk.rhizome.coins.marketdata.MarketDepth;
-import hk.rhizome.coins.marketdata.PricingsMatrix;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.utils.CertHelper;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.logger.AppLogger;
+import hk.rhizome.coins.marketdata.ExchangeTicker;
+import hk.rhizome.coins.marketdata.MarketDepth;
+import hk.rhizome.coins.marketdata.PricingsMatrix;
 
 /**
  * Created by erickmoura on 8/7/2017.

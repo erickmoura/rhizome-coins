@@ -1,7 +1,7 @@
 package hk.rhizome.coins.trade;
 
-import hk.rhizome.coins.KinesisGateway;
-import hk.rhizome.coins.logger.AppLogger;
+import java.math.BigDecimal;
+import java.util.HashMap;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -9,15 +9,11 @@ import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.OpenOrders;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.dto.trade.UserTrades;
-import org.knowm.xchange.poloniex.service.PoloniexTradeService;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParamCurrencyPair;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
+import hk.rhizome.coins.KinesisGateway;
+import hk.rhizome.coins.logger.AppLogger;
 
 /**
  * @author Erick de Moura

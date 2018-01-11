@@ -1,6 +1,7 @@
 package hk.rhizome.coins.db;
 
 import java.util.List;
+
 import hk.rhizome.coins.model.UserExchanges;
 import io.dropwizard.hibernate.UnitOfWork;
 

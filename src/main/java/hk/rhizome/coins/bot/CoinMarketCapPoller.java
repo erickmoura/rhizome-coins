@@ -1,17 +1,17 @@
 package hk.rhizome.coins.bot;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import hk.rhizome.coins.KinesisGateway;
 import hk.rhizome.coins.exchanges.CoinMarketCapService;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.Coins;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class CoinMarketCapPoller  implements Runnable  {
 

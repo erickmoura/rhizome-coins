@@ -1,11 +1,12 @@
 package hk.rhizome.coins;
 
-import hk.rhizome.coins.marketdata.CurrencySetService;
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.currency.CurrencyPair;
+
 import hk.rhizome.coins.bot.CoinMarketCapPoller;
 import hk.rhizome.coins.bot.MarketDataPoller;
 import hk.rhizome.coins.logger.AppLogger;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.currency.CurrencyPair;
+import hk.rhizome.coins.marketdata.CurrencySetService;
 
 /**
  * Created by erickmoura on 2/7/2017.

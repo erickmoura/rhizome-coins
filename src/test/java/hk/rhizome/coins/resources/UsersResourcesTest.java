@@ -1,8 +1,19 @@
 package hk.rhizome.coins.resources;
 
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
+
 import hk.rhizome.coins.db.UserExchangesDAO;
 import hk.rhizome.coins.db.UsersDAO;
 import hk.rhizome.coins.logger.AppLogger;
@@ -11,19 +22,6 @@ import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
 import hk.rhizome.coins.model.UserTrades;
-
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Optional;
-import java.util.HashMap;
-import java.util.Map;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
 
 public class UsersResourcesTest {
     

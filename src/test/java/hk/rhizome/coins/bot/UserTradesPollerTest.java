@@ -1,32 +1,33 @@
 package hk.rhizome.coins.bot;
 
+import static org.mockito.Mockito.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.Order.OrderType;
+import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.currency.Currency;
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.trade.UserTrade;
-import org.knowm.xchange.dto.Order.OrderType;
+
 import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.logger.AppLogger;
-import hk.rhizome.coins.marketdata.CurrencySetService;
-import hk.rhizome.coins.model.Exchanges;
 import hk.rhizome.coins.model.UserExchanges;
 import hk.rhizome.coins.model.UserTrades;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import static org.mockito.Mockito.*;
 
 
 @RunWith(PowerMockRunner.class)

@@ -2,12 +2,11 @@ package hk.rhizome.coins.db;
 
 import java.util.Date;
 import java.util.List;
-import hk.rhizome.coins.model.Exchanges;
+
+import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
-import hk.rhizome.coins.model.User;
 import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.SessionFactory;
 
 public class UsersDAO extends AbstractDAO<User> {
     

@@ -3,7 +3,7 @@ package hk.rhizome.coins;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -21,7 +21,6 @@ import org.quartz.impl.StdSchedulerFactory;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.db.ExchangesDAOProxy;
 import hk.rhizome.coins.jobs.CoinMarketCapJob;
-import hk.rhizome.coins.jobs.RhizomeJob;
 import hk.rhizome.coins.jobs.XChangeJob;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;

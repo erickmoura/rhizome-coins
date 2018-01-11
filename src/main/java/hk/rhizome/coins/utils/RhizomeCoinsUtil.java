@@ -1,15 +1,13 @@
 package hk.rhizome.coins.utils;
 
-import java.nio.file.Files;
-import java.io.InputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 
 import hk.rhizome.coins.logger.AppLogger;
+import sun.misc.IOUtils;
 
 
 public class RhizomeCoinsUtil {

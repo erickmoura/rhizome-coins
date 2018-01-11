@@ -1,12 +1,14 @@
 package hk.rhizome.coins;
 
+import java.util.List;
+
+import org.knowm.xchange.currency.CurrencyPair;
+
 import hk.rhizome.coins.bot.OrdersPoller;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CurrencySetService;
 import hk.rhizome.coins.model.UserExchanges;
-import java.util.List;
-import org.knowm.xchange.currency.CurrencyPair;
 
 
 public class UserOrdersManager {

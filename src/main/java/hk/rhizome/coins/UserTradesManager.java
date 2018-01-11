@@ -1,11 +1,11 @@
 package hk.rhizome.coins;
 
+import java.util.List;
+
 import hk.rhizome.coins.bot.UserTradesPoller;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.model.UserExchanges;
-import java.util.List;
-import org.knowm.xchange.Exchange;
 
 /**
  * Created by erickmoura on 2/7/2017.

@@ -1,18 +1,15 @@
 package hk.rhizome.coins.utils;
 
-import hk.rhizome.coins.model.Exchanges;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;
 import hk.rhizome.coins.model.UserTrades;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ResponseUtils {
 

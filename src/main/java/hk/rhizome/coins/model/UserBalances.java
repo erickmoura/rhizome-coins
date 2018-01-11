@@ -1,7 +1,8 @@
 package hk.rhizome.coins.model;
 
-import java.util.Date;
 import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Entity

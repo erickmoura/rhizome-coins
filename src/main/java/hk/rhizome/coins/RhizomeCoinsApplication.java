@@ -2,37 +2,38 @@ package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  */
 
+ import hk.rhizome.coins.db.CoinsDAO;
+import hk.rhizome.coins.db.CoinsDAOProxy;
+import hk.rhizome.coins.db.DataSourceUtil;
+import hk.rhizome.coins.db.DbProxyUtils;
+import hk.rhizome.coins.db.ExchangesDAO;
+import hk.rhizome.coins.db.ExchangesDAOProxy;
+import hk.rhizome.coins.db.UserBalancesDAO;
+import hk.rhizome.coins.db.UserBalancesDAOProxy;
+import hk.rhizome.coins.db.UserExchangesDAO;
+import hk.rhizome.coins.db.UserExchangesDAOProxy;
+import hk.rhizome.coins.db.UserOrdersDAO;
+import hk.rhizome.coins.db.UserOrdersDAOProxy;
+import hk.rhizome.coins.db.UsersDAO;
+import hk.rhizome.coins.db.UsersDAOProxy;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.logger.LoggerUtils;
 import hk.rhizome.coins.marketdata.CoinsSetService;
-import hk.rhizome.coins.model.*;
+import hk.rhizome.coins.model.Coins;
+import hk.rhizome.coins.model.Exchanges;
+import hk.rhizome.coins.model.User;
+import hk.rhizome.coins.model.UserBalances;
+import hk.rhizome.coins.model.UserExchanges;
+import hk.rhizome.coins.model.UserOrders;
+import hk.rhizome.coins.model.UserTrades;
 import hk.rhizome.coins.resources.CoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
 import hk.rhizome.coins.resources.UsersResources;
-import io.dropwizard.Application;
-import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.SimpleScheduleBuilder;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
-import org.quartz.impl.StdSchedulerFactory;
-import hk.rhizome.coins.bot.BalancesPoller;
-import hk.rhizome.coins.bot.CoinMarketCapPoller;
-import hk.rhizome.coins.db.*;
+import io.dropwizard.migrations.MigrationsBundle;
+import jdk.nashorn.internal.runtime.linker.Bootstrap;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
     
