@@ -97,7 +97,7 @@ public class LoggerUtils{
             Region region = RegionUtils.getRegion(regionName);
             if (region == null) {
                 System.err.println(regionName + " is not a valid AWS region.");
-                System.exit(1);
+                throw new RuntimeException("Region " + regionName + "is not a valid AWS region.")
             }
             try {
             AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
