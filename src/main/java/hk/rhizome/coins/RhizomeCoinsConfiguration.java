@@ -7,11 +7,11 @@ package hk.rhizome.coins;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.security.auth.login.Configuration;
+import io.dropwizard.Configuration; 
+import javax.validation.constraints.NotNull; 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
-import com.sun.istack.internal.NotNull;
 
 
 public class RhizomeCoinsConfiguration extends Configuration {

@@ -2,7 +2,7 @@ package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  */
 
- import hk.rhizome.coins.db.CoinsDAO;
+import hk.rhizome.coins.db.CoinsDAO;
 import hk.rhizome.coins.db.CoinsDAOProxy;
 import hk.rhizome.coins.db.DataSourceUtil;
 import hk.rhizome.coins.db.DbProxyUtils;
@@ -29,11 +29,14 @@ import hk.rhizome.coins.model.UserTrades;
 import hk.rhizome.coins.resources.CoinsResources;
 import hk.rhizome.coins.resources.ExchangesResources;
 import hk.rhizome.coins.resources.UsersResources;
+import io.dropwizard.Application; 
+import io.dropwizard.setup.Bootstrap; 
+import io.dropwizard.setup.Environment; 
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import io.dropwizard.migrations.MigrationsBundle;
-import jdk.nashorn.internal.runtime.linker.Bootstrap;
+
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
     

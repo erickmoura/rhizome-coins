@@ -3,6 +3,8 @@ package hk.rhizome.coins.db;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+
 import hk.rhizome.coins.model.User;
 import hk.rhizome.coins.model.UserBalances;
 import hk.rhizome.coins.model.UserOrders;

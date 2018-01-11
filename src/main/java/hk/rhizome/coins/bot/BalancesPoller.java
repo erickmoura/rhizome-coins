@@ -1,7 +1,6 @@
 package hk.rhizome.coins.bot;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +12,7 @@ import org.knowm.xchange.dto.account.AccountInfo;
 import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.utils.CertHelper;
+import org.knowm.xchange.currency.Currency; 
 
 import hk.rhizome.coins.ExchangeUtils;
 import hk.rhizome.coins.db.DbProxyUtils;

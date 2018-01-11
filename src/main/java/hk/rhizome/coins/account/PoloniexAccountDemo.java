@@ -2,13 +2,13 @@ package hk.rhizome.coins.account;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
+import org.knowm.xchange.currency.Currency; 
 import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.poloniex.service.PoloniexAccountServiceRaw;

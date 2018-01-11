@@ -7,8 +7,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 import hk.rhizome.coins.logger.AppLogger;
-import sun.misc.IOUtils;
-
+import org.apache.commons.io.IOUtils; 
 
 public class RhizomeCoinsUtil {
 

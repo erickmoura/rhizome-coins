@@ -3,7 +3,6 @@ package hk.rhizome.coins.bot;
 import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,6 +17,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.account.AccountInfo;
 import org.knowm.xchange.dto.account.Balance;
 import org.knowm.xchange.dto.account.Wallet;
+import org.knowm.xchange.currency.Currency; 
 import org.knowm.xchange.service.account.AccountService;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;

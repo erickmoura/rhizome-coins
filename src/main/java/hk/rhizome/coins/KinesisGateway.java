@@ -6,12 +6,12 @@ import java.nio.ByteBuffer;
 import java.util.List;
 
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region; 
 import com.amazonaws.regions.RegionUtils;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
 import com.amazonaws.services.kinesisfirehose.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.prism.impl.Disposer.Record;
 
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.UserTrade;

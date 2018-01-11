@@ -1,12 +1,13 @@
 package hk.rhizome.coins.account;
 
 import java.math.BigDecimal;
-import java.util.Currency;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.knowm.xchange.Exchange;
+import org.knowm.xchange.currency.Currency; 
 import org.knowm.xchange.dto.account.FundingRecord;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
