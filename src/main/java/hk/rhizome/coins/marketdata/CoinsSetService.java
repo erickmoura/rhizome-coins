@@ -2,7 +2,6 @@ package hk.rhizome.coins.marketdata;
 
 import java.util.List;
 import java.util.ArrayList;
-import hk.rhizome.coins.db.CoinsDAOProxy;
 import hk.rhizome.coins.db.DbProxyUtils;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.model.Coins;

@@ -30,9 +30,6 @@ import hk.rhizome.coins.marketdata.PricingsMatrix;
 
 @RunWith(PowerMockRunner.class)
 public class MarketDataPollerTest {
-	
-	private AmazonKinesisFirehose kinesisClient;
-	private KinesisGateway kinesisGateway;
 
 	@Before
 	public void setUp() throws Exception{
@@ -64,8 +61,6 @@ public class MarketDataPollerTest {
 			when(ticker.getTimestamp()).thenReturn(new Date());
 			OrderBook orderBook = new OrderBook(new Date(), new ArrayList<LimitOrder>(), new ArrayList<LimitOrder>());
 			when(dataServices.get(exchangeId).getOrderBook(currencyPair)).thenReturn(orderBook);
-			Date timestamp = new Date();
-			MarketDepth marketDepth = new MarketDepth(null, orderBook);
 			
 			MarketDataPoller poller = new MarketDataPoller(exchange, currencyPair);
 			poller.run();

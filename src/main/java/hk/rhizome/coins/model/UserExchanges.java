@@ -26,26 +26,26 @@ public class UserExchanges {
     //cumbersome Util methods, line in ExchangeUtils
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false, insertable=false, updatable=false)
-    User user;
+    private User user;
     
     @ManyToOne
     @JoinColumn(name="exchange_id", nullable=false, insertable=false, updatable=false)
-    Exchanges exchange;
+    private Exchanges exchange;
 
     @Column(name = "properties")
-    String properties;
+    private String properties;
     
     @Column(name = "p_key")
-    String pKey;
+    private String pKey;
     
     @Column(name = "secret")
-    String secret;
+    private String secret;
 
     @Column(name = "last_updated_balances")
-    Date lastUpdatedBalances;
+    private Date lastUpdatedBalances;
 
     @Column(name = "last_updated_orders")
-    Date lastUpdatedOrders;
+    private Date lastUpdatedOrders;
 
 
     public UserExchanges(){

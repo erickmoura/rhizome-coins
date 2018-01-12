@@ -46,7 +46,6 @@ public class CoinMarketCapPollerTest {
         List<Coins> coins = getMockedCoins();
         CoinsSetService coinsService = mock(CoinsSetService.class);
         when(coinsService.getCoins()).thenReturn(coins);
-        PutRecordResult r = mock(PutRecordResult.class);
         CoinMarketCapPoller poller  = new CoinMarketCapPoller();
         poller.run();
 

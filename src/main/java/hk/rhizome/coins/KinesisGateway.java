@@ -38,8 +38,7 @@ public class KinesisGateway {
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
 
     private AmazonKinesisFirehose kinesisClient;
-    private String sequenceNumberOfPreviousRecord = "0";
-
+    
     private final static ObjectMapper JSON = new ObjectMapper();
 
     private void validateStream(AmazonKinesisFirehose kinesisClient, String streamName){
@@ -55,7 +54,7 @@ public class KinesisGateway {
         		AppLogger.getLogger().error("Exception in KinesisGateway in validateStream : " + e.getLocalizedMessage());
         }
         if(status.equalsIgnoreCase("ACTIVE")){
-            AppLogger.getLogger().info("Stream " + streamName + " is ACTIVE");;
+            AppLogger.getLogger().info("Stream " + streamName + " is ACTIVE");
         }
         else if(status.equalsIgnoreCase("CREATING")){
             try {

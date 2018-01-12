@@ -80,8 +80,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         AppLogger.initialize(LoggerUtils.getLoggerConfiguration(configuration.getLogging()));
         
         DataSourceUtil.initialize(environment);
-        DataSourceFactory dataSourceFactory = DataSourceUtil.getDataSourceFactory(configuration.getDatabase());
-
+        
         DbProxyUtils.initialize();
 
         //EXCHANGES
@@ -131,28 +130,28 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         //BOTS
         //Start Collection Bots...
         AppLogger.getLogger().info("Start collections bots...");
-        MarketDataManager m = new MarketDataManager();
-        //m.startCoinMarketPoller();
-        //m.startDataMarketThreads();
+        MarketDataManager marketDataManager = new MarketDataManager();
+        //marketDataManager.startCoinMarketPoller();
+        //marketDataManager.startDataMarketThreads();
 
         //BALANCES
         UserBalancesDAO userBalancesDAO = new UserBalancesDAO(hibernate.getSessionFactory());
         UserBalancesDAOProxy userBalancesDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserBalancesDAOProxy.class, UserBalancesDAO.class, userBalancesDAO);
         DbProxyUtils.getInstance().setUserBalancesProxy(userBalancesDAOProxy);
-        UserBalancesManager m1 = new UserBalancesManager();
-        //m1.startBalancesThreads();
+        UserBalancesManager userBalancesManager = new UserBalancesManager();
+        //userBalancesManager.startBalancesThreads();
 
         //ORDERS
         UserOrdersDAO userOrdersDAO = new UserOrdersDAO(hibernate.getSessionFactory());
         UserOrdersDAOProxy userOrdersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserOrdersDAOProxy.class, UserOrdersDAO.class, userOrdersDAO);
         DbProxyUtils.getInstance().setUserOrdersProxy(userOrdersDAOProxy);
-        UserOrdersManager m2 = new UserOrdersManager();
-        // m2.startOrdersThreads();
+        UserOrdersManager userOrdersManager = new UserOrdersManager();
+        //userOrdersManager.startOrdersThreads();
 
         //Start UserTrade collection...
         AppLogger.getLogger().info("Start UserTrade collection...");
-        UserTradesManager m3 = new UserTradesManager();
-        //m3.startUserTradesThreads();
+        UserTradesManager userTradesManager = new UserTradesManager();
+        //userTradesManager.startUserTradesThreads();
 
         UsersResources usersResources = new UsersResources(usersDAO);
         try {

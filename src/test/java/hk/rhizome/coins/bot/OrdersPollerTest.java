@@ -47,7 +47,7 @@ public class OrdersPollerTest {
     @Test
     public void testBalancesPoller() throws Exception {
         
-        Set<UserOrders> mockedOrders = getMockedOrders();
+        //Set<UserOrders> mockedOrders = getMockedOrders();
         String exchangeId = "Poloniex";
         CurrencyPair currencyPair = CurrencyPair.XRP_BTC;
         

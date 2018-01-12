@@ -332,7 +332,7 @@ public class LoggerUtils{
     private void saveToStream(final String level, final String value) {
             try {
                 
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                 Date date = new Date();
                 
                 JSONObject json = new JSONObject();

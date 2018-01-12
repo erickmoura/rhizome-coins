@@ -68,9 +68,9 @@ public class UsersResources {
             usersDAO.update(user);
         }
         else{
-            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-            Date startD = sdf.parse(startDate);
-            Date endD = sdf.parse(endDate);
+            //SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            //Date startD = sdf.parse(startDate);
+            //Date endD = sdf.parse(endDate);
             orders = user.getOrders();
             //orders = usersDAO.getOrders(user, startD, endD);
         }
@@ -101,7 +101,7 @@ public class UsersResources {
         }
         else{
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-            Date collectD = sdf.parse(collectDate);
+            //Date collectD = sdf.parse(collectDate);
             balances = user.getBalances();
             //balances = userBalancesDAO.findByUserID(userID, collectD);
         }

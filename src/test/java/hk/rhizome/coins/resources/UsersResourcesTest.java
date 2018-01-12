@@ -34,14 +34,12 @@ public class UsersResourcesTest {
     public void getBalancesNoForceReload() throws Exception {
         String collect = "2017-10-23 10:00:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date collectD = sdf.parse(collect);
         Set<Exchanges> mockedExchanges = getMockedExchanges();
         Set<UserBalances> mockedBalances = getMockedUserBalances();
         
         User user = mock(User.class);
         when(user.getExchanges()).thenReturn(mockedExchanges);
         UsersDAO usersDAO = mock(UsersDAO.class);
-        UserExchangesDAO usersExchangesDAO = mock(UserExchangesDAO.class);
         when(usersDAO.getByID(1)).thenReturn(user);
         
         UsersResources resources = new UsersResources(usersDAO);
@@ -57,16 +55,12 @@ public class UsersResourcesTest {
     public void getOrdersNoForceReload() throws Exception {
         String start = "2017-10-23 10:00:00";
         String end = "2017-10-23 10:00:00";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDate = sdf.parse(start);
-        Date endDate = sdf.parse(end);
         Set<Exchanges> mockedExchanges = getMockedExchanges();
         Set<UserOrders> mockedOrders = getMockedUserOrders();
         
         User user = mock(User.class);
         when(user.getExchanges()).thenReturn(mockedExchanges);
         UsersDAO usersDAO = mock(UsersDAO.class);
-        UserExchangesDAO usersExchangesDAO = mock(UserExchangesDAO.class);
         when(usersDAO.getByID(1)).thenReturn(user);
         
         UsersResources resources = new UsersResources(usersDAO);
@@ -83,9 +77,6 @@ public class UsersResourcesTest {
 
         String start = "2017-10-23 10:00:00";
         String end = "2017-10-23 10:00:00";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startDate = sdf.parse(start);
-        Date endDate = sdf.parse(end);
         
         Set<Exchanges> mockedExchanges = getMockedExchanges();
         Set<UserTrades> mockedTrades = getMockedUserTrades();
@@ -93,7 +84,6 @@ public class UsersResourcesTest {
         User user = mock(User.class);
         when(user.getExchanges()).thenReturn(mockedExchanges);
         UsersDAO usersDAO = mock(UsersDAO.class);
-        UserExchangesDAO usersExchangesDAO = mock(UserExchangesDAO.class);
         when(usersDAO.getByID(1)).thenReturn(user);
         
         UsersResources resources = new UsersResources(usersDAO);
@@ -112,7 +102,6 @@ public class UsersResourcesTest {
         
         User u = mock(User.class);
         UsersDAO usersDAO = mock(UsersDAO.class);
-        UserExchangesDAO usersExchangesDAO = mock(UserExchangesDAO.class);
         when(usersDAO.getByID(1)).thenReturn(u);
         when(u.getExchanges()).thenReturn(mockedSet);
         

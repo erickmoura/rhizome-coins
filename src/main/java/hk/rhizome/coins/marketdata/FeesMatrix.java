@@ -1,7 +1,5 @@
 package hk.rhizome.coins.marketdata;
 
-import org.knowm.xchange.currency.CurrencyPair;
-
 import java.util.HashMap;
 
 /**

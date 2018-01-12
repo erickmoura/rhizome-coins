@@ -7,8 +7,6 @@ import org.json.simple.JSONObject;
 
 public class LoggerFormatter {
 	
-	private final static String SPACE = " ";
-
     public String formatLogMsg(Object message, LoggerUtils.Level level) {
         return formatLogMap(Collections.singletonMap("message", message), level);
     }

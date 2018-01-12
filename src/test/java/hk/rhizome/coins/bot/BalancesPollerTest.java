@@ -43,7 +43,6 @@ public class BalancesPollerTest {
 
     @Test
     public void testBalancesPoller() throws Exception {
-        Set<UserBalances> mockedBalances = getMockedBalances();
         
         UserExchanges userExchanges = mock(UserExchanges.class, RETURNS_DEEP_STUBS);
         when(userExchanges.getExchange().getXchangeName()).thenReturn("org.knowm.xchange.poloniex.PoloniexExchange");
@@ -63,8 +62,6 @@ public class BalancesPollerTest {
         when(accountInfo.getWallet()).thenReturn(wallet);
         Map<Currency, Balance> map = getMockedCurencyBalance();
         when(accountInfo.getWallet().getBalances()).thenReturn(map);
-        Currency currency = Currency.BTC;
-        Balance b = PowerMockito.mock(Balance.class, RETURNS_DEEP_STUBS);
         
         BalancesPoller poller = new BalancesPoller(userExchanges);
         Set<UserBalances> userBalances= poller.pollManually();
