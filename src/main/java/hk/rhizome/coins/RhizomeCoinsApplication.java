@@ -30,8 +30,11 @@ import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+
 import hk.rhizome.coins.bot.BalancesPoller;
 import hk.rhizome.coins.bot.CoinMarketCapPoller;
+import hk.rhizome.coins.command.AddExchangeCommand;
+import hk.rhizome.coins.command.CreateCommand;
 import hk.rhizome.coins.db.*;
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
@@ -64,6 +67,10 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
             }
         };
         bootstrap.addBundle(hibernate);
+        CreateCommand createCommand = new CreateCommand(this, hibernate);
+        bootstrap.addCommand(createCommand);
+        AddExchangeCommand addExchangeCommand = new AddExchangeCommand(this, hibernate);
+        bootstrap.addCommand(addExchangeCommand);
     }
 
    
