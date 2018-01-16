@@ -3,7 +3,7 @@
 --changeset omaida:1
 
 create table users(
-    id integer key auto_increment,
+    id bigint not null auto_increment key,
     user_name varchar(60)
 );
 

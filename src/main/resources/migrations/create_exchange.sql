@@ -3,7 +3,7 @@
 --changeset omaida:1
 
 create table exchanges(
-    id int key auto_increment,
+    id bigint not null auto_increment primary key,
     exchange_name varchar(60),
     xchange_name text,
     taker float,
