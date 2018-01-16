@@ -30,7 +30,7 @@ public class Exchanges {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "exchange_id", unique = true, nullable = false)
+    @Column(name = "exchange_id", nullable=false, updatable=false)
     int exchangeID;
     
     @Column(name = "exchange_name")
@@ -78,6 +78,22 @@ public class Exchanges {
     }
     public int getPollingRate(){
         return this.pollingRate;
+    }
+
+    public void setExchangeName(String exchangeName){
+        this.exchangeName = exchangeName;
+    }
+    public void setXchangeName(String xchangeName) {
+        this.xchangeName = xchangeName;
+    }
+    public void setTaker(BigDecimal taker) {
+        this.taker = taker;
+    }
+    public void setMaker(BigDecimal maker){
+        this.maker = maker;
+    }
+    public void setPollingRate(int pollingRate) {
+        this.pollingRate = pollingRate;
     }
 
     @Override

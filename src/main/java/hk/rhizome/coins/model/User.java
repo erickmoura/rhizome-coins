@@ -35,7 +35,7 @@ public class User {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "user_id", unique = true, nullable = false)
+        @Column(name = "user_id")
         int userID;
 
         @Column(name = "user_name")
@@ -81,6 +81,9 @@ public class User {
 
         public String getName() {
                 return this.name;
+        }
+        public void setName(String name){
+                this.name = name;
         }
 
         public Set<Exchanges> getExchanges() {

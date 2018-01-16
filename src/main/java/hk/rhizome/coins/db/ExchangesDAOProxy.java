@@ -21,4 +21,9 @@ public class ExchangesDAOProxy {
       public List<Exchanges> getExchangeByID(int id){
         return exchangesDAO.getExchangeByID(id);
       }
+
+      @UnitOfWork
+      public void update(Exchanges exchanges){
+        exchangesDAO.update(exchanges);
+      }
 }

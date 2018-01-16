@@ -29,4 +29,7 @@ public class ExchangesDAO extends AbstractDAO<Exchanges> {
         return (Exchanges) namedQuery("hk.rhizome.coins.model.Exchanges.getByName").setParameter("name",name).getSingleResult();
     }
 
+    public void update(Exchanges exchanges) {
+        currentSession().saveOrUpdate(exchanges);
+    }
 }
