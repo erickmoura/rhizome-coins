@@ -20,7 +20,7 @@ Rhizome-coins is a Java-based backend that allows to connect to multiple wallets
             password:  PASSWORD 
             url: jdbc:mysql://localhost:3306/rhizomecoins 
  
-8. Define in user-config.yml the key and secret to access to each exchange. Following the examples 
+8. Create a new file (you can name it user-config.yml) in the root folder with the following structure:
          
         username: my_name 
         Bittrex: 
@@ -39,12 +39,34 @@ Rhizome-coins is a Java-based backend that allows to connect to multiple wallets
     `java -jar target/rhizome-coins.jar db migrate config.yml` 
 11. To seed the database with your information run: 
  
-    `java -jar target/rhizome-coins create config.yml` 
+    `java -jar target/rhizome-coins create -f user-config.yml config.yml` 
 12. Start  server application with : 
      
     `java -jar target/rhizome-coins.jar server config.yml`  
  
 ## How to use it 
+
+## Adding new exchange
+
+To add a new exchange defined in XChange project 
+1. Add the reference in the pom.xml file
+
+2. Create a new file ( exchange.yml) in the root folder with the following syntax:
+
+        exchanges:  
+            Bittrex:  
+                namespace: org.knowm.xchange.bittrex.v1.BittrexExchange 
+                polling_rate: 12 
+                taker: 0.25 
+                maker: 0.25
+
+3. Build with Maven
+
+    `mvn clean install`
+
+4. To seed the database with the new information run:
+
+    `java -jar target/rhizome-coins addexchange -f exchanfe.yml config.yml`    
 
 ### Doing requests for balances, trades, orders... 
  
