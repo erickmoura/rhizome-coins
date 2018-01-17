@@ -27,32 +27,26 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+public class LoggerUtils {
 
-
-public class LoggerUtils{
-    
     private final static String KINESIS_LOGGER_STREAM = "coins-firehose-log";
     private static final String KINESIS_DEFAULT_REGION = "us-east-1";
-    
+
     private final static String SPACE = " ";
 
     private static LoggerUtils logger;
     private static LoggerFormatter formatter;
 
     private static Object lock = new Object();
-    
+
     private Level level = Level.OFF;
     private static boolean initialized;
-    
-    private final static ObjectMapper JSON = new ObjectMapper();    
+
+    private final static ObjectMapper JSON = new ObjectMapper();
     private AmazonKinesisFirehose kinesisClient;
 
     public enum Level {
-        OFF,
-        ERROR,
-        WARN,
-        INFO,
-        DEBUG
+        OFF, ERROR, WARN, INFO, DEBUG
     }
 
     /**
@@ -69,11 +63,11 @@ public class LoggerUtils{
 
         return logger;
     }
-    
+
     public static LoggerConfiguration getLoggerConfiguration(Map<String, String> configuration) {
-    		LoggerConfiguration l = new LoggerConfiguration();
-    		l.setLogLevel((String)configuration.get("level"));
-   		return l;
+        LoggerConfiguration l = new LoggerConfiguration();
+        l.setLogLevel((String) configuration.get("level"));
+        return l;
     }
 
     /**
@@ -84,14 +78,13 @@ public class LoggerUtils{
      * @return true if success, false otherwise
      * @throws RuntimeException when it finds a problem with the name or number of files
      */
-    public synchronized boolean initialize(LoggerFormatter loggerFormatter,
-                                           Level level)  {
+    public synchronized boolean initialize(LoggerFormatter loggerFormatter, Level level) {
 
         if (!initialized) {
 
             this.level = level;
             formatter = loggerFormatter;
-            
+
             String streamName = KINESIS_LOGGER_STREAM;
             String regionName = KINESIS_DEFAULT_REGION;
             Region region = RegionUtils.getRegion(regionName);
@@ -100,31 +93,32 @@ public class LoggerUtils{
                 throw new RuntimeException("Region " + regionName + "is not a valid AWS region.");
             }
             try {
-            AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
+                AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
 
-            kinesisClient = new AmazonKinesisFirehoseClient(credentials,
-                    KinesisConfiguration.getClientConfigWithUserAgent());
-            kinesisClient.setRegion(region);
+                kinesisClient = new AmazonKinesisFirehoseClient(credentials,
+                        KinesisConfiguration.getClientConfigWithUserAgent());
+                kinesisClient.setRegion(region);
 
-            // Validate that the stream exists and is active
-            validateStream(kinesisClient, streamName);
+                // Validate that the stream exists and is active
+                validateStream(kinesisClient, streamName);
 
-            initialized = true;
-            debug("Log initialized.");
-            } catch(Exception ex) {
-            		error("Error getting the AWS credentials");
+                initialized = true;
+                debug("Log initialized.");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                error("Error getting the AWS credentials");
             }
         } else {
-        		error("Log not initialized");
+            error("Log not initialized");
         }
         return initialized;
     }
-    
-    private void validateStream(AmazonKinesisFirehose kinesisClient, String streamName){
+
+    private void validateStream(AmazonKinesisFirehose kinesisClient, String streamName) {
 
         DescribeDeliveryStreamRequest describeHoseRequest = new DescribeDeliveryStreamRequest()
                 .withDeliveryStreamName(streamName);
-        DescribeDeliveryStreamResult  describeHoseResult = null;
+        DescribeDeliveryStreamResult describeHoseResult = null;
         String status = "UNDEFINED";
         try {
             describeHoseResult = kinesisClient.describeDeliveryStream(describeHoseRequest);
@@ -133,19 +127,17 @@ public class LoggerUtils{
             System.out.println(e.getLocalizedMessage());
             //checkHoseStatus();
         }
-        if(status.equalsIgnoreCase("ACTIVE")){
+        if (status.equalsIgnoreCase("ACTIVE")) {
             //return;
-            AppLogger.getLogger().info("Stream with status ACTIVE");
-        }
-        else if(status.equalsIgnoreCase("CREATING")){
+            System.out.println("Stream with status ACTIVE");
+        } else if (status.equalsIgnoreCase("CREATING")) {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             //checkHoseStatus();
-        }
-        else {
+        } else {
             System.out.println("Status = " + status);
         }
     }
@@ -303,6 +295,9 @@ public class LoggerUtils{
      */
     private void write(Object message, Level level) {
         if (!initialized) {
+            System.out.println("type " + level);
+            System.out.println("message " + message);
+
             throw new RuntimeException("Not initialized!!");
         }
 
@@ -330,29 +325,27 @@ public class LoggerUtils{
      * @param value    The string.
      */
     private void saveToStream(final String level, final String value) {
-            try {
-                
-                //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                Date date = new Date();
-                
-                JSONObject json = new JSONObject();
-                json.put("message", value);
-                json.put("level", level);
-                json.put("timestamp", date);
-                
-            		Record record = new Record()
-                        .withData(ByteBuffer.wrap(toJsonAsBytes(json)));
-                PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
-                        .withDeliveryStreamName(KINESIS_LOGGER_STREAM)
-                        .withRecord(record);
+        try {
 
-                PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-                
-            } catch (Exception ioe) {
-                System.err.println(ioe);
-            }
+            //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+
+            JSONObject json = new JSONObject();
+            json.put("message", value);
+            json.put("level", level);
+            json.put("timestamp", date);
+
+            Record record = new Record().withData(ByteBuffer.wrap(toJsonAsBytes(json)));
+            PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
+                    .withDeliveryStreamName(KINESIS_LOGGER_STREAM).withRecord(record);
+
+            PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
+
+        } catch (Exception ioe) {
+            System.err.println(ioe);
+        }
     }
-    
+
     public byte[] toJsonAsBytes(Object o) {
         try {
             return JSON.writeValueAsBytes(o);

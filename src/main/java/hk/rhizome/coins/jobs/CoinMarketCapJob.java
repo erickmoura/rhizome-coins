@@ -35,7 +35,7 @@ public class CoinMarketCapJob extends RhizomeJob {
         }
     }
 
-    private List<CoinMarketCapTicker> getFilterList(List<CoinMarketCapTicker> list){
+    public List<CoinMarketCapTicker> getFilterList(List<CoinMarketCapTicker> list){
         List<CoinMarketCapTicker> response = new ArrayList<CoinMarketCapTicker>();
         List<Coins> coins = CoinsSetService.getInstance().getCoins();
         for(CoinMarketCapTicker ticker : list){
