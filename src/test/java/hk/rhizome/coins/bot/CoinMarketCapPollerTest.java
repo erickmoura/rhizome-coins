@@ -7,23 +7,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.amazonaws.services.kinesis.model.PutRecordResult;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
 
-import hk.rhizome.coins.KinesisGateway;
-import hk.rhizome.coins.exchanges.CoinMarketCapService;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
+import hk.rhizome.coins.jobs.CoinMarketCapJob;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.CoinsSetService;
 import hk.rhizome.coins.model.Coins;
 
 @RunWith(PowerMockRunner.class)
+@PrepareForTest({CoinsSetService.class, CoinMarketCapJob.class})
 public class CoinMarketCapPollerTest {
 
     @Before
@@ -33,21 +32,20 @@ public class CoinMarketCapPollerTest {
 
     @Test
     public void testCollectTicket() throws Exception {
-        
-        KinesisGateway kinesisGateway = mock(KinesisGateway.class);
-        Whitebox.setInternalState(CoinMarketCapPoller.class, "kinesisGateway", kinesisGateway);
-        PowerMockito.doNothing().when(kinesisGateway).validateStream();
-        
         List<CoinMarketCapTicker> mockedTickers = getMockedTickers();
-
-        CoinMarketCapService service = mock(CoinMarketCapService.class);
-        when(service.getTickers()).thenReturn(mockedTickers);
-        
         List<Coins> coins = getMockedCoins();
-        CoinsSetService coinsService = mock(CoinsSetService.class);
-        when(coinsService.getCoins()).thenReturn(coins);
-        CoinMarketCapPoller poller  = new CoinMarketCapPoller();
-        poller.run();
+        
+        PowerMockito.mockStatic(CoinsSetService.class);
+        CoinsSetService service = mock(CoinsSetService.class, RETURNS_DEEP_STUBS);
+        when(CoinsSetService.getInstance()).thenReturn(service); 
+        when(CoinsSetService.getInstance().getCoins()).thenReturn(coins);
+
+        CoinMarketCapJob job  = new CoinMarketCapJob();
+        List<CoinMarketCapTicker> data = job.getFilterList(mockedTickers);
+
+        Assert.assertNotEquals(mockedTickers.size(), data.size());
+        Assert.assertEquals(data.size(), 2);
+        Assert.assertEquals(data.get(0).getId(), "bitcoin");
 
     }
 
@@ -68,7 +66,7 @@ public class CoinMarketCapPollerTest {
 
         CoinMarketCapTicker t1 = new CoinMarketCapTicker("bitcoin", "Bitcoin", "BTC", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("524245243"));
         CoinMarketCapTicker t2 = new CoinMarketCapTicker("litecoin", "Litecoin", "LTC", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("512523525"));
-        CoinMarketCapTicker t3 = new CoinMarketCapTicker("lisk", "Lisk", "LSK", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("4123432"));
+        CoinMarketCapTicker t3 = new CoinMarketCapTicker("cc", "CC", "CCCC", 1, new BigDecimal("12"), new BigDecimal("33"), new BigDecimal("0.1"), new BigDecimal("0.0123"), new BigDecimal("12"), new BigDecimal("22"), new BigDecimal("2"), new BigDecimal("222"), new BigDecimal("333"), new Long("4123432"));
 
         list.add(t1);
         list.add(t2);
