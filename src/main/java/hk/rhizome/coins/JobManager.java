@@ -161,7 +161,7 @@ public class JobManager {
 
     }
 
-    private void createJob(Class<? extends Job> jobClass, String groupName, int pollingRate, String initialJobName) {
+    private void createJob(Class<? extends Job> jobClass, String groupName, int intervalSeconds, String initialJobName) {
 
         AppLogger.getLogger().debug("Creating " + jobClass.getSimpleName() + " in JobManager");
 
@@ -183,8 +183,6 @@ public class JobManager {
             map.put("userId", user.getID());
             JobDetail job = JobBuilder.newJob(jobClass).withIdentity(jobName.toString(), groupName)
                     .usingJobData(map).build();
-
-            int intervalSeconds = Constants.USERTRADES_POLLING_PERIODICITY;
 
             Trigger trigger = TriggerBuilder.newTrigger().startNow().withIdentity(triggerName.toString(), groupName)
                     .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(intervalSeconds)
