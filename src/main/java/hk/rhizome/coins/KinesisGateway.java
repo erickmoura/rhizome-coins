@@ -195,7 +195,7 @@ public class KinesisGateway {
         Region region = RegionUtils.getRegion(regionName);
         if (region == null) {
         	AppLogger.getLogger().error("Error in KinesisGateway in validateStream : " + regionName + " is not a valid AWS region.");
-            throw new RuntimeException("Region " + " is not a valid AWS region");
+            throw new IllegalStateException("Region " + " is not a valid AWS region");
         }
 
         AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();

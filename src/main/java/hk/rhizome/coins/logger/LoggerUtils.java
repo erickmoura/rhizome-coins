@@ -76,7 +76,7 @@ public class LoggerUtils {
      * @param formatter      The log formatter.
      * @param level          The level
      * @return true if success, false otherwise
-     * @throws RuntimeException when it finds a problem with the name or number of files
+     * @throws IllegalStateException when it finds a problem with the name or number of files
      */
     public synchronized boolean initialize(LoggerFormatter loggerFormatter, Level level) {
 
@@ -90,7 +90,7 @@ public class LoggerUtils {
             Region region = RegionUtils.getRegion(regionName);
             if (region == null) {
                 System.err.println(regionName + " is not a valid AWS region.");
-                throw new RuntimeException("Region " + regionName + "is not a valid AWS region.");
+                throw new IllegalStateException("Region " + regionName + "is not a valid AWS region.");
             }
             try {
                 AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
@@ -298,7 +298,7 @@ public class LoggerUtils {
             System.out.println("type " + level);
             System.out.println("message " + message);
 
-            throw new RuntimeException("Not initialized!!");
+            throw new IllegalStateException("Logger not initialized!!");
         }
 
         if (level.ordinal() <= this.level.ordinal()) {
