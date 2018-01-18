@@ -127,32 +127,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         jobsManager.initializeJobs();
         jobsManager.runJobs();
 
-        //BOTS
-        //Start Collection Bots...
-        AppLogger.getLogger().info("Start collections bots...");
-        MarketDataManager marketDataManager = new MarketDataManager();
-        //marketDataManager.startCoinMarketPoller();
-        //marketDataManager.startDataMarketThreads();
-
-        //BALANCES
-        UserBalancesDAO userBalancesDAO = new UserBalancesDAO(hibernate.getSessionFactory());
-        UserBalancesDAOProxy userBalancesDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserBalancesDAOProxy.class, UserBalancesDAO.class, userBalancesDAO);
-        DbProxyUtils.getInstance().setUserBalancesProxy(userBalancesDAOProxy);
-        UserBalancesManager userBalancesManager = new UserBalancesManager();
-        //userBalancesManager.startBalancesThreads();
-
-        //ORDERS
-        UserOrdersDAO userOrdersDAO = new UserOrdersDAO(hibernate.getSessionFactory());
-        UserOrdersDAOProxy userOrdersDAOProxy = new UnitOfWorkAwareProxyFactory(hibernate).create(UserOrdersDAOProxy.class, UserOrdersDAO.class, userOrdersDAO);
-        DbProxyUtils.getInstance().setUserOrdersProxy(userOrdersDAOProxy);
-        UserOrdersManager userOrdersManager = new UserOrdersManager();
-        //userOrdersManager.startOrdersThreads();
-
-        //Start UserTrade collection...
-        AppLogger.getLogger().info("Start UserTrade collection...");
-        UserTradesManager userTradesManager = new UserTradesManager();
-        //userTradesManager.startUserTradesThreads();
-
+        //RESOURCES
         UsersResources usersResources = new UsersResources(usersDAO);
         try {
             environment.jersey().register(usersResources);
