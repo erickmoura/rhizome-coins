@@ -22,7 +22,23 @@ public class RhizomeCoinsUtil {
 			throw e;
 		}
 		return sqlFile;
-    }
+	}
+	
+	public static String getResourceFile(String name) throws Exception {
+		String data = null;
+		try {
+			InputStream stream = ClassLoader.getSystemResourceAsStream(name);
+			File f = File.createTempFile(name, "t");
+			f.deleteOnExit();
+			FileOutputStream f2 = new FileOutputStream(f);
+			IOUtils.copy(stream, f2);
+			data = new String(Files.readAllBytes(f.toPath()));
+		} catch (Exception e) {
+			AppLogger.getLogger().error("Exception in RhizomeCoinsUtil in getSqlFile");
+			throw e;
+		}
+		return data;
+	}
     
     public File convertStreamToSqlFile(InputStream is, String name) throws Exception {
 		File tempFile = File.createTempFile(name, ".sql");
