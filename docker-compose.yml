@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: coins
+      MYSQL_ROOT_PASSWORD: r00t
+    volumes:
+      - /var/lib/mysql
+
+  backend:
+    image: rhizome/coins-backend
+    links:
+      - db
+    environment:
+      MYSQL_DATABASE: com.mysql.jdbc.Driver 
+      MYSQL_USER: root
+      MYSQL_PASSWORD: r00t
+      MYSQL_URL: jdbc:mysql://db:3306/coins
+      ELASTIC_HOST: search-coins-es-dbmkevlz6itaqglrhni3ki7psu.us-east-1.es.amazonaws.com
+      ELASTIC_PORT: 9200
+      ELASTIC_SCHEME: http
