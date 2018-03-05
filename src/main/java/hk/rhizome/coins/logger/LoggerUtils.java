@@ -6,21 +6,12 @@ import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.RegionUtils;
-import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
-import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehoseClient;
-import com.amazonaws.services.kinesisfirehose.model.DescribeDeliveryStreamRequest;
-import com.amazonaws.services.kinesisfirehose.model.DescribeDeliveryStreamResult;
-import com.amazonaws.services.kinesisfirehose.model.PutRecordRequest;
-import com.amazonaws.services.kinesisfirehose.model.PutRecordResult;
-import com.amazonaws.services.kinesisfirehose.model.Record;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import hk.rhizome.coins.AWSCredentialUtils;
 import hk.rhizome.coins.KinesisConfiguration;
 import hk.rhizome.coins.LoggerConfiguration;
+import hk.rhizome.coins.logger.Log;
+import hk.rhizome.coins.Elasticsearch;
 
 import org.json.simple.JSONObject;
 import java.text.DateFormat;
@@ -28,9 +19,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 public class LoggerUtils {
-
-    private final static String KINESIS_LOGGER_STREAM = "coins-firehose-log";
-    private static final String KINESIS_DEFAULT_REGION = "us-east-1";
 
     private final static String SPACE = " ";
 
@@ -43,8 +31,7 @@ public class LoggerUtils {
     private static boolean initialized;
 
     private final static ObjectMapper JSON = new ObjectMapper();
-    private AmazonKinesisFirehose kinesisClient;
-
+    
     public enum Level {
         OFF, ERROR, WARN, INFO, DEBUG
     }
@@ -84,62 +71,12 @@ public class LoggerUtils {
 
             this.level = level;
             formatter = loggerFormatter;
-
-            String streamName = KINESIS_LOGGER_STREAM;
-            String regionName = KINESIS_DEFAULT_REGION;
-            Region region = RegionUtils.getRegion(regionName);
-            if (region == null) {
-                System.err.println(regionName + " is not a valid AWS region.");
-                throw new IllegalStateException("Region " + regionName + "is not a valid AWS region.");
-            }
-            try {
-                AWSCredentials credentials = AWSCredentialUtils.getCredentialsProvider().getCredentials();
-
-                kinesisClient = new AmazonKinesisFirehoseClient(credentials,
-                        KinesisConfiguration.getClientConfigWithUserAgent());
-                kinesisClient.setRegion(region);
-
-                // Validate that the stream exists and is active
-                validateStream(kinesisClient, streamName);
-
-                initialized = true;
-                debug("Log initialized.");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                error("Error getting the AWS credentials");
-            }
+            initialized = true;
+            
         } else {
             error("Log not initialized");
         }
         return initialized;
-    }
-
-    private void validateStream(AmazonKinesisFirehose kinesisClient, String streamName) {
-
-        DescribeDeliveryStreamRequest describeHoseRequest = new DescribeDeliveryStreamRequest()
-                .withDeliveryStreamName(streamName);
-        DescribeDeliveryStreamResult describeHoseResult = null;
-        String status = "UNDEFINED";
-        try {
-            describeHoseResult = kinesisClient.describeDeliveryStream(describeHoseRequest);
-            status = describeHoseResult.getDeliveryStreamDescription().getDeliveryStreamStatus();
-        } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
-            //checkHoseStatus();
-        }
-        if (status.equalsIgnoreCase("ACTIVE")) {
-            //return;
-            System.out.println("Stream with status ACTIVE");
-        } else if (status.equalsIgnoreCase("CREATING")) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            //checkHoseStatus();
-        } else {
-            System.out.println("Status = " + status);
-        }
     }
 
     /**
@@ -295,26 +232,22 @@ public class LoggerUtils {
      */
     private void write(Object message, Level level) {
         if (!initialized) {
-            System.out.println("type " + level);
-            System.out.println("message " + message);
-
-            throw new IllegalStateException("Logger not initialized!!");
+            throw new RuntimeException("Not initialized!!");
         }
-
         if (level.ordinal() <= this.level.ordinal()) {
             if (formatter == null) {
-                saveToStream(level.toString(), message.toString());
+                saveToES(level.toString(), message.toString());
                 return;
             }
 
             if (message instanceof Map) {
                 String msg = formatter.formatLogMap((Map) message, level);
-                saveToStream(level.toString(), msg);
+                saveToES(level.toString(), msg);
                 return;
             }
 
             String msg = formatter.formatLogMsg(message.toString(), level);
-            saveToStream(level.toString(), msg);
+            saveToES(level.toString(), msg);
         }
     }
 
@@ -324,25 +257,16 @@ public class LoggerUtils {
      * @param level    The level
      * @param value    The string.
      */
-    private void saveToStream(final String level, final String value) {
+    private void saveToES(final String level, final String message) {
         try {
 
-            //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
-
-            JSONObject json = new JSONObject();
-            json.put("message", value);
-            json.put("level", level);
-            json.put("timestamp", date);
-
-            Record record = new Record().withData(ByteBuffer.wrap(toJsonAsBytes(json)));
-            PutRecordRequest putRecordInHoseRequest = new PutRecordRequest()
-                    .withDeliveryStreamName(KINESIS_LOGGER_STREAM).withRecord(record);
-
-            PutRecordResult res = kinesisClient.putRecord(putRecordInHoseRequest);
-
-        } catch (Exception ioe) {
-            System.err.println(ioe);
+            Log log = new Log(level, message, date);
+            Elasticsearch elasticsearch = Elasticsearch.getElasticsearch();
+            elasticsearch.sendLog(log);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

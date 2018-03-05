@@ -20,7 +20,7 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
-
+import hk.rhizome.coins.Elasticsearch;
 import hk.rhizome.coins.logger.AppLogger;
 import hk.rhizome.coins.marketdata.ExchangeTicker;
 import hk.rhizome.coins.marketdata.MarketDepth;
@@ -63,7 +63,10 @@ public class XChangeJob extends RhizomeJob {
             ExchangeTicker ticker = new ExchangeTicker(exchangeId,
                     dataServices.get(exchangeId).getTicker(currencyPair));
             AppLogger.getLogger().info(ticker);
-            kinesisGateway.sendTicker(ticker);
+            
+            Elasticsearch elasticsearch = Elasticsearch.getElasticsearch();
+            elasticsearch.sendTickers(ticker);
+
 
             // Insert ticker into the pricings matrix
             PricingsMatrix.setTicker(exchangeId, currencyPair, ticker);
@@ -75,7 +78,8 @@ public class XChangeJob extends RhizomeJob {
             MarketDepth marketDepth = new MarketDepth(timestamp, orderBook);
             marketDepth.setExchange(exchangeId);
             AppLogger.getLogger().info(marketDepth);
-            kinesisGateway.sendMarketDepth(marketDepth);
+            
+            elasticsearch.sendMarketDepth(marketDepth);
 
             AppLogger.getLogger()
                     .info("End job in XChangeJob for exchange " + exchangeId + " with currency " + currencyPair);

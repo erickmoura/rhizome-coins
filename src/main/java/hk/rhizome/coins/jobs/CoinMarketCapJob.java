@@ -6,6 +6,7 @@ import java.util.List;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import hk.rhizome.coins.Elasticsearch;
 import hk.rhizome.coins.exchanges.CoinMarketCapService;
 import hk.rhizome.coins.exchanges.CoinMarketCapTicker;
 import hk.rhizome.coins.logger.AppLogger;
@@ -24,9 +25,11 @@ public class CoinMarketCapJob extends RhizomeJob {
             CoinMarketCapService service = new CoinMarketCapService();
             List<CoinMarketCapTicker> list = getFilterList(service.getTickers());
             AppLogger.getLogger().debug(list);
+
             //send to ES
-            kinesisGateway.sendTickers(list);
-            
+            Elasticsearch elasticsearch = Elasticsearch.getElasticsearch();
+            elasticsearch.sendCoinMarketCap(list);
+
             AppLogger.getLogger().info("End job in CoinMarketCapJob.");
             
         } catch (Exception e) {

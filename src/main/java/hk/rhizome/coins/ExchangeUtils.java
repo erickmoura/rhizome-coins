@@ -28,8 +28,8 @@ public class ExchangeUtils {
 
   public void initialize() {
     exchanges =  DbProxyUtils.getInstance().getExchangesProxy().getAllExchanges();
-    User botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
-    createBotData(DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
+    //User botUser = DbProxyUtils.getInstance().getUsersProxy().getUsersByName("bot");
+    //createBotData(DbProxyUtils.getInstance().getUserExchangesProxy().getExchangesByUser(botUser.getID()));
   }
 
   public List<Exchanges> getAllExchanges(){
