@@ -1,0 +1,52 @@
+{
+  "cmc-type": {
+    "properties": {
+      "symbol": {
+        "type": "text"
+      },
+      "priceUSD": {
+        "type": "float"
+      },
+      "availableSupply": {
+        "type": "float"
+      },
+      "totalSupply": {
+        "type": "float"
+      },
+      "t4hvolumeUSD": {
+        "type": "float"
+      },
+      "priceBTC": {
+        "type": "float"
+      },
+      "lastUpdated": {
+        "format": "strict_date_optional_time||epoch_millis",
+        "type": "date"
+      },
+      "marketCapUSD": {
+        "type": "float"
+      },
+      "percentChange24h": {
+        "type": "float"
+      },
+      "percentChange7d": {
+        "type": "float"
+      },
+      "name": {
+        "type": "text"
+      },
+      "rank": {
+        "type": "integer"
+      },
+      "exchange": {
+        "type": "text"
+      },
+      "id": {
+        "type": "text"
+      },
+      "percentChange1h": {
+        "type": "float"
+      }
+    }
+  }
+}

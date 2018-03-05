@@ -1,0 +1,40 @@
+{
+    "tickers-type": {
+        "properties": {
+            "volume": {
+                "type": "float"
+            },
+            "currencyPair": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "ignore_above": 256,
+                        "type": "keyword"
+                    }
+                }
+            },
+            "high": {
+                "type": "float"
+            },
+            "last": {
+                "type": "float"
+            },
+            "low": {
+                "type": "float"
+            },
+            "ask": {
+                "type": "float"
+            },
+            "exchange": {
+                "type": "text"
+            },
+            "bid": {
+                "type": "float"
+            },
+            "timestamp": {
+                "format": "strict_date_optional_time||epoch_millis",
+                "type": "date"
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+    "market-depth-type": {
+        "properties": {
+            "bid_10": {
+                "type": "float"
+            },
+            "ask_2": {
+                "type": "float"
+            },
+            "currencyPair": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "ignore_above": 256,
+                        "type": "keyword"
+                    }
+                }
+            },
+            "ask_5": {
+                "type": "float"
+            },
+            "bid_5": {
+                "type": "float"
+            },
+            "bid_2": {
+                "type": "float"
+            },
+            "ask_15": {
+                "type": "float"
+            },
+            "bid_15": {
+                "type": "float"
+            },
+            "ask_10": {
+                "type": "float"
+            },
+            "exchange": {
+                "type": "text"
+            },
+            "timestamp": {
+                "format": "strict_date_optional_time||epoch_millis",
+                "type": "date"
+            }
+        }
+    }
+}
