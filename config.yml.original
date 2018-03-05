@@ -2,27 +2,17 @@ logging:
  level: ERROR
 
 database: 
-  driverClass: com.mysql.jdbc.Driver 
-  user: ${RDS_USERNAME} 
-  password: ${RDS_PASSWORD} 
-  url: jdbc:mysql://${RDS_HOSTNAME}/${RDS_DB_NAME}
-
-exchanges:
-   'org.knowm.xchange.poloniex.PoloniexExchange':
-    name: Poloniex
-    key: ${EXCHANGE_KEY_POLONIEX}
-    secret: ${EXCHANGE_SECRET_POLONIEX}
-    taker: 0.25
-    maker: 0.15
-  'org.knowm.xchange.anx.v2.ANXExchange':
-    name: ANXPRO
-    key: ${EXCHANGE_KEY_ANX}
-    secret: ${EXCHANGE_SECRET_ANX}
-    taker: 0.6
-    maker: 0.3
- 'org.knowm.xchange.bittrex.v1.BittrexExchange':
-    name: Bittrex
-    key: ${EXCHANGE_KEY_BITTREX}
-    secret: ${EXCHANGE_KEY_BITTREX}
-    taker: 0.25
-    maker: 0.25
+  driverClass: ${MYSQL_DATABASE} 
+  user: ${MYSQL_USER} 
+  password: ${MYSQL_PASSWORD} 
+  url: ${MYSQL_URL}
+      
+elastic:
+  host: ${ELASTIC_HOST} 
+  port: ${ELASTIC_PORT}
+  scheme: ${ELASTIC_SCHEME} 
+  indices:
+    tickers: elastic/tickers_index_template.json
+    cmc: elastic/cmc_index_template.json
+    market-depth: elastic/market_depth_index_template.json
+    log: elastic/log_index_template.json
