@@ -2,6 +2,7 @@ package hk.rhizome.coins; /**
  * Created by erickmoura on 28/7/2017.
  */
 
+import hk.rhizome.coins.configuration.ElasticConfiguration;
 import hk.rhizome.coins.db.CoinsDAO;
 import hk.rhizome.coins.db.CoinsDAOProxy;
 import hk.rhizome.coins.db.DataSourceUtil;
@@ -36,6 +37,11 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import io.dropwizard.migrations.MigrationsBundle;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfiguration> {
@@ -53,6 +59,12 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
 
     @Override
     public void initialize(Bootstrap<RhizomeCoinsConfiguration> bootstrap) {
+            //using environment variables in config file
+            bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(
+                        bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false)));
+
     		//migrations
     		bootstrap.addBundle(new MigrationsBundle<RhizomeCoinsConfiguration>() {
             public DataSourceFactory getDataSourceFactory(RhizomeCoinsConfiguration configuration) {
@@ -76,12 +88,20 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
     public void run(RhizomeCoinsConfiguration configuration,
                     Environment environment) {
         
-        //initialize general configurations                
+        //initialize general configurations   
         AppLogger.initialize(LoggerUtils.getLoggerConfiguration(configuration.getLogging()));
         
-        DataSourceUtil.initialize(environment);
-        
         DbProxyUtils.initialize();
+        
+        //initialize elastic configuration
+        ElasticConfiguration elasticConfiguration = new ElasticConfiguration(configuration.getElastic());
+        Elasticsearch.initialize(elasticConfiguration);
+        try{
+            Elasticsearch.getElasticsearch().initCluster();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         //EXCHANGES
         AppLogger.getLogger().info("Get exchanges");
@@ -127,6 +147,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
         jobsManager.initializeJobs();
         jobsManager.runJobs();
 
+        /*
         //RESOURCES
         UsersResources usersResources = new UsersResources(usersDAO);
         try {
@@ -136,6 +157,7 @@ public class RhizomeCoinsApplication extends Application<RhizomeCoinsConfigurati
             AppLogger.getLogger().error("Unable to register Users Resources " + ex.getLocalizedMessage());
             ex.printStackTrace();
         }
+        */
         
      
     }
